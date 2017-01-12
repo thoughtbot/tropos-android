@@ -11,4 +11,10 @@
   <string name="south_west_abrrev">SW</string>
   <string name="west_abbrev">W</string>
   <string name="north_west_abbrev">NW</string>
+
+  //main
+  <string name="updated_at">Updated at %s</string>
+  <string name="formatted_temperature_string">%1$s&#xb0; / %2$s&#xb0; / %3$s&#xb0;</string>
+  <string name="formatted_wind_string">%1$s mph %2$s</string>
+
 </resources>
