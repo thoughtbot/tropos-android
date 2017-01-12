@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="DrawableTextLabel">
+    <attr format="reference" name="label_drawable" />
+    <attr format="reference|dimension" name="label_spacing" />
+    <attr format="reference|dimension" name="label_drawable_height" />
+    <attr format="reference|dimension" name="label_drawable_width" />
+    <attr format="reference|string" localization="suggested" name="label_title_text" />
+  </declare-styleable>
+</resources>
