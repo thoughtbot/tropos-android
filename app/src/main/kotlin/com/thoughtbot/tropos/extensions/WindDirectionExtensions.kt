@@ -1,5 +1,6 @@
 package com.thoughtbot.tropos.extensions
 
+import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.data.WindDirection
 
 import com.thoughtbot.tropos.data.WindDirection.EAST
@@ -11,6 +12,22 @@ import com.thoughtbot.tropos.data.WindDirection.SOUTH
 import com.thoughtbot.tropos.data.WindDirection.SOUTH_EAST
 import com.thoughtbot.tropos.data.WindDirection.SOUTH_WEST
 import com.thoughtbot.tropos.data.WindDirection.WEST
+
+fun WindDirection.labelResId(): Int {
+  return when (this) {
+    NORTH -> R.string.north_abbrev
+    NORTH_EAST -> R.string.north_east_abbrev
+    EAST -> R.string.east_abbrev
+    SOUTH_EAST -> R.string.south_east_abbrev
+    SOUTH -> R.string.south_abbrev
+    SOUTH_WEST -> R.string.south_west_abrrev
+    WEST -> R.string.west_abbrev
+    NORTH_WEST -> R.string.north_west_abbrev
+    NONE -> return R.string.no_direction
+  }
+
+}
+
 fun WindDirection(windBearing: Double): WindDirection {
   return when (windBearing) {
     in 0.0..22.5 -> NORTH

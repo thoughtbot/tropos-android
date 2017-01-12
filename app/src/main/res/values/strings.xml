@@ -1,3 +1,14 @@
 <resources>
   <string name="app_name">Tropos</string>
+
+  //directions
+  <string name="no_direction"></string>
+  <string name="north_abbrev">N</string>
+  <string name="north_east_abbrev">NE</string>
+  <string name="east_abbrev">E</string>
+  <string name="south_east_abbrev">SE</string>
+  <string name="south_abbrev">S</string>
+  <string name="south_west_abrrev">SW</string>
+  <string name="west_abbrev">W</string>
+  <string name="north_west_abbrev">NW</string>
 </resources>
