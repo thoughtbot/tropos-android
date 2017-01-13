@@ -2,7 +2,11 @@ package com.thoughtbot.tropos
 
 import android.content.Context
 import android.location.Location
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.isA
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.LocationDataSource
 import com.thoughtbot.tropos.data.WeatherData
@@ -18,7 +22,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import java.util.*
+import java.util.Date
 
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
@@ -58,6 +62,7 @@ class MainPresenterTest() {
     whenever(view.context).thenReturn(context)
     stubLocation()
     stubWeather()
+    stubForecast()
 
     presenter.init()
 
@@ -70,6 +75,11 @@ class MainPresenterTest() {
   }
 
   fun stubWeather() {
+    whenever(weatherDataSource.fetchWeather(any(), any())).thenReturn(
+        Observable.just(mockWeatherData))
+  }
+
+  fun stubForecast() {
     whenever(weatherDataSource.fetchForecast(any(), any())).thenReturn(
         Observable.just(listOf(mockWeatherData)))
   }
