@@ -7,20 +7,9 @@ import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.iconResId
 import com.thoughtbot.tropos.extensions.labelResId
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
-class WeatherViewModel(val context: Context, val weatherData: WeatherData) {
-
-  val lastTimeUpdated: String = {
-    val formattedDate = SimpleDateFormat("h:mm a", Locale.getDefault()).format(weatherData.date)
-    context.getString(R.string.updated_at, formattedDate)
-  }()
-
-  fun city(): String = {
-    val geoCoder = Geocoder(context)
-    geoCoder.getFromLocation(weatherData.location.latitude, weatherData.location.longitude, 1)
-        .first().locality
-  }()
+class CurrentWeatherViewModel(val context: Context, val weatherData: WeatherData) {
 
   val weatherSummary: String = weatherData.summary
 
@@ -29,10 +18,14 @@ class WeatherViewModel(val context: Context, val weatherData: WeatherData) {
   val temperatures: String = context.getString(R.string.formatted_temperature_string,
       weatherData.currentTemp, weatherData.highTemp, weatherData.lowTemp)
 
+  val temperatureIcon = R.drawable.label_thermometer
+
   val wind: String = {
     val windDirection = context.getString(weatherData.windDirection.labelResId())
     context.getString(R.string.formatted_wind_string, weatherData.windSpeed, windDirection)
   }()
+
+  val windIcon = R.drawable.label_wind
 
 }
 

@@ -6,7 +6,6 @@ import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.data.remote.LocationService
 import com.thoughtbot.tropos.data.remote.WeatherDataService
 import io.reactivex.disposables.Disposable
-import java.util.*
 
 class MainPresenter(override val view: MainView,
     val locationDataSource: LocationDataSource = LocationService(view.context),
@@ -18,10 +17,10 @@ class MainPresenter(override val view: MainView,
     //TODO confirm observable is completing
     view.viewState = ViewState.Loading(ToolbarViewModel(view.context, null))
     disposable = locationDataSource.fetchLocation()
-        .flatMap { weatherDataSource.fetchWeather(it, Date()) }
+        .flatMap { weatherDataSource.fetchForecast(it, 3) }
         .doOnError { view.viewState = ViewState.Error(it.message ?: "") }
         .subscribe {
-          view.viewState = ViewState.Weather(WeatherViewModel(view.context, it))
+          view.viewState = ViewState.Weather(ToolbarViewModel(view.context, it[0]), it)
         }
   }
 

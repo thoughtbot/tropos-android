@@ -2,19 +2,19 @@ package com.thoughtbot.tropos.main
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
-import kotlinx.android.synthetic.main.activity_main.temperature_label
 import kotlinx.android.synthetic.main.activity_main.toolbar_city
 import kotlinx.android.synthetic.main.activity_main.toolbar_last_update
-import kotlinx.android.synthetic.main.activity_main.weather_icon
-import kotlinx.android.synthetic.main.activity_main.weather_summary
-import kotlinx.android.synthetic.main.activity_main.wind_label
 
 class MainActivity : BaseActivity(), MainView {
 
   val presenter: MainPresenter by lazy { MainPresenter(this) }
+  val recyclerView: RecyclerView by lazy { findViewById(R.id.recycler_view) as RecyclerView }
+  val layoutManager: GridLayoutManager by lazy { GridLayoutManager(this, 3) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -28,14 +28,15 @@ class MainActivity : BaseActivity(), MainView {
   override var viewState: ViewState by ViewBinder {
     when (it) {
       is ViewState.Weather -> {
-        toolbar_last_update.text = it.weatherViewModel.lastTimeUpdated
-        toolbar_city.text = it.weatherViewModel.city()
-        weather_icon.setBackgroundResource(it.weatherViewModel.icon)
-        weather_summary.text = it.weatherViewModel.weatherSummary
-        temperature_label.setText(it.weatherViewModel.temperatures)
-        temperature_label.setDrawable(R.drawable.label_thermometer)
-        wind_label.setText(it.weatherViewModel.wind)
-        wind_label.setDrawable(R.drawable.label_wind)
+        //toolbar
+        toolbar_city.text = it.toolbarViewModel.title()
+        toolbar_last_update.text = it.toolbarViewModel.subtitle()
+
+        //recycler view
+        val adapter = WeatherAdapter(it.weather)
+        layoutManager.spanSizeLookup = adapter.spanSizeLookup
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
       }
       is ViewState.Loading -> {
         toolbar_city.text = it.toolbarViewModel.title()

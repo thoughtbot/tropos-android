@@ -5,19 +5,19 @@ import android.location.Location
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.WindDirection
-import com.thoughtbot.tropos.main.WeatherViewModel
+import com.thoughtbot.tropos.main.CurrentWeatherViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import java.util.*
+import java.util.Date
 import kotlin.test.assertEquals
 
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-class WeatherViewModelTest() {
+class CurrentWeatherViewModelTest() {
 
   lateinit var context: Context
 
@@ -45,17 +45,8 @@ class WeatherViewModelTest() {
   }
 
   @Test
-  fun testLastTimeUpdated() {
-    val viewModel = WeatherViewModel(context, mockWeatherData)
-    val expected = "Updated at 4:16 PM"
-    val actual = viewModel.lastTimeUpdated
-
-    assertEquals(expected, actual)
-  }
-
-  @Test
   fun testWeatherSummary() {
-    val viewModel = WeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
     val expected = "Mostly Cloudy"
     val actual = viewModel.weatherSummary
 
@@ -64,7 +55,7 @@ class WeatherViewModelTest() {
 
   @Test
   fun testIcon() {
-    val viewModel = WeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
     val expected = R.drawable.partly_cloudy_day
     val actual = viewModel.icon
 
@@ -73,7 +64,7 @@ class WeatherViewModelTest() {
 
   @Test
   fun testTemperatures() {
-    val viewModel = WeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
     val expected = "52° / 54° / 48°"
     val actual = viewModel.temperatures
 
@@ -82,7 +73,7 @@ class WeatherViewModelTest() {
 
   @Test
   fun testWind() {
-    val viewModel = WeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
     val expected = "4 mph S"
     val actual = viewModel.wind
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/dark_gray"
-  android:paddingBottom="16dp">
+  android:background="@color/primary_background"
+  android:fitsSystemWindows="true"
+  android:orientation="vertical">
 
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
-    android:background="@color/dark_gray"
     android:minHeight="?attr/actionBarSize"
     app:contentInsetStart="0dp"
     app:contentInsetEnd="0dp">
@@ -46,53 +46,9 @@
 
   </android.support.v7.widget.Toolbar>
 
-  <com.thoughtbot.tropos.widgets.DrawableTextLabel
-    android:id="@+id/temperature_label"
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recycler_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_marginLeft="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin"
-    app:label_drawable_height="@dimen/drawable_label_height"
-    app:label_drawable_width="@dimen/drawable_label_width"
-    app:label_spacing="@dimen/drawable_label_spacing" />
+    android:layout_height="match_parent" />
 
-  <com.thoughtbot.tropos.widgets.DrawableTextLabel
-    android:id="@+id/wind_label"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@id/temperature_label"
-    android:layout_marginLeft="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin"
-    app:label_drawable_height="@dimen/drawable_label_height"
-    app:label_drawable_width="@dimen/drawable_label_width"
-    app:label_spacing="@dimen/drawable_label_spacing" />
-
-  <TextView
-    android:id="@+id/weather_summary"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_above="@id/wind_label"
-    android:layout_marginBottom="72dp"
-    android:layout_marginLeft="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/main_activity_content_offset"
-    android:paddingRight="@dimen/main_activity_content_offset"
-    android:textColor="@android:color/white"
-    android:textSize="30sp"
-    tools:text="It's cooler this afternoon than yesterday afternoon, with a slight chance of rain"
-    fontPath="DINNextLTPro-Light.otf"
-    tools:ignore="MissingPrefix" />
-
-  <ImageView
-    android:id="@+id/weather_icon"
-    android:layout_width="64dp"
-    android:layout_height="64dp"
-    android:layout_above="@id/weather_summary"
-    android:layout_alignLeft="@id/weather_summary"
-    android:layout_marginBottom="36dp"
-    android:layout_marginLeft="@dimen/main_activity_content_offset"
-    android:contentDescription="@null"
-    tools:src="@drawable/rain" />
-
-</RelativeLayout>
+</LinearLayout>

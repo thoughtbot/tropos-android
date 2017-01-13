@@ -2,32 +2,25 @@ package com.thoughtbot.tropos
 
 import android.content.Context
 import android.location.Location
-import com.nhaarman.mockito_kotlin.*
 import com.thoughtbot.tropos.data.Condition
-import com.thoughtbot.tropos.data.LocationDataSource
 import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.extensions.WindDirection
-import com.thoughtbot.tropos.main.MainPresenter
-import com.thoughtbot.tropos.main.MainView
-import com.thoughtbot.tropos.main.ViewState
-import io.reactivex.Observable
+import com.thoughtbot.tropos.main.ForecastViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import java.util.*
+import java.util.Date
+import kotlin.test.assertEquals
+
 
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-class MainPresenterTest() {
+class ForecastViewModelTest() {
 
   lateinit var context: Context
-  val view = mock<MainView>()
-  val locationDataSource = mock<LocationDataSource>()
-  val weatherDataSource = mock<WeatherDataSource>()
 
   val mockWeatherData: WeatherData = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
@@ -53,25 +46,39 @@ class MainPresenterTest() {
   }
 
   @Test
-  fun testInit() {
-    val presenter = MainPresenter(view, locationDataSource, weatherDataSource)
-    whenever(view.context).thenReturn(context)
-    stubLocation()
-    stubWeather()
+  fun testIcon() {
+    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val expected = R.drawable.partly_cloudy_day
+    val actual = viewModel.icon
 
-    presenter.init()
-
-    verify(view).viewState = isA<ViewState.Loading>()
-    verify(view).viewState = isA<ViewState.Weather>()
+    assertEquals(expected, actual)
   }
 
-  fun stubLocation() {
-    whenever(locationDataSource.fetchLocation()).thenReturn(Observable.just(Location("")))
+  @Test
+  fun testDay() {
+    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val expected = "Wed"
+    val actual = viewModel.day
+
+    assertEquals(expected, actual)
   }
 
-  fun stubWeather() {
-    whenever(weatherDataSource.fetchForecast(any(), any())).thenReturn(
-        Observable.just(listOf(mockWeatherData)))
+  @Test
+  fun testHighTemp() {
+    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val expected = "54°"
+    val actual = viewModel.highTemp
+
+    assertEquals(expected, actual)
   }
 
+  @Test
+  fun testLowTemp() {
+    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val expected = "48°"
+    val actual = viewModel.lowTemp
+
+    assertEquals(expected, actual)
+  }
 }
+
