@@ -2,6 +2,7 @@ package com.thoughtbot.tropos.main
 
 import android.content.Context
 import android.location.Geocoder
+import android.util.Log
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.data.WeatherData
 import java.text.SimpleDateFormat
@@ -18,8 +19,9 @@ class ToolbarViewModel(val context: Context, val weatherData: WeatherData?) {
 
   fun title(): String {
     if (weatherData != null) {
-      return Geocoder(context).getFromLocation(weatherData.location.latitude,
-          weatherData.location.longitude, 1).first().locality
+      return "San Francisco"
+//      return Geocoder(context).getFromLocation(weatherData.location.latitude,
+//          weatherData.location.longitude, 1).first().locality
     } else {
       return context.getString(R.string.checking_weather)
     }
