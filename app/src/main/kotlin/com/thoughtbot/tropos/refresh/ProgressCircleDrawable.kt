@@ -36,7 +36,7 @@ class ProgressCircleDrawable(context: Context) : Drawable(), Animatable {
   private var animator: ValueAnimator? = null
 
   init {
-    MASK_COLOR = ContextCompat.getColor(context, R.color.primary_background)
+    MASK_COLOR = ContextCompat.getColor(context, R.color.secondary_background)
     paint = Paint(Paint.ANTI_ALIAS_FLAG)
     paint.color = MASK_COLOR
     paint.style = Style.FILL
