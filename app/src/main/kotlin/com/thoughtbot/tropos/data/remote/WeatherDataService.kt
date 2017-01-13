@@ -29,9 +29,9 @@ class WeatherDataService(val api: ApiService = RestClient().create(
   }
 
   private fun RemoteForecast.mapToWeatherDataList(forNumOfDaysFromToday: Int): List<WeatherData> {
-    val list = emptyList<WeatherData>()
+    var list = emptyList<WeatherData>()
     for (i in 0..forNumOfDaysFromToday) {
-      list.plus(this.mapToWeatherData(i))
+      list = list.plus(this.mapToWeatherData(i))
     }
     return list
   }
