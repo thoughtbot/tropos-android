@@ -5,8 +5,10 @@ import com.thoughtbot.tropos.data.LocationDataSource
 import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.data.remote.LocationService
 import com.thoughtbot.tropos.data.remote.WeatherDataService
+import com.thoughtbot.tropos.extensions.dayBefore
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.RefreshListener
 import io.reactivex.disposables.Disposable
+import java.util.Date
 
 class MainPresenter(override val view: MainView,
     val locationDataSource: LocationDataSource = LocationService(view.context),
@@ -23,6 +25,9 @@ class MainPresenter(override val view: MainView,
     view.viewState = ViewState.Loading(ToolbarViewModel(view.context, null))
     disposable = locationDataSource.fetchLocation()
         .flatMap { weatherDataSource.fetchForecast(it, 3) }
+        .flatMap({ forecast ->
+          weatherDataSource.fetchWeather(forecast[0].location, Date().dayBefore())
+        }, { forecast, yesterday -> return@flatMap listOf(yesterday).plus(forecast) })
         .doOnError { view.viewState = ViewState.Error(it.message ?: "") }
         .subscribe {
           view.viewState = ViewState.Weather(ToolbarViewModel(view.context, it[0]), it)

@@ -2,6 +2,7 @@ package com.thoughtbot.tropos
 
 import android.content.Context
 import android.location.Location
+import com.nhaarman.mockito_kotlin.mock
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.WindDirection
@@ -46,7 +47,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWeatherSummary() {
-    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData, mockWeatherData)
     val expected = "Mostly Cloudy"
     val actual = viewModel.weatherSummary
 
@@ -55,7 +56,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testIcon() {
-    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData, mockWeatherData)
     val expected = R.drawable.partly_cloudy_day
     val actual = viewModel.icon
 
@@ -64,7 +65,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testTemperatures() {
-    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData, mockWeatherData)
     val expected = "52° / 54° / 48°"
     val actual = viewModel.temperatures
 
@@ -73,7 +74,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWind() {
-    val viewModel = CurrentWeatherViewModel(context, mockWeatherData)
+    val viewModel = CurrentWeatherViewModel(context, mockWeatherData, mockWeatherData)
     val expected = "4 mph S"
     val actual = viewModel.wind
 

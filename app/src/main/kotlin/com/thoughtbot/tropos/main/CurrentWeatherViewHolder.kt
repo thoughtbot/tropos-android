@@ -11,8 +11,8 @@ import org.jetbrains.anko.find
 
 class CurrentWeatherViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-  fun bind(weatherData: WeatherData) {
-    val viewModel = CurrentWeatherViewModel(itemView.context, weatherData)
+  fun bind(today: WeatherData, yesterday: WeatherData) {
+    val viewModel = CurrentWeatherViewModel(itemView.context, today, yesterday)
 
     itemView.find<ImageView>(R.id.weather_icon).setBackgroundResource(viewModel.icon)
     itemView.find<TextView>(R.id.weather_summary).text = viewModel.weatherSummary

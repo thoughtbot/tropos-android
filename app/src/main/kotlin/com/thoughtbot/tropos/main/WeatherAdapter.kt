@@ -32,8 +32,8 @@ class WeatherAdapter(val weather: List<WeatherData>) : RecyclerView.Adapter<View
 
   override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
     when (holder) {
-      is CurrentWeatherViewHolder -> holder.bind(weather[position])
-      is ForecastViewHolder -> holder.bind(weather[position])
+      is CurrentWeatherViewHolder -> holder.bind(today(), yesterday())
+      is ForecastViewHolder -> holder.bind(forecast(position))
     }
   }
 
@@ -50,8 +50,21 @@ class WeatherAdapter(val weather: List<WeatherData>) : RecyclerView.Adapter<View
     return 4
   }
 
-  fun isCurrentWeather(position: Int): Boolean {
+  private fun isCurrentWeather(position: Int): Boolean {
     return position == 0
+  }
+
+  private fun forecast(position: Int): WeatherData {
+    //add one to account for yesterdays weather being in {@code weather}
+    return weather[position + 1]
+  }
+
+  private fun today(): WeatherData {
+    return weather[1]
+  }
+
+  private fun yesterday(): WeatherData {
+    return weather[0]
   }
 
 }
