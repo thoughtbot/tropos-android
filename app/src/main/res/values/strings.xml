@@ -16,5 +16,6 @@
   <string name="updated_at">Updated at %s</string>
   <string name="formatted_temperature_string">%1$s&#xb0; / %2$s&#xb0; / %3$s&#xb0;</string>
   <string name="formatted_wind_string">%1$s mph %2$s</string>
+  <string name="checking_weather">Checking Weather&#8230;</string>
 
 </resources>

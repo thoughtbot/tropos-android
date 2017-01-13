@@ -16,7 +16,7 @@ class MainPresenter(override val view: MainView,
 
   fun init() {
     //TODO confirm observable is completing
-    view.viewState = ViewState.Loading()
+    view.viewState = ViewState.Loading(ToolbarViewModel(view.context, null))
     disposable = locationDataSource.fetchLocation()
         .flatMap { weatherDataSource.fetchWeather(it, Date()) }
         .doOnError { view.viewState = ViewState.Error(it.message ?: "") }

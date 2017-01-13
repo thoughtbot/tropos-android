@@ -38,7 +38,8 @@ class MainActivity : BaseActivity(), MainView {
         wind_label.setDrawable(R.drawable.label_wind)
       }
       is ViewState.Loading -> {
-        // show some loading shit
+        toolbar_city.text = it.toolbarViewModel.title()
+        toolbar_last_update.text = it.toolbarViewModel.subtitle()
       }
       is ViewState.Error -> {
         // show error

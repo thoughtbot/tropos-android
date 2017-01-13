@@ -4,7 +4,7 @@ sealed class ViewState {
 
   class Uninitialized() : ViewState()
 
-  class Loading() : ViewState()
+  class Loading(val toolbarViewModel: ToolbarViewModel) : ViewState()
 
   class Weather(val weatherViewModel: WeatherViewModel) : ViewState()
 
