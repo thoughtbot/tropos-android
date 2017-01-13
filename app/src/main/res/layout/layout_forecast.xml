@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/secondary_background"
+  android:gravity="center"
+  android:orientation="vertical"
+  android:paddingBottom="16dp"
+  android:paddingTop="16dp">
+
+  <TextView
+    android:id="@+id/text_forecast_day"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:textColor="@android:color/white"
+    android:textSize="20sp"
+    fontPath="DINNextLTPro-Light.otf"
+    tools:ignore="MissingPrefix"
+    tools:text="Thu" />
+
+  <ImageView
+    android:id="@+id/image_forecast_icon"
+    android:layout_width="36dp"
+    android:layout_height="36dp"
+    android:layout_marginBottom="20dp"
+    android:contentDescription="@null"
+    tools:src="@drawable/rain" />
+
+  <TextView
+    android:id="@+id/text_forecast_high"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@android:color/white"
+    android:textSize="20sp"
+    fontPath="DINNextLTPro-Light.otf"
+    tools:ignore="MissingPrefix"
+    tools:text="59\u00B0" />
+
+  <TextView
+    android:id="@+id/text_forecast_low"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/slate_gray"
+    android:textSize="20sp"
+    fontPath="DINNextLTPro-Light.otf"
+    tools:ignore="MissingPrefix"
+    tools:text="23\u00B0" />
+
+</LinearLayout>
