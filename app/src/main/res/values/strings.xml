@@ -19,4 +19,13 @@
   <string name="temperature">%d&#xb0;</string>
   <string name="checking_weather">Checking Weather&#8230;</string>
 
+  //time of day
+  <string name="present_night">tonight</string>
+  <string name="present_morning">this Morning</string>
+  <string name="present_day">today</string>
+  <string name="present_afternoon">this afternoon</string>
+  <string name="previous_night">last night</string>
+  <string name="previous_morning">yesterday morning</string>
+  <string name="previous_day">yesterday</string>
+  <string name="previous_afternoon">yesterday afternoon</string>
 </resources>
