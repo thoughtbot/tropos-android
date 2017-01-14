@@ -28,4 +28,7 @@
   <string name="previous_morning">yesterday morning</string>
   <string name="previous_day">yesterday</string>
   <string name="previous_afternoon">yesterday afternoon</string>
+
+  <string name="different_temperature_format" formatted="false">It\'s %s %s than %s.</string>
+  <string name="same_temperature_format" formatted="false">It\'s the %s %s as %s.</string>
 </resources>

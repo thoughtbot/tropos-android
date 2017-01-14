@@ -15,10 +15,10 @@ class CurrentWeatherViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVi
     val viewModel = CurrentWeatherViewModel(itemView.context, today, yesterday)
 
     itemView.find<ImageView>(R.id.weather_icon).setBackgroundResource(viewModel.icon)
-    itemView.find<TextView>(R.id.weather_summary).text = viewModel.weatherSummary
-    itemView.find<DrawableTextLabel>(R.id.temperature_label).setText(viewModel.temperatures)
+    itemView.find<TextView>(R.id.weather_summary).text = viewModel.weatherSummary()
+    itemView.find<DrawableTextLabel>(R.id.temperature_label).setText(viewModel.temperatures())
     itemView.find<DrawableTextLabel>(R.id.temperature_label).setDrawable(viewModel.temperatureIcon)
-    itemView.find<DrawableTextLabel>(R.id.wind_label).setText(viewModel.wind)
+    itemView.find<DrawableTextLabel>(R.id.wind_label).setText(viewModel.wind())
     itemView.find<DrawableTextLabel>(R.id.wind_label).setDrawable(viewModel.windIcon)
   }
 

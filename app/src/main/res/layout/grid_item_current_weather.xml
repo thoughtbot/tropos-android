@@ -37,6 +37,7 @@
     android:layout_marginBottom="72dp"
     android:layout_marginLeft="@dimen/activity_vertical_margin"
     android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:breakStrategy="simple"
     android:paddingLeft="@dimen/main_activity_content_offset"
     android:paddingRight="@dimen/main_activity_content_offset"
     android:textColor="@android:color/white"
