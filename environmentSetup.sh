@@ -11,9 +11,8 @@ function copy_env_vars_to_gradle_properties {
       mkdir -p "$HOME/.gradle/"
       touch "$GRADLE_PROPERTIES"
 
-      echo "Writing API_BASE_URL_PROD to gradle.properties..."
-      echo "API_BASE_URL_PROD=$API_BASE_URL_PROD" >> "$GRADLE_PROPERTIES"
-      echo "API_BASE_URL_DEV=$API_BASE_URL_DEV" >> "$GRADLE_PROPERTIES"
+      echo "Writing DARK_SKY_FORECAST_API_KEY to gradle.properties..."
+      echo "DARK_SKY_FORECAST_API_KEY=$DARK_SKY_FORECAST_API_KEY_ENV_VAR" >> $GRADLE_PROPERTIES
     fi
 }
 
