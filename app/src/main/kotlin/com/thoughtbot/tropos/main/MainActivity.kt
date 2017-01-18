@@ -9,6 +9,7 @@ import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout
 import com.thoughtbot.tropos.refresh.RefreshDrawable
+import com.thoughtbot.tropos.refresh.setVerticalEndOverScroller
 import kotlinx.android.synthetic.main.activity_main.toolbar_city
 import kotlinx.android.synthetic.main.activity_main.toolbar_last_update
 import org.jetbrains.anko.find
@@ -47,6 +48,9 @@ class MainActivity : BaseActivity(), MainView {
 
         //pull to refresh
         pullToRefreshLayout.setRefreshing(false)
+
+        //bottom over scroll
+        recyclerView.setVerticalEndOverScroller()
       }
       is ViewState.Loading -> {
         toolbar_city.text = it.toolbarViewModel.title()
