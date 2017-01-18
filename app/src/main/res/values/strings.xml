@@ -18,6 +18,8 @@
   <string name="formatted_wind_string">%1$s mph %2$s</string>
   <string name="temperature">%d&#xb0;</string>
   <string name="checking_weather">Checking Weather&#8230;</string>
+  <string name="forecast_io_credit">Powered by Forecast</string>
+  <string name="thoughtbot">thoughtbot</string>
 
   //time of day
   <string name="present_night">tonight</string>
@@ -29,6 +31,7 @@
   <string name="previous_day">yesterday</string>
   <string name="previous_afternoon">yesterday afternoon</string>
 
+  //temperature formats
   <string name="different_temperature_format" formatted="false">It\'s %s %s than %s.</string>
   <string name="same_temperature_format" formatted="false">It\'s the %s %s as %s.</string>
 </resources>

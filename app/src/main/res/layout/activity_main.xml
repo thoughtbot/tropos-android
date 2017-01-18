@@ -46,16 +46,54 @@
 
   </android.support.v7.widget.Toolbar>
 
-  <com.thoughtbot.tropos.refresh.PullToRefreshLayout
-    android:id="@+id/pull_to_refresh"
+  <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/primary_background">
 
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/recycler_view"
+    <LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:orientation="vertical"
+      android:padding="8dp">
 
-  </com.thoughtbot.tropos.refresh.PullToRefreshLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/ralph"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ralph"
+        android:gravity="center_vertical"
+        android:text="@string/thoughtbot"
+        android:textColor="@color/cloud_gray"
+        android:textSize="16sp" />
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/forecast_io_credit"
+        android:textColor="@color/cloud_gray" />
+
+    </LinearLayout>
+    <com.thoughtbot.tropos.refresh.PullToRefreshLayout
+      android:id="@+id/pull_to_refresh"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+
+    </com.thoughtbot.tropos.refresh.PullToRefreshLayout>
+
+  </FrameLayout>
+
 
 </LinearLayout>
