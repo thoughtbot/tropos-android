@@ -447,8 +447,8 @@ class PullToRefreshLayout : ViewGroup {
   }
 
   private fun offsetTarget(offset: Int, requiresUpdate: Boolean) {
-    updateHeightOfRefreshView(offset.toFloat())
     target?.offsetTopAndBottom(offset)
+    updateHeightOfRefreshView(offset.toFloat())
     currentOffsetTop = target?.top ?: 0
     if (stateListener != null) {
       stateListener?.onProgress(offsetAsPercent(currentOffsetTop.toFloat()))
@@ -485,8 +485,8 @@ class PullToRefreshLayout : ViewGroup {
     toStartPositionAnimation.duration = TO_START_ANIMATION_DURATION.toLong()
     toStartPositionAnimation.interpolator = decelerateInterpolator
     toStartPositionAnimation.setAnimationListener(toStartListener)
-    refreshView?.clearAnimation()
-    refreshView?.startAnimation(toStartPositionAnimation)
+    target?.clearAnimation()
+    target?.startAnimation(toStartPositionAnimation)
   }
 
   private fun animateOffsetToExpandedPosition() {
@@ -494,8 +494,8 @@ class PullToRefreshLayout : ViewGroup {
     toExpandedPositionAnimation.duration = TO_EXPANDED_ANIMATION_DURATION.toLong()
     toExpandedPositionAnimation.interpolator = decelerateInterpolator
     toExpandedPositionAnimation.setAnimationListener(refreshingListener)
-    refreshView?.clearAnimation()
-    refreshView?.startAnimation(toExpandedPositionAnimation)
+    target?.clearAnimation()
+    target?.startAnimation(toExpandedPositionAnimation)
   }
 
   private val toStartPositionAnimation = object : Animation() {
