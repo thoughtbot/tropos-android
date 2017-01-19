@@ -1,16 +1,15 @@
 package com.thoughtbot.tropos.main
 
 import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.viewmodels.ToolbarViewModel
 
-sealed class ViewState {
+sealed class ViewState(val toolbarViewModel: ToolbarViewModel) {
 
-  class Uninitialized() : ViewState()
+  class Loading(toolbarViewModel: ToolbarViewModel) : ViewState(toolbarViewModel)
 
-  class Loading(val toolbarViewModel: ToolbarViewModel) : ViewState()
+  class Weather(toolbarViewModel: ToolbarViewModel, val weather: List<WeatherData>) : ViewState(toolbarViewModel)
 
-  class Weather(val toolbarViewModel: ToolbarViewModel, val weather: List<WeatherData>) : ViewState()
-
-  class Error(val errorMessage: String) : ViewState()
+  class Error(toolbarViewModel: ToolbarViewModel, val errorMessage: String) : ViewState(toolbarViewModel)
 
 }
 

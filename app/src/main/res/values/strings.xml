@@ -13,14 +13,17 @@
   <string name="north_west_abbrev">NW</string>
 
   //main
-  <string name="updated_at">Updated at %s</string>
   <string name="formatted_temperature_string">%1$d&#xb0; / %2$d&#xb0; / %3$d&#xb0;</string>
   <string name="formatted_wind_string">%1$s mph %2$s</string>
   <string name="temperature">%d&#xb0;</string>
-  <string name="checking_weather">Checking Weather&#8230;</string>
   <string name="forecast_io_credit">Powered by Forecast</string>
   <string name="thoughtbot">thoughtbot</string>
   <string name="missing_location_permission_error">Help us, help you. Give tropos permission to use your location so we can give you the weather at your location.</string>
+
+  //toolbar
+  <string name="updated_at">Updated at %s</string>
+  <string name="checking_weather">Checking Weather&#8230;</string>
+  <string name="update_failed">Update Failed</string>
 
   //time of day
   <string name="present_night">tonight</string>

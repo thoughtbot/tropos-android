@@ -1,11 +1,12 @@
-package com.thoughtbot.tropos
+package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
 import android.location.Location
-import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.BuildConfig
+import com.thoughtbot.tropos.testUtils.MockGeocoder
+import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.WindDirection
-import com.thoughtbot.tropos.main.ToolbarViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,7 +18,7 @@ import kotlin.test.assertEquals
 
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-class ToolbarViewModelTest() {
+class WeatherToolbarViewModelTest() {
 
   lateinit var context: Context
 
@@ -28,7 +29,7 @@ class ToolbarViewModelTest() {
     val location = Location("")
     location.longitude = -122.4375671
     location.latitude = 37.8032493
-    val condition = Condition.PARTLY_CLOUDY_DAY
+    val condition = PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
     val lowTemp = 48
@@ -45,9 +46,10 @@ class ToolbarViewModelTest() {
   }
 
   @Test
+  @Config(shadows = arrayOf(MockGeocoder::class))
   fun testTitle() {
-    val viewModel = ToolbarViewModel(context, null)
-    val expected = "Checking Weather…"
+    val viewModel = WeatherToolbarViewModel(context, mockWeatherData)
+    val expected = "San Francisco"
     val actual = viewModel.title()
 
     assertEquals(expected, actual)
@@ -55,7 +57,7 @@ class ToolbarViewModelTest() {
 
   @Test
   fun testSubtitle() {
-    val viewModel = ToolbarViewModel(context, mockWeatherData)
+    val viewModel = WeatherToolbarViewModel(context, mockWeatherData)
     val expected = "Updated at 4:16 PM"
     val actual = viewModel.subtitle()
 
