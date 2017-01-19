@@ -1,11 +1,9 @@
 package com.thoughtbot.tropos.viewholders
 
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.id
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.viewmodels.CurrentWeatherViewModel

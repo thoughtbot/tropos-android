@@ -4,7 +4,7 @@ import android.location.Location
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.data.WeatherDataSource
-import com.thoughtbot.tropos.extensions.WindDirection
+import com.thoughtbot.tropos.data.WindDirection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

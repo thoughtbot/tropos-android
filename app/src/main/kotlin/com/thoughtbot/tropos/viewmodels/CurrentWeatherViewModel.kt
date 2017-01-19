@@ -19,11 +19,9 @@ import com.thoughtbot.tropos.data.TimeOfDay.DAY
 import com.thoughtbot.tropos.data.TimeOfDay.MORNING
 import com.thoughtbot.tropos.data.TimeOfDay.NIGHT
 import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.extensions.TemperatureDifference
-import com.thoughtbot.tropos.extensions.TimeOfDay
+import com.thoughtbot.tropos.data.iconResId
+import com.thoughtbot.tropos.data.labelResId
 import com.thoughtbot.tropos.extensions.colorSubString
-import com.thoughtbot.tropos.extensions.iconResId
-import com.thoughtbot.tropos.extensions.labelResId
 import com.thoughtbot.tropos.extensions.lightenBy
 
 class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
@@ -41,7 +39,7 @@ class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
   val icon: Int = today.condition.iconResId()
 
   fun temperatures(): SpannableStringBuilder {
-    val fullString = context.getString(string.formatted_temperature_string,
+    val fullString = context.getString(R.string.formatted_temperature_string,
         today.highTemp, today.currentTemp, today.lowTemp)
     val today = context.getString(string.temperature, today.currentTemp)
     return fullString.colorSubString(today, temperatureDifferenceColor())
@@ -51,7 +49,7 @@ class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
 
   fun wind(): String {
     val windDirection = context.getString(today.windDirection.labelResId())
-    return context.getString(string.formatted_wind_string, today.windSpeed, windDirection)
+    return context.getString(R.string.formatted_wind_string, today.windSpeed, windDirection)
   }
 
   val windIcon = drawable.label_wind

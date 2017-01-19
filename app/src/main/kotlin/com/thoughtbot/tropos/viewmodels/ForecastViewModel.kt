@@ -1,10 +1,9 @@
 package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
-import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.string
 import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.extensions.iconResId
+import com.thoughtbot.tropos.data.iconResId
 import java.text.SimpleDateFormat
 
 class ForecastViewModel(val context: Context, val weatherData: WeatherData) {

@@ -2,17 +2,12 @@ package com.thoughtbot.tropos.data
 
 import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
-import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
-import com.thoughtbot.tropos.data.TemperatureDifference
 import com.thoughtbot.tropos.data.TemperatureDifference.COLDER
 import com.thoughtbot.tropos.data.TemperatureDifference.COOLER
 import com.thoughtbot.tropos.data.TemperatureDifference.HOTTER
 import com.thoughtbot.tropos.data.TemperatureDifference.SAME
 import com.thoughtbot.tropos.data.TemperatureDifference.WARMER
-import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.extensions.TemperatureDifference
-import com.thoughtbot.tropos.extensions.WindDirection
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner

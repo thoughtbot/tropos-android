@@ -3,10 +3,10 @@ package com.thoughtbot.tropos.viewmodels
 import android.content.Context
 import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
-import com.thoughtbot.tropos.testUtils.MockGeocoder
 import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.extensions.WindDirection
+import com.thoughtbot.tropos.data.WindDirection
+import com.thoughtbot.tropos.testUtils.MockGeocoder
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -4,11 +4,9 @@ import android.content.Context
 import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.R.drawable
-import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.extensions.WindDirection
-import com.thoughtbot.tropos.viewmodels.ForecastViewModel
+import com.thoughtbot.tropos.data.WindDirection
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
