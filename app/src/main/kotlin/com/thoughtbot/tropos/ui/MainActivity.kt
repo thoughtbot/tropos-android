@@ -1,4 +1,4 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.ui
 
 import android.content.Context
 import android.os.Bundle

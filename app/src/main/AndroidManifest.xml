@@ -13,7 +13,7 @@
     android:theme="@style/AppTheme">
 
     <activity
-      android:name=".main.MainActivity"
+      android:name=".ui.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.TransparentStatusBar">
       <intent-filter>

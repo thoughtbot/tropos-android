@@ -12,9 +12,9 @@ import com.thoughtbot.tropos.data.LocationDataSource
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.extensions.WindDirection
-import com.thoughtbot.tropos.main.MainPresenter
-import com.thoughtbot.tropos.main.MainView
-import com.thoughtbot.tropos.main.ViewState
+import com.thoughtbot.tropos.ui.MainPresenter
+import com.thoughtbot.tropos.ui.MainView
+import com.thoughtbot.tropos.ui.ViewState
 import com.thoughtbot.tropos.permissions.Permission
 import io.reactivex.Observable
 import org.junit.Before

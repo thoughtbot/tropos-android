@@ -1,4 +1,4 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.ui
 
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.viewmodels.ToolbarViewModel

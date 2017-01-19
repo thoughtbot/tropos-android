@@ -1,4 +1,4 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.ui
 
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.Presenter

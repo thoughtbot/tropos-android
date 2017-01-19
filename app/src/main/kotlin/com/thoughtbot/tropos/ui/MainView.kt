@@ -1,7 +1,7 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.ui
 
 import com.thoughtbot.tropos.commons.View
-import com.thoughtbot.tropos.main.ViewState
+import com.thoughtbot.tropos.ui.ViewState
 
 interface MainView : View {
 
