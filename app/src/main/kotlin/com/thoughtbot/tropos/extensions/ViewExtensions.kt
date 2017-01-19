@@ -1,6 +1,8 @@
 package com.thoughtbot.tropos.extensions
 
 import android.graphics.Color
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SnapHelper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -22,3 +24,6 @@ fun String.colorSubString(subString: String, color: Int): SpannableStringBuilder
   return stringBuilder
 }
 
+fun RecyclerView.attachSnapHelper(snapHelper: SnapHelper) {
+  snapHelper.attachToRecyclerView(this)
+}

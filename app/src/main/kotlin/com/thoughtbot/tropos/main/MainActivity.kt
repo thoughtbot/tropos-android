@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
+import com.thoughtbot.tropos.extensions.attachSnapHelper
 import com.thoughtbot.tropos.permissions.getPermissionResults
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout
 import com.thoughtbot.tropos.refresh.RefreshDrawable
@@ -28,6 +29,9 @@ class MainActivity : BaseActivity(), MainView {
 
     pullToRefreshLayout.setRefreshingDrawable(RefreshDrawable(this))
     pullToRefreshLayout.refreshListener = presenter
+
+    val snapHelper = WeatherSnapHelper()
+    recyclerView.attachSnapHelper(snapHelper)
 
     presenter.init()
   }
