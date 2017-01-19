@@ -20,6 +20,7 @@ class MainActivity : BaseActivity(), MainView {
 
   val presenter: MainPresenter by lazy { MainPresenter(this) }
   val recyclerView: RecyclerView by lazy { findViewById(R.id.recycler_view) as RecyclerView }
+  val adapter: WeatherAdapter by lazy { WeatherAdapter() }
   val layoutManager: GridLayoutManager by lazy { GridLayoutManager(this, 3) }
   val pullToRefreshLayout  by lazy { find<PullToRefreshLayout>(R.id.pull_to_refresh) }
 
@@ -27,11 +28,14 @@ class MainActivity : BaseActivity(), MainView {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
+    recyclerView.adapter = adapter
+    layoutManager.spanSizeLookup = adapter.spanSizeLookup
+    recyclerView.layoutManager = layoutManager
+    recyclerView.attachSnapHelper(WeatherSnapHelper())
+    recyclerView.setVerticalEndOverScroller()
+
     pullToRefreshLayout.setRefreshingDrawable(RefreshDrawable(this))
     pullToRefreshLayout.refreshListener = presenter
-
-    val snapHelper = WeatherSnapHelper()
-    recyclerView.attachSnapHelper(snapHelper)
 
     presenter.init()
   }
@@ -47,21 +51,10 @@ class MainActivity : BaseActivity(), MainView {
   override var viewState: ViewState by ViewBinder {
     when (it) {
       is ViewState.Weather -> {
-        //toolbar
         toolbar_city.text = it.toolbarViewModel.title()
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
-
-        //recycler view
-        val adapter = WeatherAdapter(it.weather)
-        layoutManager.spanSizeLookup = adapter.spanSizeLookup
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-
-        //pull to refresh
+        adapter.weather = it.weather
         pullToRefreshLayout.setRefreshing(false)
-
-        //bottom over scroll
-        recyclerView.setVerticalEndOverScroller()
       }
       is ViewState.Loading -> {
         toolbar_city.text = it.toolbarViewModel.title()

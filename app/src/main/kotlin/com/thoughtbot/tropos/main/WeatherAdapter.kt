@@ -8,7 +8,13 @@ import android.view.ViewGroup
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.data.WeatherData
 
-class WeatherAdapter(val weather: List<WeatherData>) : RecyclerView.Adapter<ViewHolder>() {
+class WeatherAdapter : RecyclerView.Adapter<ViewHolder>() {
+
+  var weather: List<WeatherData> = emptyList()
+    set(value) {
+      field = value
+      notifyDataSetChanged()
+    }
 
   val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
     override fun getSpanSize(position: Int): Int {
@@ -47,7 +53,7 @@ class WeatherAdapter(val weather: List<WeatherData>) : RecyclerView.Adapter<View
 
   override fun getItemCount(): Int {
     // 1 current weather + 3 daily forecasts
-    return 4
+    return if (weather.isEmpty()) 0 else 4
   }
 
   private fun isCurrentWeather(position: Int): Boolean {
