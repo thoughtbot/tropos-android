@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.adapters.WeatherAdapter
 import com.thoughtbot.tropos.commons.BaseActivity
@@ -14,6 +15,8 @@ import com.thoughtbot.tropos.refresh.PullToRefreshLayout
 import com.thoughtbot.tropos.refresh.RefreshDrawable
 import com.thoughtbot.tropos.scrolling.WeatherSnapHelper
 import com.thoughtbot.tropos.scrolling.setVerticalEndOverScroller
+import kotlinx.android.synthetic.main.activity_main.error_text
+import kotlinx.android.synthetic.main.activity_main.footer
 import kotlinx.android.synthetic.main.activity_main.toolbar_city
 import kotlinx.android.synthetic.main.activity_main.toolbar_last_update
 import org.jetbrains.anko.find
@@ -55,15 +58,27 @@ class MainActivity : BaseActivity(), MainView {
       is ViewState.Weather -> {
         toolbar_city.text = it.toolbarViewModel.title()
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
+
         adapter.weather = it.weather
         pullToRefreshLayout.setRefreshing(false)
+
+        footer.visibility = View.VISIBLE
+        error_text.visibility = View.GONE
       }
       is ViewState.Loading -> {
         toolbar_city.text = it.toolbarViewModel.title()
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
+
+        footer.visibility = View.GONE
+        error_text.visibility = View.GONE
       }
       is ViewState.Error -> {
-        // show error
+        toolbar_city.text = it.toolbarViewModel.title()
+        toolbar_last_update.text = it.toolbarViewModel.subtitle()
+
+        footer.visibility = View.GONE
+        error_text.visibility = View.VISIBLE
+        error_text.text = it.errorMessage
       }
     }
   }

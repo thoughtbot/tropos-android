@@ -51,8 +51,20 @@
     android:layout_height="match_parent"
     android:background="@color/primary_background">
 
+    <TextView
+      android:id="@+id/error_text"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:padding="20dp"
+      android:textColor="@color/cloud_gray"
+      android:textSize="24sp"
+      android:visibility="visible"
+      tools:text="@string/missing_location_permission_error" />
+
     <LinearLayout
       xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/footer"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
@@ -80,6 +92,7 @@
         android:textColor="@color/cloud_gray" />
 
     </LinearLayout>
+
     <com.thoughtbot.tropos.refresh.PullToRefreshLayout
       android:id="@+id/pull_to_refresh"
       android:layout_width="match_parent"
