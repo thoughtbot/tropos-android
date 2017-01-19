@@ -112,9 +112,10 @@ class PullToRefreshLayout : ViewGroup {
     val right = paddingRight
     val bottom = paddingBottom
 
-    target!!.layout(left, top + target!!.top, left + width - right,
-        top + height - bottom + target!!.top)
-    refreshView!!.layout(left, top, left + width - right, currentOffsetTop)
+    target?.let {
+      it.layout(left, top + it.top, left + width - right, top + height - bottom + it.top)
+    }
+    refreshView?.layout(left, top, left + width - right, currentOffsetTop)
   }
 
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -131,8 +132,8 @@ class PullToRefreshLayout : ViewGroup {
     widthMeasureSpec = makeMeasureSpec(measuredWidth - paddingRight - paddingLeft, EXACTLY)
     heightMeasureSpec = makeMeasureSpec(measuredHeight - paddingTop - paddingBottom, EXACTLY)
 
-    target!!.measure(widthMeasureSpec, heightMeasureSpec)
-    refreshView!!.measure(widthMeasureSpec, heightMeasureSpec)
+    target?.measure(widthMeasureSpec, heightMeasureSpec)
+    refreshView?.measure(widthMeasureSpec, heightMeasureSpec)
   }
 
   private fun createProgressView() {
@@ -301,11 +302,11 @@ class PullToRefreshLayout : ViewGroup {
   private fun canTargetViewScrollUp(): Boolean {
     if (android.os.Build.VERSION.SDK_INT < 14) {
       if (target is AbsListView) {
-        val absListView = target as AbsListView?
-        return absListView!!.childCount > 0 && (absListView.firstVisiblePosition > 0 || absListView.getChildAt(
+        val absListView = target as AbsListView
+        return absListView.childCount > 0 && (absListView.firstVisiblePosition > 0 || absListView.getChildAt(
             0).top < absListView.paddingTop)
       } else {
-        return ViewCompat.canScrollVertically(target, -1) || target!!.scrollY > 0
+        return ViewCompat.canScrollVertically(target, -1) || target?.scrollY ?: 0 > 0
       }
     } else {
       return ViewCompat.canScrollVertically(target, -1)
@@ -447,10 +448,10 @@ class PullToRefreshLayout : ViewGroup {
 
   private fun offsetTarget(offset: Int, requiresUpdate: Boolean) {
     updateHeightOfRefreshView(offset.toFloat())
-    target!!.offsetTopAndBottom(offset)
-    currentOffsetTop = target!!.top
+    target?.offsetTopAndBottom(offset)
+    currentOffsetTop = target?.top ?: 0
     if (stateListener != null) {
-      stateListener!!.onProgress(offsetAsPercent(currentOffsetTop.toFloat()))
+      stateListener?.onProgress(offsetAsPercent(currentOffsetTop.toFloat()))
     }
 
     if (requiresUpdate && android.os.Build.VERSION.SDK_INT < 11) {
@@ -459,9 +460,9 @@ class PullToRefreshLayout : ViewGroup {
   }
 
   private fun updateHeightOfRefreshView(offset: Float) {
-    val params = refreshView!!.layoutParams
-    params.height = offset.toInt()
-    refreshView!!.layoutParams = params
+    val params = refreshView?.layoutParams
+    params?.height = offset.toInt()
+    refreshView?.layoutParams = params
   }
 
   private fun offsetAsPercent(overscrollTop: Float): Float {
@@ -471,12 +472,12 @@ class PullToRefreshLayout : ViewGroup {
 
   private fun calculateDistanceToStartPosition(interpolatedTime: Float): Int {
     val targetTop = currentOffsetTop - (currentOffsetTop * interpolatedTime).toInt()
-    return targetTop - target!!.top
+    return targetTop - (target?.top ?: 0)
   }
 
   private fun calculateDistanceToExpandedPosition(interpolatedTime: Float): Int {
     val targetTop = currentOffsetTop + ((expandedPositionOffset - currentOffsetTop) * interpolatedTime).toInt()
-    return targetTop - target!!.top
+    return targetTop - (target?.top ?: 0)
   }
 
   private fun animateOffsetToStartPosition() {
@@ -484,8 +485,8 @@ class PullToRefreshLayout : ViewGroup {
     toStartPositionAnimation.duration = TO_START_ANIMATION_DURATION.toLong()
     toStartPositionAnimation.interpolator = decelerateInterpolator
     toStartPositionAnimation.setAnimationListener(toStartListener)
-    refreshView!!.clearAnimation()
-    refreshView!!.startAnimation(toStartPositionAnimation)
+    refreshView?.clearAnimation()
+    refreshView?.startAnimation(toStartPositionAnimation)
   }
 
   private fun animateOffsetToExpandedPosition() {
@@ -493,8 +494,8 @@ class PullToRefreshLayout : ViewGroup {
     toExpandedPositionAnimation.duration = TO_EXPANDED_ANIMATION_DURATION.toLong()
     toExpandedPositionAnimation.interpolator = decelerateInterpolator
     toExpandedPositionAnimation.setAnimationListener(refreshingListener)
-    refreshView!!.clearAnimation()
-    refreshView!!.startAnimation(toExpandedPositionAnimation)
+    refreshView?.clearAnimation()
+    refreshView?.startAnimation(toExpandedPositionAnimation)
   }
 
   private val toStartPositionAnimation = object : Animation() {
@@ -544,7 +545,7 @@ class PullToRefreshLayout : ViewGroup {
     if (newState != lastScrollState) {
       if (stateListener != null) {
         lastScrollState = newState
-        stateListener!!.onStateChanged(this, newState)
+        stateListener?.onStateChanged(this, newState)
         if (newState == ProgressStateListener.REFRESHING) {
           refreshListener?.onRefresh()
         }
