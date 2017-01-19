@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.thoughtbot.tropos.R
+import com.thoughtbot.tropos.adapters.WeatherAdapter
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
 import com.thoughtbot.tropos.extensions.attachSnapHelper
 import com.thoughtbot.tropos.permissions.getPermissionResults
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout
 import com.thoughtbot.tropos.refresh.RefreshDrawable
-import com.thoughtbot.tropos.refresh.setVerticalEndOverScroller
+import com.thoughtbot.tropos.scrolling.WeatherSnapHelper
+import com.thoughtbot.tropos.scrolling.setVerticalEndOverScroller
 import kotlinx.android.synthetic.main.activity_main.toolbar_city
 import kotlinx.android.synthetic.main.activity_main.toolbar_last_update
 import org.jetbrains.anko.find

@@ -1,4 +1,4 @@
-package com.thoughtbot.tropos.refresh
+package com.thoughtbot.tropos.scrolling
 
 import android.view.MotionEvent
 import android.view.View

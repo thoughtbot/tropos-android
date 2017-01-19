@@ -1,4 +1,4 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.scrolling
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper

@@ -1,22 +1,27 @@
-package com.thoughtbot.tropos.refresh
+package com.thoughtbot.tropos.scrolling
 
 import android.animation.Animator
+import android.animation.Animator.AnimatorListener
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.util.Property
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.animation.DecelerateInterpolator
-import com.thoughtbot.tropos.refresh.OverScroller.DragState
-import com.thoughtbot.tropos.refresh.OverScroller.DragState.STATE_BOUNCE_BACK
-import com.thoughtbot.tropos.refresh.OverScroller.DragState.STATE_DRAG_END_SIDE
-import com.thoughtbot.tropos.refresh.OverScroller.DragState.STATE_DRAG_START_SIDE
-import com.thoughtbot.tropos.refresh.OverScroller.DragState.STATE_IDLE
-import com.thoughtbot.tropos.refresh.OverScroller.OverScrollDirection.BOTH
-import com.thoughtbot.tropos.refresh.OverScroller.OverScrollDirection.END
-import com.thoughtbot.tropos.refresh.OverScroller.OverScrollDirection.START
-import com.thoughtbot.tropos.refresh.OverScroller.ScrollState
+import com.thoughtbot.tropos.scrolling.OverScroller.DragState
+import com.thoughtbot.tropos.scrolling.OverScroller.DragState.STATE_BOUNCE_BACK
+import com.thoughtbot.tropos.scrolling.OverScroller.DragState.STATE_DRAG_END_SIDE
+import com.thoughtbot.tropos.scrolling.OverScroller.DragState.STATE_DRAG_START_SIDE
+import com.thoughtbot.tropos.scrolling.OverScroller.DragState.STATE_IDLE
+import com.thoughtbot.tropos.scrolling.OverScroller.OverScrollDirection.BOTH
+import com.thoughtbot.tropos.scrolling.OverScroller.OverScrollDirection.END
+import com.thoughtbot.tropos.scrolling.OverScroller.OverScrollDirection.START
+import com.thoughtbot.tropos.scrolling.OverScroller.ScrollState
+import com.thoughtbot.tropos.scrolling.OverScroller.ScrollState.BOUNCE_BACK
+import com.thoughtbot.tropos.scrolling.OverScroller.ScrollState.IDLE
+import com.thoughtbot.tropos.scrolling.OverScroller.ScrollState.OVER_SCROLL
 
 /**
  * This class was inspired by https://github.com/EverythingMe/overscroll-decor
@@ -27,7 +32,7 @@ abstract class OverScroller(
     val overScrollDirection: OverScrollDirection = BOTH,
     val decelerateFactor: Float = DEFAULT_DECELERATE_FACTOR,
     val touchDragRatioBck: Float = DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
-    val touchDragRatioFwd: Float = DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD) : View.OnTouchListener {
+    val touchDragRatioFwd: Float = DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD) : OnTouchListener {
 
   //initial attributes
   var initialPointerId: Int = 0
@@ -49,7 +54,7 @@ abstract class OverScroller(
   var scrollListener: ScrollListener? = null
 
   // state variables
-  var currentScrollState: ScrollState = ScrollState.IDLE
+  var currentScrollState: ScrollState = IDLE
   var currentDragState: DragState = STATE_IDLE
 
   companion object {
@@ -96,9 +101,9 @@ abstract class OverScroller(
   private fun handleMoveTouchEvent(event: MotionEvent?): Boolean {
     if (event != null) {
       return when (currentScrollState) {
-        ScrollState.IDLE -> handleIdleMoveTouchEvent(event)
-        ScrollState.OVER_SCROLL -> handleOverScrollMoveTouchEvent(event)
-        ScrollState.BOUNCE_BACK -> handleBounceBackMoveTouchEvent(event)
+        IDLE -> handleIdleMoveTouchEvent(event)
+        OVER_SCROLL -> handleOverScrollMoveTouchEvent(event)
+        BOUNCE_BACK -> handleBounceBackMoveTouchEvent(event)
       }
     } else {
       return false
@@ -108,9 +113,9 @@ abstract class OverScroller(
   private fun handleUpOrCancelTouchEvent(event: MotionEvent?): Boolean {
     if (event != null) {
       return when (currentScrollState) {
-        ScrollState.IDLE -> handleIdleUpOrCancelTouchEvent(event)
-        ScrollState.OVER_SCROLL -> handleOverScrollUpOrCancelTouchEvent(event)
-        ScrollState.BOUNCE_BACK -> handleBounceBackUpOrCancelTouchEvent(event)
+        IDLE -> handleIdleUpOrCancelTouchEvent(event)
+        OVER_SCROLL -> handleOverScrollUpOrCancelTouchEvent(event)
+        BOUNCE_BACK -> handleBounceBackUpOrCancelTouchEvent(event)
       }
     } else {
       return false
@@ -130,7 +135,7 @@ abstract class OverScroller(
       initialAbsOffset == absOffset
       initialDir = dir
 
-      switchState(ScrollState.OVER_SCROLL)
+      switchState(OVER_SCROLL)
       return handleOverScrollMoveTouchEvent(event)
     }
     return false
@@ -146,7 +151,7 @@ abstract class OverScroller(
     // Switching 'pointers' (e.g. fingers) on-the-fly isn't supported -- abort over-scroll
     // smoothly using the default bounce-back animation in this case.
     if (initialPointerId != event.getPointerId(0)) {
-      switchState(ScrollState.BOUNCE_BACK)
+      switchState(BOUNCE_BACK)
       return true
     }
 
@@ -163,9 +168,9 @@ abstract class OverScroller(
     // are waiting (e.g. regular scroller handlers).
     if (initialDir && !dir && newOffset <= initialAbsOffset || !initialDir && dir && newOffset >= initialAbsOffset) {
       translateViewAndEvent(scroller.view, initialAbsOffset, event)
-      scrollListener?.onOverScroll(ScrollState.OVER_SCROLL, currentDragState, 0f)
+      scrollListener?.onOverScroll(OVER_SCROLL, currentDragState, 0f)
 
-      switchState(ScrollState.IDLE)
+      switchState(IDLE)
       return true
     }
 
@@ -179,13 +184,13 @@ abstract class OverScroller(
     }
 
     translateView(scroller.view, newOffset)
-    scrollListener?.onOverScroll(ScrollState.BOUNCE_BACK, currentDragState, newOffset)
+    scrollListener?.onOverScroll(BOUNCE_BACK, currentDragState, newOffset)
 
     return true
   }
 
   private fun handleOverScrollUpOrCancelTouchEvent(event: MotionEvent): Boolean {
-    switchState(ScrollState.BOUNCE_BACK)
+    switchState(BOUNCE_BACK)
     return false
   }
 
@@ -212,13 +217,13 @@ abstract class OverScroller(
   private fun switchState(toState: ScrollState) {
     currentScrollState = toState
     when (currentScrollState) {
-      ScrollState.IDLE -> scrollListener?.onDragStateChange(currentDragState, STATE_IDLE)
-      ScrollState.OVER_SCROLL -> {
+      IDLE -> scrollListener?.onDragStateChange(currentDragState, STATE_IDLE)
+      OVER_SCROLL -> {
         val oldDragState = currentDragState
         currentDragState = if (initialDir) STATE_DRAG_START_SIDE else STATE_DRAG_END_SIDE
         scrollListener?.onDragStateChange(oldDragState, currentDragState)
       }
-      ScrollState.BOUNCE_BACK -> {
+      BOUNCE_BACK -> {
         scrollListener?.onDragStateChange(currentDragState, STATE_BOUNCE_BACK)
 
         val bounceBackAnim = bounceBackAnim()
@@ -285,17 +290,17 @@ abstract class OverScroller(
   }
 
   private val bounceBackAnimationUpdateListener = ValueAnimator.AnimatorUpdateListener { animation ->
-    scrollListener?.onOverScroll(ScrollState.BOUNCE_BACK, STATE_BOUNCE_BACK,
+    scrollListener?.onOverScroll(BOUNCE_BACK, STATE_BOUNCE_BACK,
         animation.animatedValue as Float)
   }
 
-  private val bounceBackAnimationListener = object : Animator.AnimatorListener {
+  private val bounceBackAnimationListener = object : AnimatorListener {
     override fun onAnimationStart(animation: Animator?) {}
     override fun onAnimationCancel(animation: Animator?) {}
     override fun onAnimationRepeat(animation: Animator?) {}
 
     override fun onAnimationEnd(animation: Animator?) {
-      switchState(ScrollState.IDLE)
+      switchState(IDLE)
     }
   }
 

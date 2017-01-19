@@ -1,11 +1,11 @@
-package com.thoughtbot.tropos.refresh
+package com.thoughtbot.tropos.scrolling
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.OnItemTouchListener
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.MotionEvent
-import com.thoughtbot.tropos.refresh.OverScroller.OverScrollDirection.END
+import com.thoughtbot.tropos.scrolling.OverScroller.OverScrollDirection.END
 
 class RecyclerViewScroller(override val view: RecyclerView) : Scroller {
 
