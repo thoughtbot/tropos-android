@@ -1,10 +1,12 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
 import android.support.v4.content.ContextCompat.getColor
 import android.text.SpannableStringBuilder
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.color
+import com.thoughtbot.tropos.R.drawable
+import com.thoughtbot.tropos.R.string
 import com.thoughtbot.tropos.data.TemperatureDifference
 import com.thoughtbot.tropos.data.TemperatureDifference.COLDER
 import com.thoughtbot.tropos.data.TemperatureDifference.COOLER
@@ -39,20 +41,20 @@ class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
   val icon: Int = today.condition.iconResId()
 
   fun temperatures(): SpannableStringBuilder {
-    val fullString = context.getString(R.string.formatted_temperature_string,
+    val fullString = context.getString(string.formatted_temperature_string,
         today.highTemp, today.currentTemp, today.lowTemp)
-    val today = context.getString(R.string.temperature, today.currentTemp)
+    val today = context.getString(string.temperature, today.currentTemp)
     return fullString.colorSubString(today, temperatureDifferenceColor())
   }
 
-  val temperatureIcon = R.drawable.label_thermometer
+  val temperatureIcon = drawable.label_thermometer
 
   fun wind(): String {
     val windDirection = context.getString(today.windDirection.labelResId())
-    return context.getString(R.string.formatted_wind_string, today.windSpeed, windDirection)
+    return context.getString(string.formatted_wind_string, today.windSpeed, windDirection)
   }
 
-  val windIcon = R.drawable.label_wind
+  val windIcon = drawable.label_wind
 
   private fun tempDifference(): TemperatureDifference {
     return TemperatureDifference(today, yesterday)
@@ -66,9 +68,9 @@ class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
     val color = when (tempDifference()) {
       SAME -> getColor(context, android.R.color.white)
       HOTTER -> getColor(context, color.burnt_orange)
-      WARMER -> getColor(context, R.color.tangerine)
-      COOLER -> getColor(context, R.color.sky_blue)
-      COLDER -> getColor(context, R.color.sky_blue_light)
+      WARMER -> getColor(context, color.tangerine)
+      COOLER -> getColor(context, color.sky_blue)
+      COLDER -> getColor(context, color.sky_blue_light)
     }
 
     if (tempDifference() == COOLER || tempDifference() == WARMER) {
@@ -83,25 +85,25 @@ class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
 
   private fun TimeOfDay.asPresentDayDescription(): Int {
     when (this) {
-      MORNING -> return R.string.present_morning
-      DAY -> return R.string.present_day
-      AFTERNOON -> return R.string.present_afternoon
-      NIGHT -> return R.string.present_night
+      MORNING -> return string.present_morning
+      DAY -> return string.present_day
+      AFTERNOON -> return string.present_afternoon
+      NIGHT -> return string.present_night
       else -> throw IllegalArgumentException("$this is not a valid TimeOfDay")
     }
   }
 
   private fun TimeOfDay.asPreviousDayDescription(): Int {
     when (this) {
-      MORNING -> return R.string.previous_morning
-      DAY -> return R.string.previous_day
-      AFTERNOON -> return R.string.previous_afternoon
-      NIGHT -> return R.string.previous_night
+      MORNING -> return string.previous_morning
+      DAY -> return string.previous_day
+      AFTERNOON -> return string.previous_afternoon
+      NIGHT -> return string.previous_night
       else -> throw IllegalArgumentException("$this is not a valid TimeOfDay")
     }
   }
 
   private fun TemperatureDifference.summaryFormat(): Int {
-    return if (this == SAME) R.string.same_temperature_format else R.string.different_temperature_format
+    return if (this == SAME) string.same_temperature_format else string.different_temperature_format
   }
 }

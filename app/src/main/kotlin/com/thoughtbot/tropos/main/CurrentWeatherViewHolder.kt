@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.viewmodels.CurrentWeatherViewModel
 import com.thoughtbot.tropos.widgets.DrawableTextLabel
 import org.jetbrains.anko.find
 

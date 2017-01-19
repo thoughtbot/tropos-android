@@ -1,11 +1,14 @@
-package com.thoughtbot.tropos
+package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
 import android.location.Location
+import com.thoughtbot.tropos.BuildConfig
+import com.thoughtbot.tropos.R.drawable
 import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.WindDirection
-import com.thoughtbot.tropos.main.CurrentWeatherViewModel
+import com.thoughtbot.tropos.viewmodels.CurrentWeatherViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,7 +32,7 @@ class CurrentWeatherViewModelTest() {
     val location = Location("")
     location.longitude = -122.4375671
     location.latitude = 37.8032493
-    val condition = Condition.PARTLY_CLOUDY_DAY
+    val condition = PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
     val lowTemp = 48
@@ -57,7 +60,7 @@ class CurrentWeatherViewModelTest() {
   @Test
   fun testIcon() {
     val viewModel = CurrentWeatherViewModel(context, mockWeatherData, mockWeatherData)
-    val expected = R.drawable.partly_cloudy_day
+    val expected = drawable.partly_cloudy_day
     val actual = viewModel.icon
 
     assertEquals(expected, actual)

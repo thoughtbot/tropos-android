@@ -1,7 +1,8 @@
-package com.thoughtbot.tropos.main
+package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
 import com.thoughtbot.tropos.R
+import com.thoughtbot.tropos.R.string
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.iconResId
 import java.text.SimpleDateFormat
@@ -12,8 +13,8 @@ class ForecastViewModel(val context: Context, val weatherData: WeatherData) {
 
   val day: String = SimpleDateFormat("EEE").format(weatherData.date)
 
-  val highTemp = context.getString(R.string.temperature, weatherData.highTemp)
+  val highTemp = context.getString(string.temperature, weatherData.highTemp)
 
-  val lowTemp = context.getString(R.string.temperature, weatherData.lowTemp)
+  val lowTemp = context.getString(string.temperature, weatherData.lowTemp)
 }
 
