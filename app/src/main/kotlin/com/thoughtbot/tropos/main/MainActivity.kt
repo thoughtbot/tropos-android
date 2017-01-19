@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
+import com.thoughtbot.tropos.permissions.getPermissionResults
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout
 import com.thoughtbot.tropos.refresh.RefreshDrawable
 import com.thoughtbot.tropos.refresh.setVerticalEndOverScroller
@@ -29,6 +30,12 @@ class MainActivity : BaseActivity(), MainView {
     pullToRefreshLayout.refreshListener = presenter
 
     presenter.init()
+  }
+
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+      grantResults: IntArray) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    getPermissionResults(presenter.permission, presenter, requestCode, permissions, grantResults)
   }
 
   override val context: Context = this

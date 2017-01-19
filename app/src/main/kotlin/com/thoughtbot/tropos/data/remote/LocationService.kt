@@ -12,12 +12,11 @@ import io.reactivex.schedulers.Schedulers
 class LocationService(val context: Context) : LocationDataSource {
 
   val locationRequest: LocationRequest = LocationRequest.create()
-      .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+      .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
       .setNumUpdates(1)
 
   override fun fetchLocation(): Observable<Location> {
     val rxLocation = RxLocation(context)
-    //TODO checkAndHandleResolution is not working
     return rxLocation.settings().checkAndHandleResolution(locationRequest)
         .flatMapObservable { hasPermission ->
           if (hasPermission) {

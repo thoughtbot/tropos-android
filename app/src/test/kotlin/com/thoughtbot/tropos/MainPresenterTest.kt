@@ -15,6 +15,7 @@ import com.thoughtbot.tropos.extensions.WindDirection
 import com.thoughtbot.tropos.main.MainPresenter
 import com.thoughtbot.tropos.main.MainView
 import com.thoughtbot.tropos.main.ViewState
+import com.thoughtbot.tropos.permissions.Permission
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -30,6 +31,7 @@ class MainPresenterTest() {
 
   lateinit var context: Context
   val view = mock<MainView>()
+  val permission = mock<Permission>()
   val locationDataSource = mock<LocationDataSource>()
   val weatherDataSource = mock<WeatherDataSource>()
 
@@ -57,17 +59,32 @@ class MainPresenterTest() {
   }
 
   @Test
-  fun testInit() {
-    val presenter = MainPresenter(view, locationDataSource, weatherDataSource)
+  fun testInit_hasPermission() {
+    val presenter = MainPresenter(view, locationDataSource, weatherDataSource, permission)
     whenever(view.context).thenReturn(context)
     stubLocation()
     stubWeather()
     stubForecast()
+    stubPermission(true)
 
     presenter.init()
 
     verify(view).viewState = isA<ViewState.Loading>()
     verify(view).viewState = isA<ViewState.Weather>()
+  }
+
+  @Test
+  fun testInit_doesNotHavePermission() {
+    val presenter = MainPresenter(view, locationDataSource, weatherDataSource, permission)
+    whenever(view.context).thenReturn(context)
+    stubLocation()
+    stubWeather()
+    stubForecast()
+    stubPermission(false)
+
+    presenter.init()
+
+    verify(view).viewState = isA<ViewState.Error>()
   }
 
   fun stubLocation() {
@@ -82,6 +99,10 @@ class MainPresenterTest() {
   fun stubForecast() {
     whenever(weatherDataSource.fetchForecast(any(), any())).thenReturn(
         Observable.just(listOf(mockWeatherData)))
+  }
+
+  fun stubPermission(hasPermission: Boolean) {
+    whenever(permission.hasPermission()).thenReturn(hasPermission)
   }
 
 }

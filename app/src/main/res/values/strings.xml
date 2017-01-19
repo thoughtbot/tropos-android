@@ -20,6 +20,7 @@
   <string name="checking_weather">Checking Weather&#8230;</string>
   <string name="forecast_io_credit">Powered by Forecast</string>
   <string name="thoughtbot">thoughtbot</string>
+  <string name="missing_location_permission_error">Help us, help you. Give tropos permission to use your location so we can give you the weather at your location.</string>
 
   //time of day
   <string name="present_night">tonight</string>
