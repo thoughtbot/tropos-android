@@ -7,6 +7,8 @@ import android.view.LayoutInflater.from
 import android.view.ViewGroup
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.viewholders.CurrentWeatherViewHolder
+import com.thoughtbot.tropos.viewholders.ForecastViewHolder
 
 class WeatherAdapter : RecyclerView.Adapter<ViewHolder>() {
 
