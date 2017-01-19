@@ -1,8 +1,15 @@
-package com.thoughtbot.tropos
+package com.thoughtbot.tropos.data
 
 import android.location.Location
+import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.TemperatureDifference
+import com.thoughtbot.tropos.data.TemperatureDifference.COLDER
+import com.thoughtbot.tropos.data.TemperatureDifference.COOLER
+import com.thoughtbot.tropos.data.TemperatureDifference.HOTTER
+import com.thoughtbot.tropos.data.TemperatureDifference.SAME
+import com.thoughtbot.tropos.data.TemperatureDifference.WARMER
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.extensions.TemperatureDifference
 import com.thoughtbot.tropos.extensions.WindDirection
@@ -24,7 +31,7 @@ class TemperatureDifferenceTest {
     val location = Location("")
     location.longitude = -122.4375671
     location.latitude = 37.8032493
-    val condition = Condition.PARTLY_CLOUDY_DAY
+    val condition = PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
     val lowTemp = 48
@@ -37,53 +44,52 @@ class TemperatureDifferenceTest {
 
   @Test
   fun testGetTempDiff_SAME() {
-    //Test SAME
-    val todayWD = mockWeatherData.copy(currentTemp = 0)
-    val yesterdayWD = mockWeatherData.copy(currentTemp = 0)
+    val today = mockWeatherData.copy(currentTemp = 0)
+    val yesterday = mockWeatherData.copy(currentTemp = 0)
 
-    val actual = TemperatureDifference(todayWD, yesterdayWD)
-    val expected = TemperatureDifference.SAME
+    val actual = TemperatureDifference(today, yesterday)
+    val expected = SAME
     assertEquals(actual, expected)
 
   }
 
   @Test
   fun testGetTempDiff_WARMER() {
-    val todayWD = mockWeatherData.copy(currentTemp = 5)
-    val yesterdayWD = mockWeatherData.copy(currentTemp = 0)
+    val today = mockWeatherData.copy(currentTemp = 5)
+    val yesterday = mockWeatherData.copy(currentTemp = 0)
 
-    val actual = TemperatureDifference(todayWD, yesterdayWD)
-    val expected = TemperatureDifference.WARMER
+    val actual = TemperatureDifference(today, yesterday)
+    val expected = WARMER
     assertEquals(actual, expected)
   }
 
   @Test
   fun testGetTempDiff_HOTTER() {
-    val todayWD = mockWeatherData.copy(currentTemp = 100)
-    val yesterdayWD = mockWeatherData.copy(currentTemp = 80)
+    val today = mockWeatherData.copy(currentTemp = 100)
+    val yesterday = mockWeatherData.copy(currentTemp = 80)
 
-    val actual = TemperatureDifference(todayWD, yesterdayWD)
-    val expected = TemperatureDifference.HOTTER
+    val actual = TemperatureDifference(today, yesterday)
+    val expected = HOTTER
     assertEquals(actual, expected)
   }
 
   @Test
   fun testGetTempDiff_COLDER() {
-    val todayWD = mockWeatherData.copy(currentTemp = 0)
-    val yesterdayWD = mockWeatherData.copy(currentTemp = 10)
+    val today = mockWeatherData.copy(currentTemp = 0)
+    val yesterday = mockWeatherData.copy(currentTemp = 10)
 
-    val actual = TemperatureDifference(todayWD, yesterdayWD)
-    val expected = TemperatureDifference.COLDER
+    val actual = TemperatureDifference(today, yesterday)
+    val expected = COLDER
     assertEquals(actual, expected)
   }
 
   @Test
   fun testGetTempDiff_COOLER() {
-    val todayWD = mockWeatherData.copy(currentTemp = 0)
-    val yesterdayWD = mockWeatherData.copy(currentTemp = 9)
+    val today = mockWeatherData.copy(currentTemp = 0)
+    val yesterday = mockWeatherData.copy(currentTemp = 9)
 
-    val actual = TemperatureDifference(todayWD, yesterdayWD)
-    val expected = TemperatureDifference.COOLER
+    val actual = TemperatureDifference(today, yesterday)
+    val expected = COOLER
     assertEquals(actual, expected)
   }
 
