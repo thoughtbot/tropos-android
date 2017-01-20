@@ -31,7 +31,6 @@ class MainPresenter(override val view: MainView,
   }
 
   fun updateWeather() {
-    //TODO confirm observable is completing
     view.viewState = ViewState.Loading(LoadingToolbarViewModel(view.context))
     disposable = locationDataSource.fetchLocation()
         .flatMap { weatherDataSource.fetchForecast(it, 3) }
@@ -51,7 +50,7 @@ class MainPresenter(override val view: MainView,
     permission.checkPermission({ updateWeather() }, { onPermissionDenied(false) }, true)
   }
 
-  fun onStop() {
+  fun onDestroy() {
     disposable.dispose()
   }
 
