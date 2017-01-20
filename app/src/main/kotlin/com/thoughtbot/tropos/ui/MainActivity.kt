@@ -81,6 +81,8 @@ class MainActivity : BaseActivity(), MainView {
         toolbar_city.text = it.toolbarViewModel.title()
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
 
+        pullToRefreshLayout.setRefreshing(false)
+
         footer.visibility = View.GONE
         error_text.visibility = View.VISIBLE
         error_text.text = it.errorMessage
