@@ -1,4 +1,4 @@
-# Tropos for Android
+# Tropos for Android [![CircleCI](https://circleci.com/gh/thoughtbot/tropos-android.svg?style=svg)](https://circleci.com/gh/thoughtbot/tropos-android)
 Weather and forecasts for humans.
 Information you can act on.
 
@@ -14,5 +14,4 @@ to obtain a developerAPI key. Then place this key in your machine's ~/.gradle/gr
 `DARK_SKY_FORECAST_API_KEY=123abc`
 
 # Testing
-The `androidTest` directory contains Espresso tests for automated UI testing. The `test` directory
-contains unit tests, using JUnit and Robolectric.
+The `test` directory contains unit tests, using JUnit and Robolectric.
