@@ -1,4 +1,4 @@
-# Tropos for Android [![CircleCI](https://circleci.com/gh/thoughtbot/tropos-android.svg?style=svg)](https://circleci.com/gh/thoughtbot/tropos-android)
+# Tropos for Android [![CircleCI](https://circleci.com/gh/thoughtbot/tropos-android/tree/master.svg?style=svg&circle-token=6998942c05bf1870244c7cc7d9a71424480e5e49)](https://circleci.com/gh/thoughtbot/tropos-android/tree/master)
 Weather and forecasts for humans.
 Information you can act on.
 
