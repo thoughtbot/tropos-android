@@ -1,13 +1,10 @@
 package com.thoughtbot.tropos.adapters
 
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.GridLayoutManager.SpanSizeLookup
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.Adapter
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
-import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.layout
 import com.thoughtbot.tropos.data.WeatherData
 import com.thoughtbot.tropos.viewholders.CurrentWeatherViewHolder
