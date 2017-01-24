@@ -10,6 +10,10 @@ import android.os.SystemClock
 class StripeDrawable(
     private val colors: IntArray) : Drawable(), Animatable, Runnable, Drawable.Callback {
 
+  private val COLUMN_WIDTH = 60
+  private val DURATION = 1000  // in ms
+  private val FRAME_DELAY = (1000 / 60).toLong() // 60 fps
+
   private var running = false
   private var startTime: Long = 0
 
@@ -112,12 +116,5 @@ class StripeDrawable(
   override fun unscheduleDrawable(who: Drawable, what: Runnable) {
     val callback = callback
     callback?.unscheduleDrawable(this, what)
-  }
-
-  companion object {
-
-    private val COLUMN_WIDTH = 60
-    private val DURATION = 1000  // in ms
-    private val FRAME_DELAY = (1000 / 60).toLong() // 60 fps
   }
 }
