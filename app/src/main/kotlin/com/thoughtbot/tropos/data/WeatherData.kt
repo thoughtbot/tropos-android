@@ -7,7 +7,7 @@ data class WeatherData(
     val date: Date,
     val summary: String,
     val location: Location,
-    val condition: Condition,
+    val status: Status,
     val windSpeed: Int,
     val windDirection: WindDirection,
     val lowTemp: Int,

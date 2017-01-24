@@ -2,7 +2,7 @@ package com.thoughtbot.tropos.data
 
 import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
-import com.thoughtbot.tropos.data.Condition.PARTLY_CLOUDY_DAY
+import com.thoughtbot.tropos.data.Status.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.TemperatureDifference.COLDER
 import com.thoughtbot.tropos.data.TemperatureDifference.COOLER
 import com.thoughtbot.tropos.data.TemperatureDifference.HOTTER
@@ -26,14 +26,14 @@ class TemperatureDifferenceTest {
     val location = Location("")
     location.longitude = -122.4375671
     location.latitude = 37.8032493
-    val condition = PARTLY_CLOUDY_DAY
+    val status = PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
     val lowTemp = 48
     val highTemp = 54
     val temp = 52
 
-    WeatherData(date, summary, location, condition, windSpeed, windDirection, lowTemp, temp,
+    WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
         highTemp)
   }()
 
