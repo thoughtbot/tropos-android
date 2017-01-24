@@ -17,9 +17,8 @@ import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.Transformation
 import android.widget.AbsListView
-import android.widget.ImageView
 
-class PullToRefreshLayout : ViewGroup {
+class PullToRefreshLayout : ViewGroup, Animation.AnimationListener {
 
   companion object {
     private val INVALID_POINTER = -1
@@ -49,7 +48,7 @@ class PullToRefreshLayout : ViewGroup {
 
   //views
   private var target: View? = null
-  private var refreshView: ImageView? = null
+  private var refreshView: RefreshView? = null
 
   //touch event
   private var activePointerId: Int = 0
@@ -137,8 +136,9 @@ class PullToRefreshLayout : ViewGroup {
   }
 
   private fun createProgressView() {
-    refreshView = ImageView(context)
+    refreshView = RefreshView(context)
     addView(refreshView, 0)
+    refreshView?.listener = this
   }
 
   private fun ensureTarget() {
@@ -486,18 +486,16 @@ class PullToRefreshLayout : ViewGroup {
     toStartPositionAnimation.reset()
     toStartPositionAnimation.duration = TO_START_ANIMATION_DURATION
     toStartPositionAnimation.interpolator = decelerateInterpolator
-    toStartPositionAnimation.setAnimationListener(toStartListener)
-    target?.clearAnimation()
-    target?.startAnimation(toStartPositionAnimation)
+    refreshView?.clearAnimation()
+    refreshView?.startAnimation(toStartPositionAnimation)
   }
 
   private fun animateOffsetToExpandedPosition() {
     toExpandedPositionAnimation.reset()
     toExpandedPositionAnimation.duration = TO_EXPANDED_ANIMATION_DURATION
     toExpandedPositionAnimation.interpolator = decelerateInterpolator
-    toExpandedPositionAnimation.setAnimationListener(refreshingListener)
-    target?.clearAnimation()
-    target?.startAnimation(toExpandedPositionAnimation)
+    refreshView?.clearAnimation()
+    refreshView?.startAnimation(toExpandedPositionAnimation)
   }
 
   private val toStartPositionAnimation = object : Animation() {
@@ -511,28 +509,6 @@ class PullToRefreshLayout : ViewGroup {
     public override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
       val offset = calculateDistanceToExpandedPosition(interpolatedTime)
       offsetTarget(offset, false)
-    }
-  }
-
-  private val toStartListener = object : Animation.AnimationListener {
-    override fun onAnimationStart(animation: Animation) {}
-
-    override fun onAnimationRepeat(animation: Animation) {}
-
-    override fun onAnimationEnd(animation: Animation) {
-      reportRefreshStateChange(ProgressStateListener.INACTIVE)
-    }
-  }
-
-  private val refreshingListener = object : Animation.AnimationListener {
-    override fun onAnimationStart(animation: Animation) {}
-
-    override fun onAnimationRepeat(animation: Animation) {}
-
-    override fun onAnimationEnd(animation: Animation) {
-      if (!isRefreshing) {
-        offsetTarget(-currentOffsetTop, true)
-      }
     }
   }
 
@@ -573,4 +549,20 @@ class PullToRefreshLayout : ViewGroup {
       stateListener = drawable
     }
   }
+
+  override fun onAnimationEnd(animation: Animation?) {
+    if (animation === toStartPositionAnimation) {
+      reportRefreshStateChange(ProgressStateListener.INACTIVE)
+    }
+
+    if (animation === toExpandedPositionAnimation) {
+      if (!isRefreshing) {
+        offsetTarget(-currentOffsetTop, true)
+      }
+    }
+  }
+
+  override fun onAnimationStart(animation: Animation?) {}
+
+  override fun onAnimationRepeat(animation: Animation?) {}
 }
