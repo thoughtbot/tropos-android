@@ -9,13 +9,13 @@ import android.view.LayoutInflater.from
 import android.view.ViewGroup
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.layout
-import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.viewholders.CurrentWeatherViewHolder
 import com.thoughtbot.tropos.viewholders.ForecastViewHolder
 
 class WeatherAdapter : Adapter<ViewHolder>() {
 
-  var weather: List<WeatherData> = emptyList()
+  var weather: List<Condition> = emptyList()
     set(value) {
       field = value
       notifyDataSetChanged()
@@ -65,16 +65,16 @@ class WeatherAdapter : Adapter<ViewHolder>() {
     return position == 0
   }
 
-  private fun forecast(position: Int): WeatherData {
+  private fun forecast(position: Int): Condition {
     //add one to account for yesterdays weather being in {@code weather}
     return weather[position + 1]
   }
 
-  private fun today(): WeatherData {
+  private fun today(): Condition {
     return weather[1]
   }
 
-  private fun yesterday(): WeatherData {
+  private fun yesterday(): Condition {
     return weather[0]
   }
 

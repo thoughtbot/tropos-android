@@ -10,7 +10,7 @@ enum class TemperatureDifference {
   HOTTER, COLDER, SAME, WARMER, COOLER;
 }
 
-fun TemperatureDifference(today: WeatherData, yesterday: WeatherData): TemperatureDifference {
+fun TemperatureDifference(today: Condition, yesterday: Condition): TemperatureDifference {
   val HOTTER_LIMIT: Int = 32
   val COLDER_LIMIT: Int = 75
 

@@ -9,8 +9,8 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.data.Status
 import com.thoughtbot.tropos.data.LocationDataSource
-import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.data.WeatherDataSource
+import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.data.ConditionDataSource
 import com.thoughtbot.tropos.data.WindDirection
 import com.thoughtbot.tropos.permissions.Permission
 import com.thoughtbot.tropos.ui.MainPresenter
@@ -33,9 +33,9 @@ class MainPresenterTest() {
   val view = mock<MainView>()
   val permission = mock<Permission>()
   val locationDataSource = mock<LocationDataSource>()
-  val weatherDataSource = mock<WeatherDataSource>()
+  val conditionDataSource = mock<ConditionDataSource>()
 
-  val mockWeatherData: WeatherData = {
+  val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
     val date = Date(timeStamp)
     val summary = "Mostly Cloudy"
@@ -49,7 +49,7 @@ class MainPresenterTest() {
     val highTemp = 54
     val temp = 52
 
-    WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
         highTemp)
   }()
 
@@ -60,7 +60,7 @@ class MainPresenterTest() {
 
   @Test
   fun testInit_hasPermission() {
-    val presenter = MainPresenter(view, locationDataSource, weatherDataSource, permission)
+    val presenter = MainPresenter(view, locationDataSource, conditionDataSource, permission)
     whenever(view.context).thenReturn(context)
     stubLocation()
     stubWeather()
@@ -75,7 +75,7 @@ class MainPresenterTest() {
 
   @Test
   fun testInit_doesNotHavePermission() {
-    val presenter = MainPresenter(view, locationDataSource, weatherDataSource, permission)
+    val presenter = MainPresenter(view, locationDataSource, conditionDataSource, permission)
     whenever(view.context).thenReturn(context)
     stubLocation()
     stubWeather()
@@ -92,13 +92,13 @@ class MainPresenterTest() {
   }
 
   fun stubWeather() {
-    whenever(weatherDataSource.fetchWeather(any(), any())).thenReturn(
-        Observable.just(mockWeatherData))
+    whenever(conditionDataSource.fetchCondition(any(), any())).thenReturn(
+        Observable.just(mockCondition))
   }
 
   fun stubForecast() {
-    whenever(weatherDataSource.fetchForecast(any(), any())).thenReturn(
-        Observable.just(listOf(mockWeatherData)))
+    whenever(conditionDataSource.fetchForecast(any(), any())).thenReturn(
+        Observable.just(listOf(mockCondition)))
   }
 
   fun stubPermission(hasPermission: Boolean) {

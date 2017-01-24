@@ -4,7 +4,7 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import com.thoughtbot.tropos.R.string
-import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.data.Condition
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -32,17 +32,17 @@ class LoadingToolbarViewModel(val context: Context) : ToolbarViewModel {
 }
 
 class WeatherToolbarViewModel(val context: Context,
-    val weatherData: WeatherData) : ToolbarViewModel {
+    val condition: Condition) : ToolbarViewModel {
 
   override fun subtitle(): String {
-    val date = weatherData.date
+    val date = condition.date
     val formattedDate = SimpleDateFormat("h:mm a", Locale.getDefault()).format(date)
     return context.getString(string.updated_at, formattedDate)
   }
 
   override fun title(): String {
-    val latitude = weatherData.location.latitude
-    val longitude = weatherData.location.longitude
+    val latitude = condition.location.latitude
+    val longitude = condition.location.longitude
     val address: List<Address>? = Geocoder(context).getFromLocation(latitude, longitude, 1)
     val city: String? = address?.firstOrNull()?.locality
     return city ?: "$latitude, $longitude"

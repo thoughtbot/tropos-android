@@ -3,7 +3,7 @@ package com.thoughtbot.tropos.data
 import android.location.Location
 import java.util.*
 
-data class WeatherData(
+data class Condition(
     val date: Date,
     val summary: String,
     val location: Location,

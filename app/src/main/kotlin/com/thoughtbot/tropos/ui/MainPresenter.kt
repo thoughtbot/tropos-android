@@ -3,9 +3,9 @@ package com.thoughtbot.tropos.ui
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.Presenter
 import com.thoughtbot.tropos.data.LocationDataSource
-import com.thoughtbot.tropos.data.WeatherDataSource
+import com.thoughtbot.tropos.data.ConditionDataSource
 import com.thoughtbot.tropos.data.remote.LocationService
-import com.thoughtbot.tropos.data.remote.WeatherDataService
+import com.thoughtbot.tropos.data.remote.ConditionDataService
 import com.thoughtbot.tropos.extensions.dayBefore
 import com.thoughtbot.tropos.permissions.LocationPermission
 import com.thoughtbot.tropos.permissions.Permission
@@ -20,7 +20,7 @@ import java.util.Date
 
 class MainPresenter(override val view: MainView,
     val locationDataSource: LocationDataSource = LocationService(view.context),
-    val weatherDataSource: WeatherDataSource = WeatherDataService(),
+    val conditionDataSource: ConditionDataSource = ConditionDataService(),
     val permission: Permission = LocationPermission(view.context))
   : Presenter, RefreshListener, PermissionResults {
 
@@ -33,9 +33,9 @@ class MainPresenter(override val view: MainView,
   fun updateWeather() {
     view.viewState = ViewState.Loading(LoadingToolbarViewModel(view.context))
     disposable = locationDataSource.fetchLocation()
-        .flatMap { weatherDataSource.fetchForecast(it, 3) }
+        .flatMap { conditionDataSource.fetchForecast(it, 3) }
         .flatMap({ forecast ->
-          weatherDataSource.fetchWeather(forecast[0].location, Date().dayBefore())
+          conditionDataSource.fetchCondition(forecast[0].location, Date().dayBefore())
         }, { forecast, yesterday -> return@flatMap listOf(yesterday).plus(forecast) })
         .doOnError {
           val errorMessage = it.message ?: ""

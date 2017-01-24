@@ -4,7 +4,7 @@ import android.content.Context
 import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.data.Status.PARTLY_CLOUDY_DAY
-import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.WindDirection
 import com.thoughtbot.tropos.testUtils.MockGeocoder
 import org.junit.Before
@@ -22,7 +22,7 @@ class WeatherToolbarViewModelTest() {
 
   lateinit var context: Context
 
-  val mockWeatherData: WeatherData = {
+  val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
     val date = Date(timeStamp)
     val summary = "Mostly Cloudy"
@@ -36,7 +36,7 @@ class WeatherToolbarViewModelTest() {
     val highTemp = 54
     val temp = 52
 
-    WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
         highTemp)
   }()
 
@@ -48,7 +48,7 @@ class WeatherToolbarViewModelTest() {
   @Test
   @Config(shadows = arrayOf(MockGeocoder::class))
   fun testTitle() {
-    val viewModel = WeatherToolbarViewModel(context, mockWeatherData)
+    val viewModel = WeatherToolbarViewModel(context, mockCondition)
     val expected = "San Francisco"
     val actual = viewModel.title()
 
@@ -57,7 +57,7 @@ class WeatherToolbarViewModelTest() {
 
   @Test
   fun testSubtitle() {
-    val viewModel = WeatherToolbarViewModel(context, mockWeatherData)
+    val viewModel = WeatherToolbarViewModel(context, mockCondition)
     val expected = "Updated at 4:16 PM"
     val actual = viewModel.subtitle()
 

@@ -5,14 +5,14 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.thoughtbot.tropos.R.id
-import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.viewmodels.CurrentWeatherViewModel
 import com.thoughtbot.tropos.widgets.DrawableTextLabel
 import org.jetbrains.anko.find
 
 class CurrentWeatherViewHolder(itemView: View?) : ViewHolder(itemView) {
 
-  fun bind(today: WeatherData, yesterday: WeatherData) {
+  fun bind(today: Condition, yesterday: Condition) {
     val viewModel = CurrentWeatherViewModel(itemView.context, today, yesterday)
 
     itemView.find<ImageView>(id.weather_icon).setBackgroundResource(viewModel.icon)

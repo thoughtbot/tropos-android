@@ -19,7 +19,7 @@ import kotlin.test.assertEquals
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
 class TemperatureDifferenceTest {
 
-  val mockWeatherData: WeatherData = {
+  val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
     val date = Date(timeStamp)
     val summary = "Mostly Cloudy"
@@ -33,14 +33,14 @@ class TemperatureDifferenceTest {
     val highTemp = 54
     val temp = 52
 
-    WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
         highTemp)
   }()
 
   @Test
   fun testGetTempDiff_SAME() {
-    val today = mockWeatherData.copy(currentTemp = 0)
-    val yesterday = mockWeatherData.copy(currentTemp = 0)
+    val today = mockCondition.copy(currentTemp = 0)
+    val yesterday = mockCondition.copy(currentTemp = 0)
 
     val actual = TemperatureDifference(today, yesterday)
     val expected = SAME
@@ -50,8 +50,8 @@ class TemperatureDifferenceTest {
 
   @Test
   fun testGetTempDiff_WARMER() {
-    val today = mockWeatherData.copy(currentTemp = 5)
-    val yesterday = mockWeatherData.copy(currentTemp = 0)
+    val today = mockCondition.copy(currentTemp = 5)
+    val yesterday = mockCondition.copy(currentTemp = 0)
 
     val actual = TemperatureDifference(today, yesterday)
     val expected = WARMER
@@ -60,8 +60,8 @@ class TemperatureDifferenceTest {
 
   @Test
   fun testGetTempDiff_HOTTER() {
-    val today = mockWeatherData.copy(currentTemp = 100)
-    val yesterday = mockWeatherData.copy(currentTemp = 80)
+    val today = mockCondition.copy(currentTemp = 100)
+    val yesterday = mockCondition.copy(currentTemp = 80)
 
     val actual = TemperatureDifference(today, yesterday)
     val expected = HOTTER
@@ -70,8 +70,8 @@ class TemperatureDifferenceTest {
 
   @Test
   fun testGetTempDiff_COLDER() {
-    val today = mockWeatherData.copy(currentTemp = 0)
-    val yesterday = mockWeatherData.copy(currentTemp = 10)
+    val today = mockCondition.copy(currentTemp = 0)
+    val yesterday = mockCondition.copy(currentTemp = 10)
 
     val actual = TemperatureDifference(today, yesterday)
     val expected = COLDER
@@ -80,8 +80,8 @@ class TemperatureDifferenceTest {
 
   @Test
   fun testGetTempDiff_COOLER() {
-    val today = mockWeatherData.copy(currentTemp = 0)
-    val yesterday = mockWeatherData.copy(currentTemp = 9)
+    val today = mockCondition.copy(currentTemp = 0)
+    val yesterday = mockCondition.copy(currentTemp = 9)
 
     val actual = TemperatureDifference(today, yesterday)
     val expected = COOLER

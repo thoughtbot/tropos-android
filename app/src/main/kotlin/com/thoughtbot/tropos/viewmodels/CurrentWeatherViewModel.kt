@@ -18,14 +18,14 @@ import com.thoughtbot.tropos.data.TimeOfDay.AFTERNOON
 import com.thoughtbot.tropos.data.TimeOfDay.DAY
 import com.thoughtbot.tropos.data.TimeOfDay.MORNING
 import com.thoughtbot.tropos.data.TimeOfDay.NIGHT
-import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.iconResId
 import com.thoughtbot.tropos.data.labelResId
 import com.thoughtbot.tropos.extensions.colorSubString
 import com.thoughtbot.tropos.extensions.lightenBy
 
-class CurrentWeatherViewModel(val context: Context, val today: WeatherData,
-    val yesterday: WeatherData) {
+class CurrentWeatherViewModel(val context: Context, val today: Condition,
+    val yesterday: Condition) {
 
   fun weatherSummary(): SpannableStringBuilder {
     val adjective = tempDifference().name.toLowerCase()

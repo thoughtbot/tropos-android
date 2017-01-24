@@ -2,41 +2,41 @@ package com.thoughtbot.tropos.data.remote
 
 import android.location.Location
 import com.thoughtbot.tropos.data.Status
-import com.thoughtbot.tropos.data.WeatherData
-import com.thoughtbot.tropos.data.WeatherDataSource
+import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.data.ConditionDataSource
 import com.thoughtbot.tropos.data.WindDirection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.Date
 
-class WeatherDataService(val api: ApiService = RestClient().create(
-    ApiService::class.java)) : WeatherDataSource {
+class ConditionDataService(val api: ApiService = RestClient().create(
+    ApiService::class.java)) : ConditionDataSource {
 
-  override fun fetchWeather(forLocation: Location, forDate: Date): Observable<WeatherData> {
+  override fun fetchCondition(forLocation: Location, forDate: Date): Observable<Condition> {
     return api.fetchRemoteForecast(forLocation.latitude, forLocation.longitude, forDate.time / 1000)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .map { it.mapToWeatherData(0) }
+        .map { it.mapToCondition(0) }
   }
 
   override fun fetchForecast(forLocation: Location,
-      forNumOfDaysFromToday: Int): Observable<List<WeatherData>> {
+      forNumOfDaysFromToday: Int): Observable<List<Condition>> {
     return api.fetchRemoteForecast(forLocation.latitude, forLocation.longitude)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .map { it.mapToWeatherDataList(forNumOfDaysFromToday) }
+        .map { it.mapToConditionList(forNumOfDaysFromToday) }
   }
 
-  private fun RemoteForecast.mapToWeatherDataList(forNumOfDaysFromToday: Int): List<WeatherData> {
-    var list = emptyList<WeatherData>()
+  private fun RemoteForecast.mapToConditionList(forNumOfDaysFromToday: Int): List<Condition> {
+    var list = emptyList<Condition>()
     for (i in 0..forNumOfDaysFromToday) {
-      list = list.plus(this.mapToWeatherData(i))
+      list = list.plus(this.mapToCondition(i))
     }
     return list
   }
 
-  private fun RemoteForecast.mapToWeatherData(dayOffset: Int): WeatherData {
+  private fun RemoteForecast.mapToCondition(dayOffset: Int): Condition {
     return when (dayOffset) {
     //today
       0 -> {
@@ -52,7 +52,7 @@ class WeatherDataService(val api: ApiService = RestClient().create(
         val highTemp = this.daily.data[0].temperatureMax?.toInt() ?: 0
         val temp = this.currently.temperature?.toInt() ?: 0
 
-        WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+        Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
             highTemp)
       }
     //this week
@@ -69,7 +69,7 @@ class WeatherDataService(val api: ApiService = RestClient().create(
         val highTemp = this.daily.data[dayOffset].temperatureMax?.toInt() ?: 0
         val temp = this.daily.data[dayOffset].temperature?.toInt() ?: 0
 
-        WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+        Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
             highTemp)
       }
       else -> throw IllegalArgumentException("dayOffset must be <= 7")

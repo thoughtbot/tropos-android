@@ -5,7 +5,7 @@ import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.R.drawable
 import com.thoughtbot.tropos.data.Status.PARTLY_CLOUDY_DAY
-import com.thoughtbot.tropos.data.WeatherData
+import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.WindDirection
 import org.junit.Before
 import org.junit.Test
@@ -23,7 +23,7 @@ class ForecastViewModelTest() {
 
   lateinit var context: Context
 
-  val mockWeatherData: WeatherData = {
+  val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
     val date = Date(timeStamp)
     val summary = "Mostly Cloudy"
@@ -37,7 +37,7 @@ class ForecastViewModelTest() {
     val highTemp = 54
     val temp = 52
 
-    WeatherData(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
         highTemp)
   }()
 
@@ -48,7 +48,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testIcon() {
-    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val viewModel = ForecastViewModel(context, mockCondition)
     val expected = drawable.partly_cloudy_day
     val actual = viewModel.icon
 
@@ -57,7 +57,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testDay() {
-    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val viewModel = ForecastViewModel(context, mockCondition)
     val expected = "Wed"
     val actual = viewModel.day
 
@@ -66,7 +66,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testHighTemp() {
-    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val viewModel = ForecastViewModel(context, mockCondition)
     val expected = "54°"
     val actual = viewModel.highTemp
 
@@ -75,7 +75,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testLowTemp() {
-    val viewModel = ForecastViewModel(context, mockWeatherData)
+    val viewModel = ForecastViewModel(context, mockCondition)
     val expected = "48°"
     val actual = viewModel.lowTemp
 
