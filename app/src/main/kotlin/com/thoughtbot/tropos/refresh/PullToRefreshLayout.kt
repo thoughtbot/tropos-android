@@ -25,8 +25,8 @@ class PullToRefreshLayout : ViewGroup {
     private val INVALID_POINTER = -1
     private val DRAG_RATE = .5f
     private val DRAG_MAX_DISTANCE = 64
-    private val TO_START_ANIMATION_DURATION = 200
-    private val TO_EXPANDED_ANIMATION_DURATION = 400
+    private val TO_START_ANIMATION_DURATION: Long = 200
+    private val TO_EXPANDED_ANIMATION_DURATION: Long = 400
     private val DECELERATE_INTERPOLATION_FACTOR = 2f
   }
 
@@ -484,7 +484,7 @@ class PullToRefreshLayout : ViewGroup {
 
   private fun animateOffsetToStartPosition() {
     toStartPositionAnimation.reset()
-    toStartPositionAnimation.duration = TO_START_ANIMATION_DURATION.toLong()
+    toStartPositionAnimation.duration = TO_START_ANIMATION_DURATION
     toStartPositionAnimation.interpolator = decelerateInterpolator
     toStartPositionAnimation.setAnimationListener(toStartListener)
     target?.clearAnimation()
@@ -493,7 +493,7 @@ class PullToRefreshLayout : ViewGroup {
 
   private fun animateOffsetToExpandedPosition() {
     toExpandedPositionAnimation.reset()
-    toExpandedPositionAnimation.duration = TO_EXPANDED_ANIMATION_DURATION.toLong()
+    toExpandedPositionAnimation.duration = TO_EXPANDED_ANIMATION_DURATION
     toExpandedPositionAnimation.interpolator = decelerateInterpolator
     toExpandedPositionAnimation.setAnimationListener(refreshingListener)
     target?.clearAnimation()
