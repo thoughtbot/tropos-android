@@ -543,12 +543,10 @@ class PullToRefreshLayout : ViewGroup {
    */
   private fun reportRefreshStateChange(newState: Int) {
     if (newState != lastScrollState) {
-      if (stateListener != null) {
-        lastScrollState = newState
-        stateListener?.onStateChanged(this, newState)
-        if (newState == ProgressStateListener.REFRESHING) {
-          refreshListener?.onRefresh()
-        }
+      lastScrollState = newState
+      stateListener?.onStateChanged(this, newState)
+      if (newState == ProgressStateListener.REFRESHING) {
+        refreshListener?.onRefresh()
       }
     }
   }
