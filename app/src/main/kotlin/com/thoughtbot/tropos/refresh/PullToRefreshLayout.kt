@@ -471,13 +471,15 @@ class PullToRefreshLayout : ViewGroup {
   }
 
   private fun calculateDistanceToStartPosition(interpolatedTime: Float): Int {
-    val targetTop = currentOffsetTop - (currentOffsetTop * interpolatedTime).toInt()
-    return targetTop - (target?.top ?: 0)
+    val targetTop = currentOffsetTop - (currentOffsetTop * interpolatedTime)
+    val roundedTop = Math.floor(targetTop.toDouble()).toInt()
+    return roundedTop - (target?.top ?: 0)
   }
 
   private fun calculateDistanceToExpandedPosition(interpolatedTime: Float): Int {
-    val targetTop = currentOffsetTop + ((expandedPositionOffset - currentOffsetTop) * interpolatedTime).toInt()
-    return targetTop - (target?.top ?: 0)
+    val targetTop = currentOffsetTop + ((expandedPositionOffset - currentOffsetTop) * interpolatedTime)
+    val roundedTop = Math.floor(targetTop.toDouble()).toInt()
+    return roundedTop - (target?.top ?: 0)
   }
 
   private fun animateOffsetToStartPosition() {
