@@ -79,7 +79,9 @@ class MainActivity : BaseActivity(), MainView {
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
 
         adapter.weather = it.weather
-        pullToRefreshLayout.setRefreshing(false)
+        recyclerView.itemAnimator.isRunning {
+          pullToRefreshLayout.setRefreshing(false)
+        }
 
         footer.visibility = View.VISIBLE
         error_text.visibility = View.GONE
