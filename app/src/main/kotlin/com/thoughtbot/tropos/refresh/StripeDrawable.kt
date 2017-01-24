@@ -21,6 +21,7 @@ class StripeDrawable(
 
   init {
     paint = Paint()
+    paint.strokeWidth = COLUMN_WIDTH.toFloat()
   }
 
   override fun draw(canvas: Canvas) {
@@ -55,7 +56,6 @@ class StripeDrawable(
     while (y - width < width + COLUMN_WIDTH) {
       val colorIndex = y / COLUMN_WIDTH % colors.size
       paint.color = colors[colorIndex]
-      paint.strokeWidth = COLUMN_WIDTH.toFloat()
       canvas.drawLine(x.toFloat(), y.toFloat(), (x + width).toFloat(), (y - width).toFloat(), paint)
       y += COLUMN_WIDTH
     }
