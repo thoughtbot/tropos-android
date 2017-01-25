@@ -2,15 +2,14 @@ package com.thoughtbot.tropos
 
 import android.content.Context
 import android.location.Location
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.thoughtbot.tropos.data.Status
-import com.thoughtbot.tropos.data.LocationDataSource
 import com.thoughtbot.tropos.data.Condition
-import com.thoughtbot.tropos.data.ConditionDataSource
+import com.thoughtbot.tropos.data.Status
+import com.thoughtbot.tropos.data.Weather
+import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.data.WindDirection
 import com.thoughtbot.tropos.permissions.Permission
 import com.thoughtbot.tropos.ui.MainPresenter
@@ -32,8 +31,7 @@ class MainPresenterTest() {
   lateinit var context: Context
   val view = mock<MainView>()
   val permission = mock<Permission>()
-  val locationDataSource = mock<LocationDataSource>()
-  val conditionDataSource = mock<ConditionDataSource>()
+  val weatherDataSource = mock<WeatherDataSource>()
 
   val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
@@ -53,6 +51,9 @@ class MainPresenterTest() {
         highTemp)
   }()
 
+  val mockWeather: Weather = Weather(mockCondition, mockCondition,
+      listOf(mockCondition, mockCondition, mockCondition))
+
   @Before
   fun setup() {
     RuntimeEnvironment.application.let { context = it }
@@ -60,11 +61,9 @@ class MainPresenterTest() {
 
   @Test
   fun testInit_hasPermission() {
-    val presenter = MainPresenter(view, locationDataSource, conditionDataSource, permission)
+    val presenter = MainPresenter(view, weatherDataSource, permission)
     whenever(view.context).thenReturn(context)
-    stubLocation()
     stubWeather()
-    stubForecast()
     stubPermission(true)
 
     presenter.init()
@@ -75,11 +74,9 @@ class MainPresenterTest() {
 
   @Test
   fun testInit_doesNotHavePermission() {
-    val presenter = MainPresenter(view, locationDataSource, conditionDataSource, permission)
+    val presenter = MainPresenter(view, weatherDataSource, permission)
     whenever(view.context).thenReturn(context)
-    stubLocation()
     stubWeather()
-    stubForecast()
     stubPermission(false)
 
     presenter.init()
@@ -87,18 +84,8 @@ class MainPresenterTest() {
     verify(view).viewState = isA<ViewState.Error>()
   }
 
-  fun stubLocation() {
-    whenever(locationDataSource.fetchLocation()).thenReturn(Observable.just(Location("")))
-  }
-
   fun stubWeather() {
-    whenever(conditionDataSource.fetchCondition(any(), any())).thenReturn(
-        Observable.just(mockCondition))
-  }
-
-  fun stubForecast() {
-    whenever(conditionDataSource.fetchForecast(any(), any())).thenReturn(
-        Observable.just(listOf(mockCondition)))
+    whenever(weatherDataSource.fetchWeather()).thenReturn(Observable.just(mockWeather))
   }
 
   fun stubPermission(hasPermission: Boolean) {

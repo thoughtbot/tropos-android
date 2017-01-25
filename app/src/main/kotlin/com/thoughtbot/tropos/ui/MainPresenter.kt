@@ -2,12 +2,8 @@ package com.thoughtbot.tropos.ui
 
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.Presenter
-import com.thoughtbot.tropos.data.ConditionDataSource
-import com.thoughtbot.tropos.data.LocationDataSource
-import com.thoughtbot.tropos.data.Weather
-import com.thoughtbot.tropos.data.remote.ConditionDataService
-import com.thoughtbot.tropos.data.remote.LocationService
-import com.thoughtbot.tropos.extensions.dayBefore
+import com.thoughtbot.tropos.data.WeatherDataSource
+import com.thoughtbot.tropos.data.WeatherService
 import com.thoughtbot.tropos.permissions.LocationPermission
 import com.thoughtbot.tropos.permissions.Permission
 import com.thoughtbot.tropos.permissions.PermissionResults
@@ -17,11 +13,9 @@ import com.thoughtbot.tropos.viewmodels.ErrorToolbarViewModel
 import com.thoughtbot.tropos.viewmodels.LoadingToolbarViewModel
 import com.thoughtbot.tropos.viewmodels.WeatherToolbarViewModel
 import io.reactivex.disposables.Disposable
-import java.util.Date
 
 class MainPresenter(override val view: MainView,
-    val locationDataSource: LocationDataSource = LocationService(view.context),
-    val conditionDataSource: ConditionDataSource = ConditionDataService(),
+    val weatherDataSource: WeatherDataSource = WeatherService(view.context),
     val permission: Permission = LocationPermission(view.context))
   : Presenter, RefreshListener, PermissionResults {
 
@@ -33,13 +27,7 @@ class MainPresenter(override val view: MainView,
 
   fun updateWeather() {
     view.viewState = ViewState.Loading(LoadingToolbarViewModel(view.context))
-    disposable = locationDataSource.fetchLocation()
-        .flatMap { conditionDataSource.fetchForecast(it, 3) }
-        .flatMap({ forecast ->
-          conditionDataSource.fetchCondition(forecast[0].location, Date().dayBefore())
-        }, { forecast, yesterday ->
-          return@flatMap Weather(yesterday, forecast[0], forecast.drop(1))
-        })
+    disposable = weatherDataSource.fetchWeather()
         .doOnError {
           val errorMessage = it.message ?: ""
           view.viewState = ViewState.Error(ErrorToolbarViewModel(view.context), errorMessage)
