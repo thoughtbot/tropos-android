@@ -9,9 +9,7 @@ import android.graphics.Rect
 import android.graphics.Region
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
-import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
-import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.ProgressStateListener
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.ProgressStateListener.Companion.INACTIVE
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.ProgressStateListener.Companion.PROGRESSING
@@ -27,22 +25,12 @@ class RefreshDrawable(context: Context) : Drawable(), Drawable.Callback, Progres
   private val layers: LayerDrawable
 
   init {
-    val colors = initColors(context)
-    stripeBackgroundLayer = StripeDrawable(colors)
+    stripeBackgroundLayer = StripeDrawable(context)
     progressCircleLayer = ProgressCircleDrawable(context)
 
     val layers = arrayOf<Drawable>(stripeBackgroundLayer, progressCircleLayer)
     this.layers = LayerDrawable(layers)
     this.layers.callback = this
-  }
-
-  private fun initColors(context: Context): IntArray {
-    val tangerine = ContextCompat.getColor(context, R.color.tangerine)
-    val skyBlueLight = ContextCompat.getColor(context, R.color.sky_blue_light)
-    val skyBlue = ContextCompat.getColor(context, R.color.sky_blue)
-    val burntOrange = ContextCompat.getColor(context, R.color.burnt_orange)
-
-    return intArrayOf(tangerine, skyBlueLight, skyBlue, burntOrange)
   }
 
   override fun draw(canvas: Canvas) {
