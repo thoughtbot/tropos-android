@@ -2,10 +2,11 @@ package com.thoughtbot.tropos.ui
 
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.Presenter
-import com.thoughtbot.tropos.data.LocationDataSource
 import com.thoughtbot.tropos.data.ConditionDataSource
-import com.thoughtbot.tropos.data.remote.LocationService
+import com.thoughtbot.tropos.data.LocationDataSource
+import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.data.remote.ConditionDataService
+import com.thoughtbot.tropos.data.remote.LocationService
 import com.thoughtbot.tropos.extensions.dayBefore
 import com.thoughtbot.tropos.permissions.LocationPermission
 import com.thoughtbot.tropos.permissions.Permission
@@ -36,13 +37,15 @@ class MainPresenter(override val view: MainView,
         .flatMap { conditionDataSource.fetchForecast(it, 3) }
         .flatMap({ forecast ->
           conditionDataSource.fetchCondition(forecast[0].location, Date().dayBefore())
-        }, { forecast, yesterday -> return@flatMap listOf(yesterday).plus(forecast) })
+        }, { forecast, yesterday ->
+          return@flatMap Weather(yesterday, forecast[0], forecast.drop(1))
+        })
         .doOnError {
           val errorMessage = it.message ?: ""
           view.viewState = ViewState.Error(ErrorToolbarViewModel(view.context), errorMessage)
         }
         .subscribe {
-          view.viewState = ViewState.Weather(WeatherToolbarViewModel(view.context, it[0]), it)
+          view.viewState = ViewState.Weather(WeatherToolbarViewModel(view.context, it.today), it)
         }
   }
 

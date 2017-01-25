@@ -1,21 +1,19 @@
 package com.thoughtbot.tropos.adapters
 
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.GridLayoutManager.SpanSizeLookup
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.Adapter
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
-import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.layout
 import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.viewholders.CurrentWeatherViewHolder
 import com.thoughtbot.tropos.viewholders.ForecastViewHolder
 
 class WeatherAdapter : Adapter<ViewHolder>() {
 
-  var weather: List<Condition> = emptyList()
+  var weather: Weather? = null
     set(value) {
       field = value
       notifyDataSetChanged()
@@ -43,8 +41,8 @@ class WeatherAdapter : Adapter<ViewHolder>() {
 
   override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
     when (holder) {
-      is CurrentWeatherViewHolder -> holder.bind(today(), yesterday())
-      is ForecastViewHolder -> holder.bind(forecast(position))
+      is CurrentWeatherViewHolder -> weather?.let { holder.bind(it.today, it.yesterday) }
+      is ForecastViewHolder -> weather?.let { holder.bind(forecast(it, position)) }
     }
   }
 
@@ -58,24 +56,16 @@ class WeatherAdapter : Adapter<ViewHolder>() {
 
   override fun getItemCount(): Int {
     // 1 current weather + 3 daily forecasts
-    return if (weather.isEmpty()) 0 else 4
+    return if (weather == null) 0 else 4
   }
 
   private fun isCurrentWeather(position: Int): Boolean {
     return position == 0
   }
 
-  private fun forecast(position: Int): Condition {
-    //add one to account for yesterdays weather being in {@code weather}
-    return weather[position + 1]
-  }
-
-  private fun today(): Condition {
-    return weather[1]
-  }
-
-  private fun yesterday(): Condition {
-    return weather[0]
+  private fun forecast(weather: Weather, position: Int): Condition {
+    //subtract one to account for the current condition
+    return weather.nextThreeDays[position - 1]
   }
 
 }
