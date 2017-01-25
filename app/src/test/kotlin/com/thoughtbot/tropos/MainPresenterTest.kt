@@ -7,7 +7,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.data.Condition
-import com.thoughtbot.tropos.data.Status
+import com.thoughtbot.tropos.data.Icon
 import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.data.WindDirection
@@ -40,14 +40,14 @@ class MainPresenterTest() {
     val location = Location("")
     location.longitude = -122.4375671
     location.latitude = 37.8032493
-    val status = Status.PARTLY_CLOUDY_DAY
+    val icon = Icon.PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
     val lowTemp = 48
     val highTemp = 54
     val temp = 52
 
-    Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
         highTemp)
   }()
 

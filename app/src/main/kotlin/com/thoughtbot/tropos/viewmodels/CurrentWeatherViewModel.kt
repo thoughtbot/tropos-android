@@ -36,7 +36,7 @@ class CurrentWeatherViewModel(val context: Context, val today: Condition,
     return fullSummary.colorSubString(adjective, temperatureDifferenceColor())
   }
 
-  val icon: Int = today.status.iconResId()
+  val icon: Int = today.icon.iconResId()
 
   fun temperatures(): SpannableStringBuilder {
     val fullString = context.getString(R.string.formatted_temperature_string,

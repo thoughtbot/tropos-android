@@ -1,7 +1,7 @@
 package com.thoughtbot.tropos.data.remote
 
 import android.location.Location
-import com.thoughtbot.tropos.data.Status
+import com.thoughtbot.tropos.data.Icon
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.ConditionDataSource
 import com.thoughtbot.tropos.data.WindDirection
@@ -45,14 +45,14 @@ class ConditionDataService(val api: ApiService = RestClient().create(
         val location = Location("")
         location.longitude = this.longitude
         location.latitude = this.latitude
-        val status = this.currently.icon.mapToStatus()
+        val icon = this.currently.icon.mapToIcon()
         val windSpeed = this.currently.windSpeed?.toInt() ?: 0
         val windDirection = WindDirection(this.currently.windBearing ?: 0.0)
         val lowTemp = this.daily.data[0].temperatureMin?.toInt() ?: 0
         val highTemp = this.daily.data[0].temperatureMax?.toInt() ?: 0
         val temp = this.currently.temperature?.toInt() ?: 0
 
-        Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+        Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
             highTemp)
       }
     //this week
@@ -62,25 +62,25 @@ class ConditionDataService(val api: ApiService = RestClient().create(
         val location = Location("")
         location.longitude = this.longitude
         location.latitude = this.latitude
-        val status = this.daily.data[dayOffset].icon.mapToStatus()
+        val icon = this.daily.data[dayOffset].icon.mapToIcon()
         val windSpeed = this.daily.data[dayOffset].windSpeed?.toInt() ?: 0
         val windDirection = WindDirection(this.daily.data[dayOffset].windBearing ?: 0.0)
         val lowTemp = this.daily.data[dayOffset].temperatureMin?.toInt() ?: 0
         val highTemp = this.daily.data[dayOffset].temperatureMax?.toInt() ?: 0
         val temp = this.daily.data[dayOffset].temperature?.toInt() ?: 0
 
-        Condition(date, summary, location, status, windSpeed, windDirection, lowTemp, temp,
+        Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
             highTemp)
       }
       else -> throw IllegalArgumentException("dayOffset must be <= 7")
     }
   }
 
-  private fun String.mapToStatus(): Status {
+  private fun String.mapToIcon(): Icon {
     val formatted = this.replace('-', '_').toUpperCase()
-    return Status.values()
+    return Icon.values()
         .find { it.name.contentEquals(formatted) }
-        ?: throw IllegalArgumentException("$formatted is not a valid Status")
+        ?: throw IllegalArgumentException("$formatted is not a valid Icon")
   }
 
 }

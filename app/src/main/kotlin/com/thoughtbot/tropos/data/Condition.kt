@@ -10,7 +10,7 @@ data class Condition(
     val date: Date,
     val summary: String,
     val location: Location,
-    val status: Status,
+    val icon: Icon,
     val windSpeed: Int,
     val windDirection: WindDirection,
     val lowTemp: Int,
@@ -25,7 +25,7 @@ data class Condition(
       Date(source.readLong()),
       source.readString(),
       source.readParcelable<Location>(Location::class.java.classLoader),
-      Status.values()[source.readInt()],
+      Icon.values()[source.readInt()],
       source.readInt(),
       WindDirection.values()[source.readInt()],
       source.readInt(),
@@ -38,7 +38,7 @@ data class Condition(
     dest?.writeLong(date.time)
     dest?.writeString(summary)
     dest?.writeParcelable(location, 0)
-    dest?.writeInt(status.ordinal)
+    dest?.writeInt(icon.ordinal)
     dest?.writeInt(windSpeed)
     dest?.writeInt(windDirection.ordinal)
     dest?.writeInt(lowTemp)

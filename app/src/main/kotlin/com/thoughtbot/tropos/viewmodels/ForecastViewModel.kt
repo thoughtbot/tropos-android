@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 
 class ForecastViewModel(val context: Context, val condition: Condition) {
 
-  val icon: Int = condition.status.iconResId()
+  val icon: Int = condition.icon.iconResId()
 
   val day: String = SimpleDateFormat("EEE").format(condition.date)
 
