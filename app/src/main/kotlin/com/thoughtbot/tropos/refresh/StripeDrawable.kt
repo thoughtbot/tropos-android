@@ -3,9 +3,14 @@ package com.thoughtbot.tropos.refresh
 import android.graphics.Canvas
 import android.graphics.ColorFilter
 import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.SystemClock
+
+data class ColoredLine(val line: Array<Float>, val paint: Paint)
+
+data class Frame(val lines: List<ColoredLine>)
 
 class StripeDrawable(
     private val colors: IntArray) : Drawable(), Animatable, Runnable, Drawable.Callback {
@@ -17,11 +22,11 @@ class StripeDrawable(
   private var running = false
   private var startTime: Long = 0
 
-  private val paint: Paint
+  private val paintColors: List<Paint>
+  private var frames: List<Frame> = emptyList()
 
   init {
-    paint = Paint()
-    paint.strokeWidth = COLUMN_WIDTH.toFloat()
+    paintColors = colors.map { makePaint(it) }
   }
 
   override fun draw(canvas: Canvas) {
@@ -38,27 +43,47 @@ class StripeDrawable(
 
       val xPos = (0 - progress * width).toInt()
 
-      drawDiagonalLines(canvas, xPos)
+      val frameVersion = (progress * width).toInt() % colors.size
+      drawLines(canvas, frameVersion)
       canvas.restoreToCount(save)
     } else {
-      //draw normal
-      drawDiagonalLines(canvas, 0)
+      drawLines(canvas, 0)
     }
   }
 
-  private fun drawDiagonalLines(canvas: Canvas, startPosition: Int) {
+  override fun onBoundsChange(bounds: Rect?) {
+    super.onBoundsChange(bounds)
+    frames = colors.mapIndexed { index, color -> Frame(makeDiagonalLines(-index * COLUMN_WIDTH)) }
+  }
+
+  private fun drawLines(canvas: Canvas, frameVersion: Int) {
+    frames[frameVersion].lines.forEach {
+      canvas.drawLine(it.line[0], it.line[1], it.line[2], it.line[3], it.paint)
+    }
+  }
+
+  private fun makeDiagonalLines(startPosition: Int): List<ColoredLine> {
+    var coloredLines = emptyList<ColoredLine>()
     //subtract column width to ensure lines fill entire screen
     val start = startPosition - COLUMN_WIDTH
-    val width = canvas.width - start + COLUMN_WIDTH
+    val width = bounds.width() - start + COLUMN_WIDTH
 
     val x = start
     var y = 0
     while (y - width < width + COLUMN_WIDTH) {
       val colorIndex = y / COLUMN_WIDTH % colors.size
-      paint.color = colors[colorIndex]
-      canvas.drawLine(x.toFloat(), y.toFloat(), (x + width).toFloat(), (y - width).toFloat(), paint)
+      val lines = arrayOf(x.toFloat(), y.toFloat(), (x + width).toFloat(), (y - width).toFloat())
+      coloredLines = coloredLines.plus(ColoredLine(lines, paintColors[colorIndex]))
       y += COLUMN_WIDTH
     }
+    return coloredLines
+  }
+
+  private fun makePaint(color: Int): Paint {
+    val paint = Paint()
+    paint.strokeWidth = COLUMN_WIDTH.toFloat()
+    paint.color = color
+    return paint
   }
 
   override fun setAlpha(alpha: Int) {
