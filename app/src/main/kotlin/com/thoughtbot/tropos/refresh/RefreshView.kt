@@ -2,6 +2,7 @@ package com.thoughtbot.tropos.refresh
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.view.animation.Animation
 import android.widget.ImageView
 
@@ -21,12 +22,14 @@ class RefreshView : ImageView {
   override fun onAnimationEnd() {
     super.onAnimationEnd()
     listener?.onAnimationEnd(mostRecentAnimation)
+    setLayerType(View.LAYER_TYPE_NONE, null)
   }
 
   override fun onAnimationStart() {
     super.onAnimationStart()
     listener?.onAnimationStart(animation)
     mostRecentAnimation = animation
+    setLayerType(View.LAYER_TYPE_HARDWARE, null)
   }
 }
 
