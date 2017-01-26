@@ -5,6 +5,7 @@ import android.location.Location
 import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.data.Condition
@@ -83,8 +84,7 @@ class SplashPresenterTest() {
 
     presenter.init()
 
-    val intent = MainActivity.createIntent(context, null)
-    verify(view).navigate(intent)
+    verifyNoMoreInteractions(view)
   }
 
   fun stubWeather() {

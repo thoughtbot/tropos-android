@@ -18,7 +18,7 @@ class SplashPresenter(override val view: SplashView,
   var disposable: Disposable? = null
 
   fun init() {
-    permission.checkPermission({ fetchWeather() }, { onPermissionDenied(false) }, true)
+    permission.checkPermission({ fetchWeather() }, { }, true)
   }
 
   fun onDestroy() {
