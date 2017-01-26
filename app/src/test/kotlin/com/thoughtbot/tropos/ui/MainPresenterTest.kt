@@ -1,4 +1,4 @@
-package com.thoughtbot.tropos
+package com.thoughtbot.tropos.ui
 
 import android.content.Context
 import android.location.Location
@@ -6,6 +6,7 @@ import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Icon
 import com.thoughtbot.tropos.data.Weather
@@ -60,26 +61,26 @@ class MainPresenterTest() {
   }
 
   @Test
-  fun testInit_hasPermission() {
-    val presenter = MainPresenter(view, weatherDataSource, permission)
+  fun testOnResume_hasPermission() {
+    val presenter = MainPresenter(view, null, weatherDataSource, permission)
     whenever(view.context).thenReturn(context)
     stubWeather()
     stubPermission(true)
 
-    presenter.init()
+    presenter.onResume()
 
     verify(view).viewState = isA<ViewState.Loading>()
     verify(view).viewState = isA<ViewState.Weather>()
   }
 
   @Test
-  fun testInit_doesNotHavePermission() {
-    val presenter = MainPresenter(view, weatherDataSource, permission)
+  fun testOnResume_doesNotHavePermission() {
+    val presenter = MainPresenter(view, null, weatherDataSource, permission)
     whenever(view.context).thenReturn(context)
     stubWeather()
     stubPermission(false)
 
-    presenter.init()
+    presenter.onResume()
 
     verify(view).viewState = isA<ViewState.Error>()
   }

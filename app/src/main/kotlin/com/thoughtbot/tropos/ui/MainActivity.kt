@@ -1,6 +1,7 @@
 package com.thoughtbot.tropos.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.adapters.WeatherAdapter
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
+import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.extensions.attachSnapHelper
 import com.thoughtbot.tropos.permissions.getPermissionResults
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout
@@ -22,8 +24,17 @@ import kotlinx.android.synthetic.main.activity_main.toolbar_last_update
 import org.jetbrains.anko.find
 
 class MainActivity : BaseActivity(), MainView {
+  companion object {
+    val WEATHER_EXTRA = "weather_extra"
 
-  val presenter: MainPresenter by lazy { MainPresenter(this) }
+    fun createIntent(context: Context, weather: Weather?): Intent {
+      val intent = Intent(context, MainActivity::class.java)
+      weather?.let { intent.putExtra(WEATHER_EXTRA, it) }
+      return intent
+    }
+  }
+
+  val presenter: MainPresenter by lazy { MainPresenter(this, intent) }
   val recyclerView: RecyclerView by lazy { findViewById(R.id.recycler_view) as RecyclerView }
   val adapter: WeatherAdapter by lazy { WeatherAdapter() }
   val layoutManager: GridLayoutManager by lazy { GridLayoutManager(this, 3) }
@@ -41,8 +52,11 @@ class MainActivity : BaseActivity(), MainView {
 
     pullToRefreshLayout.setRefreshingDrawable(RefreshDrawable(this))
     pullToRefreshLayout.refreshListener = presenter
+  }
 
-    presenter.init()
+  override fun onResume() {
+    super.onResume()
+    presenter.onResume()
   }
 
   override fun onDestroy() {

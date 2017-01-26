@@ -1,5 +1,6 @@
 package com.thoughtbot.tropos.ui
 
+import android.content.Intent
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.Presenter
 import com.thoughtbot.tropos.data.WeatherDataSource
@@ -15,13 +16,14 @@ import com.thoughtbot.tropos.viewmodels.WeatherToolbarViewModel
 import io.reactivex.disposables.Disposable
 
 class MainPresenter(override val view: MainView,
-    val weatherDataSource: WeatherDataSource = WeatherService(view.context),
+    intent: Intent?,
+    val weatherDataSource: WeatherDataSource = WeatherService(view.context, intent),
     val permission: Permission = LocationPermission(view.context))
   : Presenter, RefreshListener, PermissionResults {
 
-  lateinit var disposable: Disposable
+  var disposable: Disposable? = null
 
-  fun init() {
+  fun onResume() {
     permission.checkPermission({ updateWeather() }, { onPermissionDenied(false) }, true)
   }
 
@@ -42,7 +44,7 @@ class MainPresenter(override val view: MainView,
   }
 
   fun onDestroy() {
-    disposable.dispose()
+    disposable?.dispose()
   }
 
   override fun onPermissionGranted() {
