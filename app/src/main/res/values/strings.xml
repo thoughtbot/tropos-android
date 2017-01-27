@@ -19,6 +19,7 @@
   <string name="forecast_io_credit">Powered by Forecast</string>
   <string name="thoughtbot">thoughtbot</string>
   <string name="missing_location_permission_error">🙅🏾 🙅🏼 🙅🏻\n\nLocation sharing is turned off. \n\nEnable location sharing in Settings to help us give you the most accurate weather predictions</string>
+  <string name="generic_error_message">🙅🏾 🙅🏼 🙅🏻\n\n%s</string>
 
   //toolbar
   <string name="updated_at">Updated at %s</string>

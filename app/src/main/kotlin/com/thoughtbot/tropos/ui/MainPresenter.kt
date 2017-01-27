@@ -33,7 +33,8 @@ class MainPresenter(override val view: MainView,
         .subscribe({
           view.viewState = ViewState.Weather(WeatherToolbarViewModel(view.context, it.today), it)
         }, { error ->
-          val errorMessage = error.message ?: ""
+          val message = error.message ?: ""
+          val errorMessage = view.context.getString(R.string.generic_error_message, message)
           view.viewState = ViewState.Error(ErrorToolbarViewModel(view.context), errorMessage)
         })
   }
