@@ -16,7 +16,7 @@
   <string name="formatted_temperature_string">%1$d&#xb0; / %2$d&#xb0; / %3$d&#xb0;</string>
   <string name="formatted_wind_string">%1$s mph %2$s</string>
   <string name="temperature">%d&#xb0;</string>
-  <string name="forecast_io_credit">Powered by Forecast</string>
+  <string name="dark_sky_credit">Powered by Dark Sky</string>
   <string name="thoughtbot">thoughtbot</string>
   <string name="missing_location_permission_error">🙅🏾 🙅🏼 🙅🏻\n\nLocation sharing is turned off. \n\nEnable location sharing in Settings to help us give you the most accurate weather predictions</string>
   <string name="generic_error_message">🙅🏾 🙅🏼 🙅🏻\n\n%s</string>

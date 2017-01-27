@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="8dp"
-        android:text="@string/forecast_io_credit"
+        android:text="@string/dark_sky_credit"
         android:textColor="@color/cloud_gray" />
 
     </LinearLayout>
