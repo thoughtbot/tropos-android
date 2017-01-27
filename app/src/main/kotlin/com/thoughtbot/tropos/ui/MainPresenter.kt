@@ -30,13 +30,12 @@ class MainPresenter(override val view: MainView,
   fun updateWeather() {
     view.viewState = ViewState.Loading(LoadingToolbarViewModel(view.context))
     disposable = weatherDataSource.fetchWeather()
-        .doOnError {
-          val errorMessage = it.message ?: ""
-          view.viewState = ViewState.Error(ErrorToolbarViewModel(view.context), errorMessage)
-        }
-        .subscribe {
+        .subscribe({
           view.viewState = ViewState.Weather(WeatherToolbarViewModel(view.context, it.today), it)
-        }
+        }, { error ->
+          val errorMessage = error.message ?: ""
+          view.viewState = ViewState.Error(ErrorToolbarViewModel(view.context), errorMessage)
+        })
   }
 
   override fun onRefresh() {
