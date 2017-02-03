@@ -8,6 +8,7 @@ import com.thoughtbot.tropos.data.TemperatureDifference.COOLER
 import com.thoughtbot.tropos.data.TemperatureDifference.HOTTER
 import com.thoughtbot.tropos.data.TemperatureDifference.SAME
 import com.thoughtbot.tropos.data.TemperatureDifference.WARMER
+import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
@@ -29,11 +30,12 @@ class TemperatureDifferenceTest {
     val icon = PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
+    val unit = IMPERIAL
     val lowTemp = 48
     val highTemp = 54
     val temp = 52
 
-    Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, icon, windSpeed, windDirection, unit, lowTemp, temp,
         highTemp)
   }()
 
