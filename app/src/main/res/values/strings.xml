@@ -14,7 +14,8 @@
 
   //main
   <string name="formatted_temperature_string">%1$d&#xb0; / %2$d&#xb0; / %3$d&#xb0;</string>
-  <string name="formatted_wind_string">%1$s mph %2$s</string>
+  <string name="formatted_imperial_wind_string">%1$d mph %2$s</string>
+  <string name="formatted_metric_wind_string">%1$d km/h %2$s</string>
   <string name="temperature">%d&#xb0;</string>
   <string name="dark_sky_credit">Powered by Dark Sky</string>
   <string name="thoughtbot">thoughtbot</string>

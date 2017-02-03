@@ -7,25 +7,28 @@ import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.color
 import com.thoughtbot.tropos.R.drawable
 import com.thoughtbot.tropos.R.string
-import com.thoughtbot.tropos.data.TemperatureDifference
+import com.thoughtbot.tropos.data.*
 import com.thoughtbot.tropos.data.TemperatureDifference.COLDER
 import com.thoughtbot.tropos.data.TemperatureDifference.COOLER
 import com.thoughtbot.tropos.data.TemperatureDifference.HOTTER
 import com.thoughtbot.tropos.data.TemperatureDifference.SAME
 import com.thoughtbot.tropos.data.TemperatureDifference.WARMER
-import com.thoughtbot.tropos.data.TimeOfDay
 import com.thoughtbot.tropos.data.TimeOfDay.AFTERNOON
 import com.thoughtbot.tropos.data.TimeOfDay.DAY
 import com.thoughtbot.tropos.data.TimeOfDay.MORNING
 import com.thoughtbot.tropos.data.TimeOfDay.NIGHT
-import com.thoughtbot.tropos.data.Condition
-import com.thoughtbot.tropos.data.iconResId
-import com.thoughtbot.tropos.data.labelResId
+import com.thoughtbot.tropos.data.Unit
+import com.thoughtbot.tropos.data.Unit.IMPERIAL
+import com.thoughtbot.tropos.data.Unit.METRIC
+import com.thoughtbot.tropos.data.local.LocalPreferences
 import com.thoughtbot.tropos.extensions.colorSubString
+import com.thoughtbot.tropos.extensions.convertSpeed
+import com.thoughtbot.tropos.extensions.convertTemperature
 import com.thoughtbot.tropos.extensions.lightenBy
 
-class CurrentWeatherViewModel(val context: Context, val today: Condition,
-    val yesterday: Condition) {
+class CurrentWeatherViewModel(val context: Context,
+    val preferences: Preferences = LocalPreferences(context),
+    val today: Condition, val yesterday: Condition) {
 
   fun weatherSummary(): SpannableStringBuilder {
     val adjective = tempDifference().name.toLowerCase()
@@ -39,9 +42,12 @@ class CurrentWeatherViewModel(val context: Context, val today: Condition,
   val icon: Int = today.icon.iconResId()
 
   fun temperatures(): SpannableStringBuilder {
-    val fullString = context.getString(R.string.formatted_temperature_string,
-        today.highTemp, today.currentTemp, today.lowTemp)
-    val today = context.getString(string.temperature, today.currentTemp)
+    val high = today.highTemp.convertTemperature(today.unit, preferences.unit)
+    val low = today.lowTemp.convertTemperature(today.unit, preferences.unit)
+    val current = today.currentTemp.convertTemperature(today.unit, preferences.unit)
+
+    val fullString = context.getString(R.string.formatted_temperature_string, high, current, low)
+    val today = context.getString(string.temperature, current)
     return fullString.colorSubString(today, temperatureDifferenceColor())
   }
 
@@ -49,7 +55,9 @@ class CurrentWeatherViewModel(val context: Context, val today: Condition,
 
   fun wind(): String {
     val windDirection = context.getString(today.windDirection.labelResId())
-    return context.getString(R.string.formatted_wind_string, today.windSpeed, windDirection)
+    val windSpeed = today.windSpeed.convertSpeed(today.unit, preferences.unit)
+    val stringFormat = if (preferences.unit == IMPERIAL) R.string.formatted_imperial_wind_string else R.string.formatted_metric_wind_string
+    return context.getString(stringFormat, windSpeed, windDirection)
   }
 
   val windIcon = drawable.label_wind

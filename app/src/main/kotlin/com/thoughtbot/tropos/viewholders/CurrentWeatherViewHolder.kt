@@ -13,7 +13,7 @@ import org.jetbrains.anko.find
 class CurrentWeatherViewHolder(itemView: View?) : ViewHolder(itemView) {
 
   fun bind(today: Condition, yesterday: Condition) {
-    val viewModel = CurrentWeatherViewModel(itemView.context, today, yesterday)
+    val viewModel = CurrentWeatherViewModel(itemView.context, today = today, yesterday = yesterday)
 
     itemView.find<ImageView>(id.weather_icon).setBackgroundResource(viewModel.icon)
     itemView.find<TextView>(id.weather_summary).text = viewModel.weatherSummary()
