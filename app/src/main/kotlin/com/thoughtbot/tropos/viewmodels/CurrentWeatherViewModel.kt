@@ -28,7 +28,7 @@ class CurrentWeatherViewModel(val context: Context, val today: Condition,
     val yesterday: Condition) {
 
   fun weatherSummary(): SpannableStringBuilder {
-    val adjective = tempDifference().name.toLowerCase()
+    val adjective = context.getString(tempDifference().asAdjective())
     val todayDescription = context.getString(timeOfDay().asPresentDayDescription())
     val yesterdayDescription = context.getString(timeOfDay().asPreviousDayDescription())
     val format = tempDifference().summaryFormat()
@@ -79,6 +79,14 @@ class CurrentWeatherViewModel(val context: Context, val today: Condition,
     } else {
       return color
     }
+  }
+
+  private fun TemperatureDifference.asAdjective(): Int = when(this) {
+    SAME -> R.string.same
+    HOTTER -> R.string.hotter
+    WARMER -> R.string.warmer
+    COOLER -> R.string.cooler
+    COLDER -> R.string.colder
   }
 
   private fun TimeOfDay.asPresentDayDescription(): Int {
