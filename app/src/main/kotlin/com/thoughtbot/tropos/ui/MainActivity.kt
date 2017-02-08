@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.adapters.WeatherAdapter
@@ -17,6 +20,7 @@ import com.thoughtbot.tropos.refresh.PullToRefreshLayout
 import com.thoughtbot.tropos.refresh.RefreshDrawable
 import com.thoughtbot.tropos.scrolling.WeatherSnapHelper
 import com.thoughtbot.tropos.scrolling.setVerticalEndOverScroller
+import com.thoughtbot.tropos.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.error_text
 import kotlinx.android.synthetic.main.activity_main.footer
 import kotlinx.android.synthetic.main.activity_main.toolbar_city
@@ -44,6 +48,9 @@ class MainActivity : BaseActivity(), MainView {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
+    val toolbar = find<Toolbar>(R.id.toolbar)
+    setSupportActionBar(toolbar)
+
     recyclerView.adapter = adapter
     layoutManager.spanSizeLookup = adapter.spanSizeLookup
     recyclerView.layoutManager = layoutManager
@@ -68,6 +75,21 @@ class MainActivity : BaseActivity(), MainView {
       grantResults: IntArray) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     getPermissionResults(presenter.permission, presenter, requestCode, permissions, grantResults)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.settings_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    return when (item?.itemId) {
+      R.id.action_settings -> {
+        startActivity(Intent(this, SettingsActivity::class.java))
+        return true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
   }
 
   override val context: Context = this

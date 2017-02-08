@@ -6,11 +6,28 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+
+    //color the overflow menu buttons
+    <item name="android:textColorSecondary">@color/cloud_gray</item>
   </style>
 
   <style name="AppTheme.TransparentStatusBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="SettingsText">
+    <item name="android:textColor">@color/cloud_gray</item>
+    <item name="android:padding">@dimen/activity_vertical_margin</item>
+    <item name="android:background">@color/secondary_background</item>
+    <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="SettingsText.Title">
+    <item name="android:textAllCaps">true</item>
+    <item name="android:layout_marginTop">16dp</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:background">@null</item>
   </style>
 
 </resources>

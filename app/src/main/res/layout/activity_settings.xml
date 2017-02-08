@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/primary_background"
+  android:fitsSystemWindows="true"
+  android:orientation="vertical">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/settings_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:title="@string/settings_activity_title"
+    app:titleTextColor="@color/cloud_gray" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="0dp"
+    android:text="unit system"
+    style="@style/SettingsText.Title" />
+
+  <RadioGroup
+    android:id="@+id/settings_unit_radio_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioButton
+      android:id="@+id/settings_metric_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:button="@null"
+      android:drawableRight="@drawable/settings_check_selector"
+      android:text="@string/metric"
+      style="@style/SettingsText" />
+
+    <RadioButton
+      android:id="@+id/settings_imperial_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:button="@null"
+      android:drawableRight="@drawable/settings_check_selector"
+      android:text="@string/imperial"
+      style="@style/SettingsText" />
+
+  </RadioGroup>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/info"
+    style="@style/SettingsText.Title" />
+
+  <TextView
+    android:id="@+id/settings_privacy_policy"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableRight="@drawable/ic_next"
+    android:text="@string/privacy_policy"
+    style="@style/SettingsText" />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingBottom="32dp">
+
+    <TextView
+      android:id="@+id/settings_thoughtbot_credit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:gravity="center_vertical"
+      android:text="@string/handcrafted_with_love_by_thoughtbot"
+      android:textColor="@color/cloud_gray"
+      android:textSize="20sp" />
+
+    <TextView
+      android:id="@+id/settings_dark_sky_credit"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/settings_thoughtbot_credit"
+      android:gravity="center"
+      android:padding="8dp"
+      android:text="@string/dark_sky_credit"
+      android:textColor="@color/cloud_gray"
+      android:textSize="20sp" />
+
+  </RelativeLayout>
+
+</LinearLayout>

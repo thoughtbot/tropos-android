@@ -40,4 +40,13 @@
   //temperature formats
   <string name="different_temperature_format" formatted="false">It\'s %s %s than %s.</string>
   <string name="same_temperature_format" formatted="false">It\'s the %s %s as %s.</string>
+
+  //settings
+  <string name="metric">Metric</string>
+  <string name="imperial">Imperial</string>
+  <string name="info">info</string>
+  <string name="privacy_policy">Privacy Policy</string>
+  <string name="settings_menu">Settings</string>
+  <string name="settings_activity_title">Settings</string>
+  <string name="handcrafted_with_love_by_thoughtbot">Handcrafted with 💜 by thoughtbot</string>
 </resources>
