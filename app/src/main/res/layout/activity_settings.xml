@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/primary_background"
+  android:background="@color/secondary_background"
   android:fitsSystemWindows="true"
   android:orientation="vertical">
 
@@ -19,7 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="0dp"
-    android:text="unit system"
+    android:text="@string/unit_system"
     style="@style/SettingsText.Title" />
 
   <RadioGroup

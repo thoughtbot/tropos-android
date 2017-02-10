@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:duration="500"
+  android:transitionOrdering="sequential">
+  <transition
+    class="com.thoughtbot.tropos.transitions.CircularReveal"
+    android:transitionVisibilityMode="mode_out">
+    <targets>
+      <target android:excludeId="@android:id/statusBarBackground" />
+      <target android:excludeId="@android:id/navigationBarBackground" />
+    </targets>
+  </transition>
+  <transition
+    class="com.thoughtbot.tropos.transitions.CircularReveal"
+    android:transitionVisibilityMode="mode_in">
+    <targets>
+      <target android:excludeId="@android:id/statusBarBackground" />
+      <target android:excludeId="@android:id/navigationBarBackground" />
+    </targets>
+  </transition>
+</transitionSet>

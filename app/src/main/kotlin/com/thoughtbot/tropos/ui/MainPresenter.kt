@@ -23,7 +23,7 @@ class MainPresenter(override val view: MainView,
 
   var disposable: Disposable? = null
 
-  fun onResume() {
+  fun onStart() {
     permission.checkPermission({ updateWeather() }, { onPermissionDenied(false) }, true)
   }
 

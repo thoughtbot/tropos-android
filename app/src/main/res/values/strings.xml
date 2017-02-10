@@ -49,4 +49,6 @@
   <string name="settings_menu">Settings</string>
   <string name="settings_activity_title">Settings</string>
   <string name="handcrafted_with_love_by_thoughtbot">Handcrafted with 💜 by thoughtbot</string>
+  <string name="close">Close</string>
+  <string name="unit_system">unit system</string>
 </resources>

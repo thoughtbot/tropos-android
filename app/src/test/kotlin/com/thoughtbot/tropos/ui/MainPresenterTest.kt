@@ -70,7 +70,7 @@ class MainPresenterTest() {
     stubWeather()
     stubPermission(true)
 
-    presenter.onResume()
+    presenter.onStart()
 
     verify(view).viewState = isA<ViewState.Loading>()
     verify(view).viewState = isA<ViewState.Weather>()
@@ -83,7 +83,7 @@ class MainPresenterTest() {
     stubWeather()
     stubPermission(false)
 
-    presenter.onResume()
+    presenter.onStart()
 
     verify(view).viewState = isA<ViewState.Error>()
   }

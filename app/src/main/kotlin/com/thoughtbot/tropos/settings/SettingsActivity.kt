@@ -2,6 +2,7 @@ package com.thoughtbot.tropos.settings
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -21,8 +22,6 @@ class SettingsActivity : BaseActivity(), SettingsView {
 
     val toolbar = find<Toolbar>(R.id.settings_toolbar)
     setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
     settings_unit_radio_group.setOnCheckedChangeListener(presenter)
     settings_privacy_policy.setOnClickListener { presenter.onPrivacyClicked() }
@@ -30,9 +29,19 @@ class SettingsActivity : BaseActivity(), SettingsView {
     presenter.init()
   }
 
-  override fun onSupportNavigateUp(): Boolean {
-    finish()
-    return false
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.close_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    return when (item?.itemId) {
+      R.id.action_close -> {
+        ActivityCompat.finishAfterTransition(this)
+        return true
+      }
+      else -> super.onOptionsItemSelected(item)
+    }
   }
 
   override val context: Context = this

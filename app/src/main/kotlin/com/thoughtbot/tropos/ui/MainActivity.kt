@@ -3,6 +3,7 @@ package com.thoughtbot.tropos.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -61,10 +62,11 @@ class MainActivity : BaseActivity(), MainView {
     pullToRefreshLayout.refreshListener = presenter
   }
 
-  override fun onResume() {
-    super.onResume()
-    presenter.onResume()
+  override fun onStart() {
+    super.onStart()
+    presenter.onStart()
   }
+
 
   override fun onDestroy() {
     super.onDestroy()
@@ -85,7 +87,8 @@ class MainActivity : BaseActivity(), MainView {
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     return when (item?.itemId) {
       R.id.action_settings -> {
-        startActivity(Intent(this, SettingsActivity::class.java))
+        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
+        startActivity(Intent(this, SettingsActivity::class.java), bundle)
         return true
       }
       else -> super.onOptionsItemSelected(item)
