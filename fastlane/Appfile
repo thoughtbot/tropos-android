@@ -1,0 +1,2 @@
+json_key_file "app/tropos.json"
+package_name "com.thoughtbot.tropos"

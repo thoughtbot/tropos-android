@@ -2,6 +2,24 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def isCircle = "true".equals(System.getenv("CIRCLECI"))
+
+ext.signing = [storeFilePath: "path/to/keystore",
+               storePassword: "keystore password",
+               keyAlias     : "key alias",
+               keyPassword  : "key password"]
+
+if (file('signing.gradle').exists()) {
+  apply from: 'signing.gradle'
+}
+
+ext {
+  okHttpVersion = '3.5.0'
+  retrofitVersion = '2.1.0'
+  supportLibraryVersion = '25.0.1'
+}
+
+
 android {
   compileSdkVersion 25
   buildToolsVersion "25.0.2"
@@ -13,12 +31,28 @@ android {
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
+
+  signingConfigs {
+    release {
+      storeFile file(project.signing.storeFilePath)
+      storePassword project.signing.storePassword
+      keyAlias project.signing.keyAlias
+      keyPassword project.signing.keyPassword
+    }
+  }
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
       buildConfigField("String", "FORECAST_API_KEY", "\"" + DARK_SKY_FORECAST_API_KEY + "\"")
+      if (isCircle) {
+        // The release build generated on CircleCI doesn't need to be signed with our real
+        // keystore - we just need a release build to verify that it compiles. Using the
+        // debug keystore means we don't have to expose our keystore.
+      } else {
+        signingConfig signingConfigs.release
+      }
     }
     debug {
       buildConfigField("String", "FORECAST_API_KEY", "\"" + DARK_SKY_FORECAST_API_KEY + "\"")
@@ -31,11 +65,6 @@ android {
   }
 }
 
-ext {
-  okHttpVersion = '3.5.0'
-  retrofitVersion = '2.1.0'
-  supportLibraryVersion = '25.0.1'
-}
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
