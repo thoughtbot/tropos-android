@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Exit if any subcommand fails
+set -e
+
+# check if keystore exists
+if [ ! -e "app/tropos.keystore" ]; then
+  echo "File \`app/tropos.keystore\` does not exist, this will prevent you from
+  creating release builds." 
+  echo "To fix this, download the keystore from
+  thoughtbot 1Password and paste it into \`app/tropos.keystore\`.\n"
+fi
+
+# check if keystore credentials exists, if not, copy from the example
+test -e app/signing.gradle || cp app/signing.gradle.example app/signing.gradle
+
+# if we copied from the example, prompt user to fetch and paste credentials
+if cmp -s app/signing.gradle.example app/signing.gradle
+then
+  echo "You are missing the keystore credentials, which are required to sign
+  and create release builds. Get the credentials from thoughtbot 1Password and
+  paste the values into \`app/signing.gradle\`."
+fi
+
+# check if signing config exists
+if [ ! -e "app/tropos.json" ]; then
+  echo "File \`app/tropos.json\` does not exist, this will prevent you from
+  shipping builds to the Play store."
+  echo "To fix this, download tropos.json from thoughtbot 1Password and paste
+  it into \`app/tropos.json\`.\n"
+fi
