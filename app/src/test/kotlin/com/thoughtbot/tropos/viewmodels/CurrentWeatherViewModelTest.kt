@@ -66,7 +66,7 @@ class CurrentWeatherViewModelTest() {
   @Config(qualifiers = "de")
   @Test
   fun testGermanWeatherSummary() {
-    val viewModel = CurrentWeatherViewModel(context, mockCondition, mockCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, mockCondition, mockCondition)
     val expected = "Es ist heute Nachmittag ähnlich wie gestern Nachmittag."
     val actual = viewModel.weatherSummary()
 
