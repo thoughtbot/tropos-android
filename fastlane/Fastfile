@@ -1,0 +1,35 @@
+# vim: ft=ruby
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.13.0"
+
+default_platform :android
+
+platform :android do
+
+  desc "Build the app"
+  lane :build do
+    gradle(task: 'clean')
+    gradle(task: "assemble", build_type: "Release")
+  end
+
+  desc "Build the app and deploy it to the Beta channel in the Google Play Store"
+  lane :beta do
+    gradle(task: 'clean')
+    gradle(task: "assemble", build_type: "Release")
+    supply(track: "beta", apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
+  end
+
+  desc "Build the app and deploy it to the Alpha (Production) channel in the Google Play Store"
+  lane :release do
+    gradle(task: 'clean')
+    gradle(task: "assemble", build_type: "Release")
+    supply(track: "alpha", apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
+  end
+
+end

@@ -1,16 +1,36 @@
 <resources>
 
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="base_theme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-  </style>
-
-  <style name="AppTheme.TransparentStatusBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="AppTheme" parent="base_theme" />
+
+  <style name="settings_base" parent="AppTheme">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+  </style>
+
+  <style name="Settings" parent="settings_base" />
+
+  <style name="SettingsText">
+    <item name="android:textColor">@color/cloud_gray</item>
+    <item name="android:padding">@dimen/activity_vertical_margin</item>
+    <item name="android:background">@color/primary_background</item>
+    <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="SettingsText.Title">
+    <item name="android:textAllCaps">true</item>
+    <item name="android:layout_marginTop">16dp</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:background">@null</item>
   </style>
 
 </resources>

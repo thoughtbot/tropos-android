@@ -1,0 +1,6 @@
+ext.signing = [
+    storeFilePath : "tropos.keystore",
+    storePassword : "",
+    keyAlias : "tropos_keystore",
+    keyPassword : ""
+]

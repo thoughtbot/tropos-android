@@ -4,6 +4,7 @@ import android.location.Location
 import com.thoughtbot.tropos.data.Icon
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.ConditionDataSource
+import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.WindDirection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -48,11 +49,12 @@ class ConditionDataService(val api: ApiService = RestClient().create(
         val icon = this.currently.icon.mapToIcon()
         val windSpeed = this.currently.windSpeed?.toInt() ?: 0
         val windDirection = WindDirection(this.currently.windBearing ?: 0.0)
+        val unit = IMPERIAL // API returns imperial by default
         val lowTemp = this.daily.data[0].temperatureMin?.toInt() ?: 0
         val highTemp = this.daily.data[0].temperatureMax?.toInt() ?: 0
         val temp = this.currently.temperature?.toInt() ?: 0
 
-        Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
+        Condition(date, summary, location, icon, windSpeed, windDirection, unit, lowTemp, temp,
             highTemp)
       }
     //this week
@@ -65,11 +67,12 @@ class ConditionDataService(val api: ApiService = RestClient().create(
         val icon = this.daily.data[dayOffset].icon.mapToIcon()
         val windSpeed = this.daily.data[dayOffset].windSpeed?.toInt() ?: 0
         val windDirection = WindDirection(this.daily.data[dayOffset].windBearing ?: 0.0)
+        val unit = IMPERIAL // API returns imperial by default
         val lowTemp = this.daily.data[dayOffset].temperatureMin?.toInt() ?: 0
         val highTemp = this.daily.data[dayOffset].temperatureMax?.toInt() ?: 0
         val temp = this.daily.data[dayOffset].temperature?.toInt() ?: 0
 
-        Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
+        Condition(date, summary, location, icon, windSpeed, windDirection, unit, lowTemp, temp,
             highTemp)
       }
       else -> throw IllegalArgumentException("dayOffset must be <= 7")

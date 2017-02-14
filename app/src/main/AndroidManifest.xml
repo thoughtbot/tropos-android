@@ -15,7 +15,7 @@
     <activity
       android:name=".splash.SplashActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.TransparentStatusBar">
+      android:theme="@style/AppTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +26,12 @@
     <activity
       android:name=".ui.MainActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.TransparentStatusBar"
+      android:theme="@style/AppTheme"
       />
+    <activity
+      android:name=".settings.SettingsActivity"
+      android:theme="@style/Settings" />
+    <activity android:name=".commons.WebviewActivity" />
 
   </application>
 

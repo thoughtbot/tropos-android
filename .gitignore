@@ -10,7 +10,6 @@
 *.class
 
 # Generated files
-bin/
 gen/
 
 # Gradle files
@@ -41,8 +40,16 @@ build
 /out/
 
 # Keystore for signing release builds
-app/prosight.keystore
+app/tropos.keystore
 
-# Credentials for accessing prosight.keystore
+# Credentials for accessing tropos.keystore
 app/signing.gradle
+
+# Credentials for shipping
+app/tropos.json
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
 

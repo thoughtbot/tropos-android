@@ -1,24 +1,19 @@
-package com.thoughtbot.tropos.ui
+package com.thoughtbot.tropos.settings
 
 import android.content.Context
 import android.location.Location
-import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.BuildConfig
+import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Icon
-import com.thoughtbot.tropos.data.Unit
+import com.thoughtbot.tropos.data.Preferences
 import com.thoughtbot.tropos.data.Unit.IMPERIAL
+import com.thoughtbot.tropos.data.Unit.METRIC
 import com.thoughtbot.tropos.data.Weather
-import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.data.WindDirection
-import com.thoughtbot.tropos.permissions.Permission
-import com.thoughtbot.tropos.ui.MainPresenter
-import com.thoughtbot.tropos.ui.MainView
-import com.thoughtbot.tropos.ui.ViewState
-import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,12 +24,11 @@ import java.util.Date
 
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-class MainPresenterTest() {
+class SettingsPresenterTest() {
 
   lateinit var context: Context
-  val view = mock<MainView>()
-  val permission = mock<Permission>()
-  val weatherDataSource = mock<WeatherDataSource>()
+  val view = mock<SettingsView>()
+  val preferences = mock<Preferences>()
 
   val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
@@ -64,36 +58,45 @@ class MainPresenterTest() {
   }
 
   @Test
-  fun testOnResume_hasPermission() {
-    val presenter = MainPresenter(view, null, weatherDataSource, permission)
-    whenever(view.context).thenReturn(context)
-    stubWeather()
-    stubPermission(true)
+  fun testInitialValue_metric() {
+    whenever(preferences.unit).thenReturn(METRIC)
 
-    presenter.onStart()
+    val presenter = SettingsPresenter(view, preferences)
 
-    verify(view).viewState = isA<ViewState.Loading>()
-    verify(view).viewState = isA<ViewState.Weather>()
+    presenter.init()
+
+    verify(view).checkUnitPreference(R.id.settings_metric_button)
   }
 
   @Test
-  fun testOnResume_doesNotHavePermission() {
-    val presenter = MainPresenter(view, null, weatherDataSource, permission)
-    whenever(view.context).thenReturn(context)
-    stubWeather()
-    stubPermission(false)
+  fun testInitialValue_imperial() {
+    whenever(preferences.unit).thenReturn(IMPERIAL)
 
-    presenter.onStart()
+    val presenter = SettingsPresenter(view, preferences)
 
-    verify(view).viewState = isA<ViewState.Error>()
+    presenter.init()
+
+    verify(view).checkUnitPreference(R.id.settings_imperial_button)
   }
 
-  fun stubWeather() {
-    whenever(weatherDataSource.fetchWeather()).thenReturn(Observable.just(mockWeather))
+  @Test
+  fun testCheckChange_toImperial() {
+    val presenter = SettingsPresenter(view, preferences)
+
+    presenter.onCheckedChanged(null, R.id.settings_imperial_button)
+
+    verify(preferences).unit = IMPERIAL
   }
 
-  fun stubPermission(hasPermission: Boolean) {
-    whenever(permission.hasPermission()).thenReturn(hasPermission)
+  @Test
+  fun testCheckChange_toMetric() {
+    val presenter = SettingsPresenter(view, preferences)
+
+    presenter.onCheckedChanged(null, R.id.settings_metric_button)
+
+    verify(preferences).unit = METRIC
   }
 
 }
+
+

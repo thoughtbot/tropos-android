@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="AppTheme.TransparentStatusBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
-    <item name="android:windowTranslucentStatus">true</item>
+  <style name="AppTheme" parent="base_theme">
+    <item name="android:windowActivityTransitions">true</item>
+  </style>
+
+  <style name="Settings" parent="settings_base">
+    <item name="android:windowEnterTransition">@transition/reveal</item>
   </style>
 
 </resources>

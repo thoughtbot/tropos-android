@@ -5,6 +5,8 @@ import android.location.Location
 import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.data.Icon.PARTLY_CLOUDY_DAY
 import com.thoughtbot.tropos.data.Condition
+import com.thoughtbot.tropos.data.Unit
+import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.WindDirection
 import com.thoughtbot.tropos.testUtils.MockGeocoder
 import org.junit.Before
@@ -32,11 +34,12 @@ class WeatherToolbarViewModelTest() {
     val icon = PARTLY_CLOUDY_DAY
     val windSpeed = 4
     val windDirection = WindDirection(171.0)
+    val unit = IMPERIAL
     val lowTemp = 48
     val highTemp = 54
     val temp = 52
 
-    Condition(date, summary, location, icon, windSpeed, windDirection, lowTemp, temp,
+    Condition(date, summary, location, icon, windSpeed, windDirection, unit, lowTemp, temp,
         highTemp)
   }()
 

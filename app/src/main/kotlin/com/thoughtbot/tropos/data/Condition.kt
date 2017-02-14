@@ -13,6 +13,7 @@ data class Condition(
     val icon: Icon,
     val windSpeed: Int,
     val windDirection: WindDirection,
+    val unit: Unit,
     val lowTemp: Int,
     val currentTemp: Int,
     val highTemp: Int) : Parcelable {
@@ -28,6 +29,7 @@ data class Condition(
       Icon.values()[source.readInt()],
       source.readInt(),
       WindDirection.values()[source.readInt()],
+      Unit.values()[source.readInt()],
       source.readInt(),
       source.readInt(),
       source.readInt())
@@ -41,6 +43,7 @@ data class Condition(
     dest?.writeInt(icon.ordinal)
     dest?.writeInt(windSpeed)
     dest?.writeInt(windDirection.ordinal)
+    dest?.writeInt(unit.ordinal)
     dest?.writeInt(lowTemp)
     dest?.writeInt(currentTemp)
     dest?.writeInt(highTemp)
