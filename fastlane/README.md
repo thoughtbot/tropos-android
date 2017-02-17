@@ -29,6 +29,11 @@ xcode-select --install
 </table>
 # Available Actions
 ## Android
+### android bump
+```
+fastlane android bump
+```
+Bump the version code
 ### android build
 ```
 fastlane android build
