@@ -12,6 +12,11 @@ default_platform :android
 
 platform :android do
 
+  desc "Bump the version code"
+  lane :bump do
+    increment_version_code
+  end
+
   desc "Build the app"
   lane :build do
     gradle(task: 'clean')
