@@ -1,0 +1,12 @@
+import java.util.regex.Pattern
+
+task('increaseVersionCode') << {
+    def buildFile = file("build.gradle")
+    def pattern = Pattern.compile("versionCode\\s+(\\d+)")
+    def buildText = buildFile.getText()
+    def matcher = pattern.matcher(buildText)
+    matcher.find()
+    def versionCode = Integer.parseInt(matcher.group(1))
+    def buildContent = matcher.replaceAll("versionCode " + ++versionCode)
+    buildFile.write(buildContent)
+}

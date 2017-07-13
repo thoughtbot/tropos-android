@@ -1,35 +1,44 @@
 # vim: ft=ruby
 # Customise this file, documentation can be found here:
-# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
-# All available actions: https://docs.fastlane.tools/actions
+# https://github.com/KrauseFx/fastlane/tree/master/docs
+# All available actions: https://github.com/KrauseFx/fastlane/blob/master/docs/Actions.md
 # can also be listed using the `fastlane actions` command
-
-# This is the minimum version number required.
-# Update this, if you use features of a newer version
-fastlane_version "2.13.0"
 
 default_platform :android
 
 platform :android do
+  before_all do
+    gradle(task: 'increaseVersionCode')
+  end
 
-  desc "Build the app"
+  desc "Generate a Signed APK"
   lane :build do
     gradle(task: 'clean')
     gradle(task: "assemble", build_type: "Release")
   end
 
-  desc "Build the app and deploy it to the Beta channel in the Google Play Store"
+  desc "Build the app and deploy it to Beta"
   lane :beta do
-    gradle(task: 'clean')
-    gradle(task: "assemble", build_type: "Release")
+    build
+    git_add(path: "app/build.gradle")
+    git_commit(path: "app/build.gradle", message: "Bump version number")
     supply(track: "beta", apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
   end
 
-  desc "Build the app and deploy it to the Alpha (Production) channel in the Google Play Store"
-  lane :release do
-    gradle(task: 'clean')
-    gradle(task: "assemble", build_type: "Release")
+  desc "Build the app and deploy it to Alpha"
+  lane :alpha do
+    build
+    git_add(path: "app/build.gradle")
+    git_commit(path: "app/build.gradle", message: "Bump version number")
     supply(track: "alpha", apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
+  end
+
+  desc "Build the app and deploy it to Production"
+  lane :release do
+    build
+    git_add(path: "app/build.gradle")
+    git_commit(path: "app/build.gradle", message: "Bump version number")
+    supply(apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
   end
 
 end
