@@ -8,8 +8,6 @@ general:
     - "app/build/outputs/androidTest-results"
 
 machine:
-  timezone:
-    America/Los_Angeles
   java:
     version: oraclejdk8
   environment:

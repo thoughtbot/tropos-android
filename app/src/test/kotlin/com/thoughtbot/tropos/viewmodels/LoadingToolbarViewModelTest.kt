@@ -17,7 +17,7 @@ import kotlin.test.assertEquals
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
 class LoadingToolbarViewModelTest() {
 
-  lateinit var context: Context
+  private lateinit var context: Context
 
   @Before
   fun setup() {
