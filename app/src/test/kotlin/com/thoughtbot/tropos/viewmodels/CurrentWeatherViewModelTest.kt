@@ -13,13 +13,14 @@ import com.thoughtbot.tropos.data.Unit
 import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.Unit.METRIC
 import com.thoughtbot.tropos.data.WindDirection
+import com.thoughtbot.tropos.testUtils.DateHelperUtil
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import java.util.Date
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -32,7 +33,9 @@ class CurrentWeatherViewModelTest() {
 
   val mockCondition: Condition = {
     val timeStamp = 1484180189 * 1000L // equivalent to Wed Jan 11 16:16:29 PST 2017
-    val date = Date(timeStamp)
+    val calc = Calendar.getInstance();
+    calc.set(2017, 1, 11, 16, 16, 29);
+    val date = calc.getTime()
     val summary = "Mostly Cloudy"
     val location = Location("")
     location.longitude = -122.4375671
@@ -56,11 +59,12 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWeatherSummary() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, mockCondition, mockCondition)
+    //pass yesterday's date instead of today's date
+    val viewModel = CurrentWeatherViewModel(context, preferences, DateHelperUtil.getTimeInPST(mockCondition),
+            DateHelperUtil.getYesterdayDate(DateHelperUtil.getTimeInPST(mockCondition)))
     val expected = "It's the same this afternoon as yesterday afternoon."
     val actual = viewModel.weatherSummary()
-
-    assertTrue { expected.contentEquals(actual) }
+    assertTrue {expected.contentEquals(actual) }
   }
 
   @Test
