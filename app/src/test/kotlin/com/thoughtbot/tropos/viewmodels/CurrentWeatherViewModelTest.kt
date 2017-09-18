@@ -5,10 +5,10 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.BuildConfig
 import com.thoughtbot.tropos.R.drawable
-import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Preferences
 import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.Unit.METRIC
+import com.thoughtbot.tropos.testUtils.assertStringEquals
 import com.thoughtbot.tropos.testUtils.fakeCondition
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +17,6 @@ import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
@@ -37,7 +36,7 @@ class CurrentWeatherViewModelTest() {
     val expected = "It's the same this afternoon as yesterday afternoon."
     val actual = viewModel.weatherSummary()
 
-    assertTrue { expected.contentEquals(actual) }
+    assertStringEquals(expected, actual)
   }
 
   @Test
@@ -57,7 +56,7 @@ class CurrentWeatherViewModelTest() {
     val expected = "54° / 52° / 48°"
     val actual = viewModel.temperatures()
 
-    assertTrue { expected.contentEquals(actual) }
+    assertStringEquals(expected, actual)
   }
 
   @Test
@@ -68,7 +67,7 @@ class CurrentWeatherViewModelTest() {
     val expected = "12° / 11° / 8°"
     val actual = viewModel.temperatures()
 
-    assertTrue { expected.contentEquals(actual) }
+    assertStringEquals(expected, actual)
   }
 
   @Test
@@ -80,7 +79,7 @@ class CurrentWeatherViewModelTest() {
     val expected = "54° / 52° / 48°"
     val actual = viewModel.temperatures()
 
-    assertTrue { expected.contentEquals(actual) }
+    assertStringEquals(expected, actual)
   }
 
   @Test
@@ -92,7 +91,7 @@ class CurrentWeatherViewModelTest() {
     val expected = "129° / 125° / 118°"
     val actual = viewModel.temperatures()
 
-    assertTrue { expected.contentEquals(actual) }
+    assertStringEquals(expected, actual)
   }
 
   @Test
