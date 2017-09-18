@@ -11,7 +11,7 @@ import com.thoughtbot.tropos.data.Preferences
 import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.Unit.METRIC
 import com.thoughtbot.tropos.data.Weather
-import com.thoughtbot.tropos.testUtils.FakeCondition
+import com.thoughtbot.tropos.testUtils.fakeCondition
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,9 +26,8 @@ class SettingsPresenterTest() {
   lateinit var context: Context
   val view = mock<SettingsView>()
   val preferences = mock<Preferences>()
-  val fakeCondition: Condition = FakeCondition.getInstance()
-  val mockWeather: Weather = Weather(fakeCondition, fakeCondition,
-      listOf(fakeCondition, fakeCondition, fakeCondition))
+  val mockWeather: Weather = Weather(fakeCondition(), fakeCondition(),
+      listOf(fakeCondition(), fakeCondition(), fakeCondition()))
 
   @Before
   fun setup() {

@@ -6,11 +6,10 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import com.nhaarman.mockito_kotlin.whenever
 import com.thoughtbot.tropos.BuildConfig
-import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.permissions.Permission
-import com.thoughtbot.tropos.testUtils.FakeCondition
+import com.thoughtbot.tropos.testUtils.fakeCondition
 import com.thoughtbot.tropos.ui.MainActivity
 import io.reactivex.Observable
 import org.junit.Before
@@ -28,9 +27,8 @@ class SplashPresenterTest() {
   private val view = mock<SplashView>()
   private val permission = mock<Permission>()
   private val weatherDataSource = mock<WeatherDataSource>()
-  private val fakeCondition: Condition = FakeCondition.getInstance()
-  private val mockWeather: Weather = Weather(fakeCondition, fakeCondition,
-      listOf(fakeCondition, fakeCondition, fakeCondition))
+  private val mockWeather: Weather = Weather(fakeCondition(), fakeCondition(),
+      listOf(fakeCondition(), fakeCondition(), fakeCondition()))
 
   @Before
   fun setup() {

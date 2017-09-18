@@ -2,8 +2,7 @@ package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
 import com.thoughtbot.tropos.BuildConfig
-import com.thoughtbot.tropos.data.Condition
-import com.thoughtbot.tropos.testUtils.FakeCondition
+import com.thoughtbot.tropos.testUtils.fakeCondition
 import com.thoughtbot.tropos.testUtils.MockGeocoder
 import org.junit.Before
 import org.junit.Test
@@ -18,7 +17,6 @@ import kotlin.test.assertEquals
 class WeatherToolbarViewModelTest() {
 
   private lateinit var context: Context
-  private val fakeCondition: Condition = FakeCondition.getInstance()
 
   @Before
   fun setup() {
@@ -28,7 +26,7 @@ class WeatherToolbarViewModelTest() {
   @Test
   @Config(shadows = arrayOf(MockGeocoder::class))
   fun testTitle() {
-    val viewModel = WeatherToolbarViewModel(context, fakeCondition)
+    val viewModel = WeatherToolbarViewModel(context, fakeCondition())
     val expected = "San Francisco"
     val actual = viewModel.title()
 
@@ -37,7 +35,7 @@ class WeatherToolbarViewModelTest() {
 
   @Test
   fun testSubtitle() {
-    val viewModel = WeatherToolbarViewModel(context, fakeCondition)
+    val viewModel = WeatherToolbarViewModel(context, fakeCondition())
     val expected = "Updated at 4:16 PM"
     val actual = viewModel.subtitle()
 

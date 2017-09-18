@@ -10,7 +10,7 @@ import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.data.WeatherDataSource
 import com.thoughtbot.tropos.permissions.Permission
-import com.thoughtbot.tropos.testUtils.FakeCondition
+import com.thoughtbot.tropos.testUtils.fakeCondition
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -27,9 +27,8 @@ class MainPresenterTest() {
   private val view = mock<MainView>()
   private val permission = mock<Permission>()
   private val weatherDataSource = mock<WeatherDataSource>()
-  private val fakeCondition: Condition = FakeCondition.getInstance()
-  private val mockWeather: Weather = Weather(fakeCondition, fakeCondition,
-      listOf(fakeCondition, fakeCondition, fakeCondition))
+  private val mockWeather: Weather = Weather(fakeCondition(), fakeCondition(),
+      listOf(fakeCondition(), fakeCondition(), fakeCondition()))
 
   @Before
   fun setup() {

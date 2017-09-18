@@ -9,7 +9,7 @@ import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Preferences
 import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.Unit.METRIC
-import com.thoughtbot.tropos.testUtils.FakeCondition
+import com.thoughtbot.tropos.testUtils.fakeCondition
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +25,6 @@ class ForecastViewModelTest() {
 
   private lateinit var context: Context
   private val preferences = mock<Preferences>()
-  private val fakeCondition: Condition = FakeCondition.getInstance()
 
   @Before
   fun setup() {
@@ -34,7 +33,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testIcon() {
-    val viewModel = ForecastViewModel(context, preferences, fakeCondition)
+    val viewModel = ForecastViewModel(context, preferences, fakeCondition())
     val expected = drawable.partly_cloudy_day
     val actual = viewModel.icon
 
@@ -43,7 +42,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testDay() {
-    val viewModel = ForecastViewModel(context, preferences, fakeCondition)
+    val viewModel = ForecastViewModel(context, preferences, fakeCondition())
     val expected = "Wed"
     val actual = viewModel.day
 
@@ -52,7 +51,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testHighTemp_imperial_to_imperial() {
-    val viewModel = ForecastViewModel(context, preferences, fakeCondition)
+    val viewModel = ForecastViewModel(context, preferences, fakeCondition())
      whenever(preferences.unit).thenReturn(IMPERIAL)
 
     val expected = "54°"
@@ -63,7 +62,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testHighTemp_imperial_to_metric() {
-    val viewModel = ForecastViewModel(context, preferences, fakeCondition)
+    val viewModel = ForecastViewModel(context, preferences, fakeCondition())
     whenever(preferences.unit).thenReturn(METRIC)
 
     val expected = "12°"
@@ -74,7 +73,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testHighTemp_metric_to_metric() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
+    val metricCondition = fakeCondition(unit = METRIC)
     val viewModel = ForecastViewModel(context, preferences, metricCondition)
     whenever(preferences.unit).thenReturn(METRIC)
 
@@ -86,7 +85,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testHighTemp_metric_to_imperial() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
+    val metricCondition = fakeCondition(unit = METRIC)
     val viewModel = ForecastViewModel(context, preferences, metricCondition)
     whenever(preferences.unit).thenReturn(IMPERIAL)
 
@@ -98,7 +97,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testLowTemp_imperial_to_imperial() {
-    val viewModel = ForecastViewModel(context, preferences, fakeCondition)
+    val viewModel = ForecastViewModel(context, preferences, fakeCondition())
     whenever(preferences.unit).thenReturn(IMPERIAL)
 
     val expected = "48°"
@@ -109,7 +108,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testLowTemp_imperial_to_metric() {
-    val viewModel = ForecastViewModel(context, preferences, fakeCondition)
+    val viewModel = ForecastViewModel(context, preferences, fakeCondition())
     whenever(preferences.unit).thenReturn(METRIC)
 
     val expected = "8°"
@@ -120,7 +119,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testLowTemp_metric_to_metric() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
+    val metricCondition = fakeCondition(unit = METRIC)
     val viewModel = ForecastViewModel(context, preferences, metricCondition)
     whenever(preferences.unit).thenReturn(METRIC)
 
@@ -132,7 +131,7 @@ class ForecastViewModelTest() {
 
   @Test
   fun testLowTemp_metric_to_imperial() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
+    val metricCondition = fakeCondition(unit = METRIC)
     val viewModel = ForecastViewModel(context, preferences, metricCondition)
     whenever(preferences.unit).thenReturn(IMPERIAL)
 

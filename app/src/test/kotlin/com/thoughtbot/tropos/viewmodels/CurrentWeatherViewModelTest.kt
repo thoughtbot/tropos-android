@@ -9,7 +9,7 @@ import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Preferences
 import com.thoughtbot.tropos.data.Unit.IMPERIAL
 import com.thoughtbot.tropos.data.Unit.METRIC
-import com.thoughtbot.tropos.testUtils.FakeCondition
+import com.thoughtbot.tropos.testUtils.fakeCondition
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +25,6 @@ class CurrentWeatherViewModelTest() {
 
   private lateinit var context: Context
   private val preferences = mock<Preferences>()
-  private val fakeCondition: Condition = FakeCondition.getInstance()
 
   @Before
   fun setup() {
@@ -34,7 +33,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWeatherSummary() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition, fakeCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())
     val expected = "It's the same this afternoon as yesterday afternoon."
     val actual = viewModel.weatherSummary()
 
@@ -43,7 +42,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testIcon() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition, fakeCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())
     val expected = drawable.partly_cloudy_day
     val actual = viewModel.icon
 
@@ -52,7 +51,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testTemperatures_imperial_to_imperial() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition, fakeCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())
     whenever(preferences.unit).thenReturn(IMPERIAL)
 
     val expected = "54° / 52° / 48°"
@@ -63,7 +62,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testTemperatures_imperial_to_metric() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition, fakeCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())
     whenever(preferences.unit).thenReturn(METRIC)
 
     val expected = "12° / 11° / 8°"
@@ -74,8 +73,8 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testTemperatures_metric_to_metric() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
-    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition)
+    val metricCondition = fakeCondition(unit = METRIC)
+    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition())
     whenever(preferences.unit).thenReturn(METRIC)
 
     val expected = "54° / 52° / 48°"
@@ -86,8 +85,8 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testTemperatures_metric_to_imperial() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
-    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition)
+    val metricCondition = fakeCondition(unit = METRIC)
+    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition())
     whenever(preferences.unit).thenReturn(IMPERIAL)
 
     val expected = "129° / 125° / 118°"
@@ -98,7 +97,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWind_imperial_to_imperial() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition, fakeCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())
     whenever(preferences.unit).thenReturn(IMPERIAL)
 
     val expected = "4 mph S"
@@ -109,7 +108,7 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWind_imperial_to_metric() {
-    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition, fakeCondition)
+    val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())
     whenever(preferences.unit).thenReturn(METRIC)
 
     val expected = "6 km/h S"
@@ -120,8 +119,8 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWind_metric_to_metric() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
-    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition)
+    val metricCondition = fakeCondition(unit = METRIC)
+    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition())
     whenever(preferences.unit).thenReturn(METRIC)
 
     val expected = "4 km/h S"
@@ -132,8 +131,8 @@ class CurrentWeatherViewModelTest() {
 
   @Test
   fun testWind_metric_to_imperial() {
-    val metricCondition = fakeCondition.copy(unit = METRIC)
-    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition)
+    val metricCondition = fakeCondition(unit = METRIC)
+    val viewModel = CurrentWeatherViewModel(context, preferences, metricCondition, fakeCondition())
     whenever(preferences.unit).thenReturn(IMPERIAL)
 
     val expected = "2 mph S"
