@@ -1,10 +1,10 @@
 package com.thoughtbot.tropos.scrolling
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.LayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.OrientationHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import android.view.View
 
 /**
@@ -14,18 +14,18 @@ import android.view.View
  * The implementation will snap to either completely show or hide the {@link ForecastViewHolder}
  * depending on how much of it is visible on when user releases their touch
  **/
-class WeatherSnapHelper : LinearSnapHelper() {
+class WeatherSnapHelper : androidx.recyclerview.widget.LinearSnapHelper() {
 
   override fun findSnapView(layoutManager: LayoutManager?): View? {
-    layoutManager as LinearLayoutManager
+    layoutManager as androidx.recyclerview.widget.LinearLayoutManager
 
     val lastChildIndex = layoutManager.findLastVisibleItemPosition()
-    if (lastChildIndex == RecyclerView.NO_POSITION) {
+    if (lastChildIndex == androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
       return null
     }
 
     val lastChild = layoutManager.findViewByPosition(lastChildIndex)
-    val orientationHelper = OrientationHelper.createVerticalHelper(layoutManager)
+    val orientationHelper = androidx.recyclerview.widget.OrientationHelper.createVerticalHelper(layoutManager)
     val lastChildStart = orientationHelper.getDecoratedStart(lastChild)
     val lastChildHeight = orientationHelper.getDecoratedMeasurement(lastChild)
     val recyclerViewHeight = layoutManager.height
@@ -46,8 +46,8 @@ class WeatherSnapHelper : LinearSnapHelper() {
     out[0] = 0
 
     val targetViewType = layoutManager.getItemViewType(target)
-    val weatherViewType = layoutManager.getItemViewType(layoutManager.findViewByPosition(0))
-    val orientationHelper = OrientationHelper.createVerticalHelper(layoutManager)
+    val weatherViewType = layoutManager.getItemViewType(layoutManager.findViewByPosition(0)!!)
+    val orientationHelper = androidx.recyclerview.widget.OrientationHelper.createVerticalHelper(layoutManager)
 
     if (targetViewType == weatherViewType) {
       // snap to show weather

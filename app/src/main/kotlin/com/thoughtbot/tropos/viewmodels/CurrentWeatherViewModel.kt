@@ -1,7 +1,7 @@
 package com.thoughtbot.tropos.viewmodels
 
 import android.content.Context
-import android.support.v4.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getColor
 import android.text.SpannableStringBuilder
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.R.color

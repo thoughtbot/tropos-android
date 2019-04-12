@@ -3,10 +3,10 @@ package com.thoughtbot.tropos.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import androidx.core.app.ActivityOptionsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -40,9 +40,11 @@ class MainActivity : BaseActivity(), MainView {
   }
 
   val presenter: MainPresenter by lazy { MainPresenter(this, intent) }
-  val recyclerView: RecyclerView by lazy { findViewById(R.id.recycler_view) as RecyclerView }
+  val recyclerView: androidx.recyclerview.widget.RecyclerView by lazy { findViewById(R.id.recycler_view) as androidx.recyclerview.widget.RecyclerView }
   val adapter: WeatherAdapter by lazy { WeatherAdapter() }
-  val layoutManager: GridLayoutManager by lazy { GridLayoutManager(this, 3) }
+  val layoutManager: androidx.recyclerview.widget.GridLayoutManager by lazy {
+    androidx.recyclerview.widget.GridLayoutManager(this, 3)
+  }
   val pullToRefreshLayout  by lazy { find<PullToRefreshLayout>(R.id.pull_to_refresh) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +106,7 @@ class MainActivity : BaseActivity(), MainView {
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
 
         adapter.weather = it.weather
-        recyclerView.itemAnimator.isRunning {
+        recyclerView.itemAnimator?.isRunning {
           pullToRefreshLayout.setRefreshing(false)
         }
 

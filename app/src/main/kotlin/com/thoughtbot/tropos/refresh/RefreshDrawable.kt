@@ -9,7 +9,7 @@ import android.graphics.Rect
 import android.graphics.Region
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
-import android.support.v4.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.ProgressStateListener
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.ProgressStateListener.Companion.INACTIVE
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout.ProgressStateListener.Companion.PROGRESSING

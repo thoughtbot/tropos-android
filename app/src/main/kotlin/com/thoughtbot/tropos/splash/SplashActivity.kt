@@ -3,7 +3,7 @@ package com.thoughtbot.tropos.splash
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.finishAfterTransition
+import androidx.core.app.ActivityCompat.finishAfterTransition
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.permissions.getPermissionResults
