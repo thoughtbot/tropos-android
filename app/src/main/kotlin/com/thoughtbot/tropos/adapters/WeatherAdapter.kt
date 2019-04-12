@@ -1,8 +1,8 @@
 package com.thoughtbot.tropos.adapters
 
-import android.support.v7.widget.GridLayoutManager.SpanSizeLookup
-import android.support.v7.widget.RecyclerView.Adapter
-import android.support.v7.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
 import com.thoughtbot.tropos.R.layout
@@ -25,21 +25,21 @@ class WeatherAdapter : Adapter<ViewHolder>() {
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     when (viewType) {
       layout.grid_item_current_weather -> {
-        val view = from(parent!!.context).inflate(layout.grid_item_current_weather, parent, false)
+        val view = from(parent.context).inflate(layout.grid_item_current_weather, parent, false)
         return CurrentWeatherViewHolder(view)
       }
       layout.grid_item_forecast -> {
-        val view = from(parent!!.context).inflate(layout.grid_item_forecast, parent, false)
+        val view = from(parent.context).inflate(layout.grid_item_forecast, parent, false)
         return ForecastViewHolder(view)
       }
       else -> throw IllegalArgumentException("$viewType is not a valid viewType")
     }
   }
 
-  override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     when (holder) {
       is CurrentWeatherViewHolder -> weather?.let { holder.bind(it.today, it.yesterday) }
       is ForecastViewHolder -> weather?.let { holder.bind(forecast(it, position)) }

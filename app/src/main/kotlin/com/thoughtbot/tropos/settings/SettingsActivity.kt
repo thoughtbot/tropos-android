@@ -2,8 +2,8 @@ package com.thoughtbot.tropos.settings
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v7.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.thoughtbot.tropos.R

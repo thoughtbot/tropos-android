@@ -1,6 +1,6 @@
 package com.thoughtbot.tropos.viewholders
 
-import android.support.v7.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +10,7 @@ import com.thoughtbot.tropos.viewmodels.CurrentWeatherViewModel
 import com.thoughtbot.tropos.widgets.DrawableTextLabel
 import org.jetbrains.anko.find
 
-class CurrentWeatherViewHolder(itemView: View?) : ViewHolder(itemView) {
+class CurrentWeatherViewHolder(itemView: View) : ViewHolder(itemView) {
 
   fun bind(today: Condition, yesterday: Condition) {
     val viewModel = CurrentWeatherViewModel(itemView.context, today = today, yesterday = yesterday)
