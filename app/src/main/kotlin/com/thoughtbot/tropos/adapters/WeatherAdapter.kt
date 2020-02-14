@@ -1,8 +1,6 @@
 package com.thoughtbot.tropos.adapters
 
-//import androidx.appcompat.widget.GridLayoutManager.SpanSizeLookup
-//import androidx.appcompat.widget.RecyclerView.Adapter
-//import androidx.appcompat.widget.RecyclerView.ViewHolder
+
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 import android.view.LayoutInflater.from
