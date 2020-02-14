@@ -67,6 +67,15 @@ class MainActivity : BaseActivity(), MainView {
     presenter.onStart()
   }
 
+  override fun onResume() {
+    super.onResume()
+
+    // Update weather adapter values
+    pullToRefreshLayout.setRefreshing(true)
+
+    adapter.notifyDataSetChanged()
+  }
+
 
   override fun onDestroy() {
     super.onDestroy()
