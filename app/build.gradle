@@ -16,20 +16,20 @@ if (file('signing.gradle').exists()) {
 ext {
   okHttpVersion = '3.5.0'
   retrofitVersion = '2.1.0'
-  supportLibraryVersion = '25.0.1'
+  supportLibraryVersion = '26.0.0-beta1'
 }
 
 
 android {
-  compileSdkVersion 25
+  compileSdkVersion 28
   buildToolsVersion "25.0.2"
   defaultConfig {
     applicationId "com.thoughtbot.tropos"
     minSdkVersion 19
-    targetSdkVersion 25
+    targetSdkVersion 28
     versionCode 6
     versionName "1.1"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
   signingConfigs {
@@ -74,10 +74,7 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   compile 'org.jetbrains.anko:anko-common:0.8.3'
 
-  //android
-  compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
-  compile "com.android.support:design:${supportLibraryVersion}"
-  compile "com.android.support:recyclerview-v7:${supportLibraryVersion}"
+  compile 'androidx.recyclerview:recyclerview:1.0.0'
   compile 'com.google.android.gms:play-services-location:10.0.0'
 
   //unit tests
@@ -90,9 +87,9 @@ dependencies {
   testCompile "com.nhaarman:mockito-kotlin:1.1.0"
 
   //automation tests
-  androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-  androidTestCompile 'com.android.support.test:runner:0.5'
-  androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
+  androidTestCompile 'androidx.test.espresso:espresso-core:3.1.0'
+  androidTestCompile 'androidx.test.ext:junit:1.1.1'
+  androidTestCompile 'androidx.annotation:annotation:1.0.0'
 
   //networking
   compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"

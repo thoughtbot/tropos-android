@@ -2,10 +2,10 @@ package com.thoughtbot.tropos.refresh
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.view.MotionEventCompat
-import android.support.v4.view.NestedScrollingChildHelper
-import android.support.v4.view.NestedScrollingParentHelper
-import android.support.v4.view.ViewCompat
+import androidx.core.view.MotionEventCompat
+import androidx.core.view.NestedScrollingChildHelper
+import androidx.core.view.NestedScrollingParentHelper
+import androidx.core.view.ViewCompat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -410,7 +410,7 @@ class PullToRefreshLayout : ViewGroup, Animation.AnimationListener {
     // scrolling, ignore this request so that the vertical scroll event
     // isn't stolen
     if (android.os.Build.VERSION.SDK_INT < 21 && target is AbsListView || target != null && !ViewCompat.isNestedScrollingEnabled(
-        target)) {
+        target!!)) {
       // Nope.
     } else {
       super.requestDisallowInterceptTouchEvent(b)

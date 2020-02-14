@@ -1,10 +1,10 @@
 package com.thoughtbot.tropos.scrolling
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.OnItemTouchListener
-import android.support.v7.widget.StaggeredGridLayoutManager
+
 import android.view.MotionEvent
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.thoughtbot.tropos.scrolling.OverScroller.OverScrollDirection.END
 
 class RecyclerViewScroller(override val view: RecyclerView) : Scroller {
@@ -38,12 +38,12 @@ class RecyclerViewScroller(override val view: RecyclerView) : Scroller {
 
 fun RecyclerView.setVerticalEndOverScroller() {
   val overScroller = VerticalOverScroller(RecyclerViewScroller(this), END)
-  addOnItemTouchListener(object : OnItemTouchListener {
-    override fun onTouchEvent(rv: RecyclerView?, e: MotionEvent?) {
+  addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
       overScroller.onTouch(rv, e)
     }
 
-    override fun onInterceptTouchEvent(rv: RecyclerView?, e: MotionEvent?): Boolean {
+    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
       return overScroller.onTouch(rv, e)
     }
 

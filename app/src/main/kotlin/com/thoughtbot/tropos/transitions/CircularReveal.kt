@@ -4,7 +4,7 @@ import android.R.attr
 import android.animation.Animator
 import android.content.Context
 import android.graphics.Point
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 import android.transition.TransitionValues
 import android.transition.Visibility
 import android.util.AttributeSet

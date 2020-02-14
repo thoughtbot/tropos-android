@@ -1,11 +1,11 @@
 package com.thoughtbot.tropos.scrolling
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.OrientationHelper
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.LayoutManager
+
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.OrientationHelper
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Implementation of {@link LinearSnapHelper} that is designed to work exclusively
@@ -16,7 +16,7 @@ import android.view.View
  **/
 class WeatherSnapHelper : LinearSnapHelper() {
 
-  override fun findSnapView(layoutManager: LayoutManager?): View? {
+  override fun findSnapView(layoutManager: RecyclerView.LayoutManager?): View? {
     layoutManager as LinearLayoutManager
 
     val lastChildIndex = layoutManager.findLastVisibleItemPosition()
@@ -41,12 +41,12 @@ class WeatherSnapHelper : LinearSnapHelper() {
     }
   }
 
-  override fun calculateDistanceToFinalSnap(layoutManager: LayoutManager, target: View): IntArray? {
+  override fun calculateDistanceToFinalSnap(layoutManager: RecyclerView.LayoutManager, target: View): IntArray? {
     val out = IntArray(2)
     out[0] = 0
 
     val targetViewType = layoutManager.getItemViewType(target)
-    val weatherViewType = layoutManager.getItemViewType(layoutManager.findViewByPosition(0))
+    val weatherViewType = layoutManager.getItemViewType(layoutManager.findViewByPosition(0)!!)
     val orientationHelper = OrientationHelper.createVerticalHelper(layoutManager)
 
     if (targetViewType == weatherViewType) {
