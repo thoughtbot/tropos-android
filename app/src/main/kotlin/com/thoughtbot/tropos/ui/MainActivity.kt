@@ -15,7 +15,6 @@ import com.thoughtbot.tropos.adapters.WeatherAdapter
 import com.thoughtbot.tropos.commons.BaseActivity
 import com.thoughtbot.tropos.commons.ViewBinder
 import com.thoughtbot.tropos.data.Weather
-import com.thoughtbot.tropos.data.local.LocalPreferences
 import com.thoughtbot.tropos.extensions.attachSnapHelper
 import com.thoughtbot.tropos.permissions.getPermissionResults
 import com.thoughtbot.tropos.refresh.PullToRefreshLayout
