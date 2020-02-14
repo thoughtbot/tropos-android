@@ -28,6 +28,7 @@ class WebviewActivity : BaseActivity() {
     setContentView(R.layout.activity_webview)
 
     val url: String = intent?.getStringExtra(URL_EXTRA) ?: DEFAULT_URL
+    webview.webViewClient = WebViewClient()
     webview.loadUrl(url)
   }
 

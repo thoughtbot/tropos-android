@@ -20,7 +20,7 @@ class SettingsPresenter(override val view: SettingsView,
   }
 
   fun onPrivacyClicked() {
-    val privacyUrl = "http://troposweather.com/privacy"
+    val privacyUrl = "https://troposweather.com/privacy"
     val intent = WebviewActivity.createIntent(view.context, privacyUrl)
     view.context.startActivity(intent)
   }
