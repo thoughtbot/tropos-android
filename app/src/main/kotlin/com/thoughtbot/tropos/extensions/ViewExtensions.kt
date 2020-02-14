@@ -1,11 +1,11 @@
 package com.thoughtbot.tropos.extensions
 
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SnapHelper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 
 fun Int.lightenBy(amount: Float): Int {
   val red = ((Color.red(this) * (1 - amount) / 255 + amount) * 255).toInt()

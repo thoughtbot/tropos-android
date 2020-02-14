@@ -14,7 +14,7 @@ import android.graphics.RectF
 import android.graphics.Region.Op
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.thoughtbot.tropos.R
 
 class ProgressCircleDrawable(context: Context) : Drawable(), Animatable {

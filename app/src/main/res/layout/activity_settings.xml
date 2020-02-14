@@ -7,12 +7,11 @@
   android:fitsSystemWindows="true"
   android:orientation="vertical">
 
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
     android:id="@+id/settings_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:title="@string/settings_activity_title"
-    app:titleTextColor="@color/cloud_gray" />
+    app:title="@string/settings_activity_title" />
 
   <TextView
     android:layout_width="match_parent"

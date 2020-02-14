@@ -1,17 +1,21 @@
 package com.thoughtbot.tropos.adapters
 
-import android.support.v7.widget.GridLayoutManager.SpanSizeLookup
-import android.support.v7.widget.RecyclerView.Adapter
-import android.support.v7.widget.RecyclerView.ViewHolder
+//import androidx.appcompat.widget.GridLayoutManager.SpanSizeLookup
+//import androidx.appcompat.widget.RecyclerView.Adapter
+//import androidx.appcompat.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.thoughtbot.tropos.R.layout
 import com.thoughtbot.tropos.data.Condition
 import com.thoughtbot.tropos.data.Weather
 import com.thoughtbot.tropos.viewholders.CurrentWeatherViewHolder
 import com.thoughtbot.tropos.viewholders.ForecastViewHolder
 
-class WeatherAdapter : Adapter<ViewHolder>() {
+class WeatherAdapter : RecyclerView.Adapter<ViewHolder>() {
 
   var weather: Weather? = null
     set(value) {
@@ -19,13 +23,13 @@ class WeatherAdapter : Adapter<ViewHolder>() {
       notifyDataSetChanged()
     }
 
-  val spanSizeLookup = object : SpanSizeLookup() {
+  val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
     override fun getSpanSize(position: Int): Int {
       return if (isCurrentWeather(position)) 3 else 1
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     when (viewType) {
       layout.grid_item_current_weather -> {
         val view = from(parent!!.context).inflate(layout.grid_item_current_weather, parent, false)
@@ -39,7 +43,7 @@ class WeatherAdapter : Adapter<ViewHolder>() {
     }
   }
 
-  override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     when (holder) {
       is CurrentWeatherViewHolder -> weather?.let { holder.bind(it.today, it.yesterday) }
       is ForecastViewHolder -> weather?.let { holder.bind(forecast(it, position)) }

@@ -3,13 +3,13 @@ package com.thoughtbot.tropos.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import androidx.core.app.ActivityOptionsCompat
+import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.thoughtbot.tropos.R
 import com.thoughtbot.tropos.adapters.WeatherAdapter
 import com.thoughtbot.tropos.commons.BaseActivity
@@ -104,7 +104,7 @@ class MainActivity : BaseActivity(), MainView {
         toolbar_last_update.text = it.toolbarViewModel.subtitle()
 
         adapter.weather = it.weather
-        recyclerView.itemAnimator.isRunning {
+        recyclerView.itemAnimator?.isRunning {
           pullToRefreshLayout.setRefreshing(false)
         }
 
