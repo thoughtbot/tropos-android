@@ -39,6 +39,16 @@ class CurrentWeatherViewModelTest() {
     assertStringEquals(expected, actual)
   }
 
+  @Config(qualifiers = "de")
+  @Test
+  fun testGermanWeatherSummary() {
+    val viewModel = CurrentWeatherViewModel(context, preferences, mockCondition, mockCondition)
+    val expected = "Es ist heute Nachmittag ähnlich wie gestern Nachmittag."
+    val actual = viewModel.weatherSummary()
+
+    assertTrue { expected.contentEquals(actual) }
+  }
+
   @Test
   fun testIcon() {
     val viewModel = CurrentWeatherViewModel(context, preferences, fakeCondition(), fakeCondition())

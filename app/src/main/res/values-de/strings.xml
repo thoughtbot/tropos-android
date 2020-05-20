@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  //directions
+  <string name="no_direction"></string>
+  <string name="north_abbrev">N</string>
+  <string name="north_east_abbrev">NO</string>
+  <string name="east_abbrev">O</string>
+  <string name="south_east_abbrev">SO</string>
+  <string name="south_abbrev">S</string>
+  <string name="south_west_abrrev">SW</string>
+  <string name="west_abbrev">W</string>
+  <string name="north_west_abbrev">NW</string>
+
+  //main
+  <string name="formatted_temperature_string">%1$d&#xb0; / %2$d&#xb0; / %3$d&#xb0;</string>
+  <string name="formatted_imperial_wind_string">%1$d mph %2$s</string>
+  <string name="formatted_metric_wind_string">%1$d km/h %2$s</string>
+  <string name="temperature">%d&#xb0;</string>
+  <string name="dark_sky_credit">Powered by Dark Sky</string>
+  <string name="thoughtbot">thoughtbot</string>
+  <string name="missing_location_permission_error">🙅🏾 🙅🏼 🙅🏻\n\nStandortermittlung ist ausgeschaltet. \n\nSchalte die Standortermittlung in den Einstellungen an, damit wir dir eine präzise Wettervorhersage geben können.</string>
+  <string name="generic_error_message">🙅🏾 🙅🏼 🙅🏻\n\n%s</string>
+
+  //toolbar
+  <string name="updated_at">Aktualisiert um %s</string>
+  <string name="checking_weather">Rufe Wetter ab&#8230;</string>
+  <string name="update_failed">Aktualisierung fehlgeschlagen</string>
+
+  //time of day
+  <string name="present_night">heute Abend</string>
+  <string name="present_morning">heute Morgen</string>
+  <string name="present_day">heute</string>
+  <string name="present_afternoon">heute Nachmittag</string>
+  <string name="previous_night">gestern Abend</string>
+  <string name="previous_morning">gestern Morgen</string>
+  <string name="previous_day">gestern</string>
+  <string name="previous_afternoon">gestern Nachmittag</string>
+
+  //temperature difference
+  <string name="colder">kälter</string>
+  <string name="cooler">kühler</string>
+  <string name="same">ähnlich</string>
+  <string name="warmer">wärmer</string>
+  <string name="hotter">heißer</string>
+
+  //temperature formats
+  <string name="different_temperature_format" formatted="false">Es ist %2$s %1$s als %3$s.</string>
+  <string name="same_temperature_format" formatted="false">Es ist %2$s %1$s wie %3$s.</string>
+
+  //settings
+  <string name="metric">Metrisch</string>
+  <string name="imperial">Angelsächsisch</string>
+  <string name="info">Info</string>
+  <string name="privacy_policy">Privatsphäre</string>
+  <string name="settings_menu">Einstellungen</string>
+  <string name="settings_activity_title">Einstellungen</string>
+  <string name="handcrafted_with_love_by_thoughtbot">Mit 💜 handgefertigt von thoughtbot</string>
+  <string name="close">Schließen</string>
+  <string name="unit_system">Einheitensystem</string>
+</resources>
